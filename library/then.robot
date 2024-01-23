@@ -15,7 +15,7 @@ Resource  ../library/keywords/testing_environment.robot
 Deberı́a recibir un correo electrónico con el enlace de confirmación
     [Documentation]    Abre el buzón de correo, espera y busca el correo electrónico de confirmación.
     ...                Extrae el enlace de confirmación desde el correo y lo almacena en la variable ${EMAIL_LINK}.
-    Open Mailbox    host=${EMAIL_HOST}    user=${EMAIL_RANDOM_USER}    password=${EMAIL_PASSWORD}
+    Open Mailbox    host=${EMAIL_HOST}    user=${EMAIL_RANDOM_USER}    password=${EMAIL_RANDOM_USER_PASSWORD}
     ${LATEST} =    Wait For Email   sender=${CMS_EMAIL}   timeout=120
     Sleep    2s
     ${PARTS} =    Walk Multipart Email   ${LATEST}
@@ -42,15 +42,20 @@ Deberı́a ser redirigido a la página de inicio de sesión
 Deberı́a recibir un error al intentar iniciar sesión
     [Documentation]    Intenta iniciar sesión con credenciales incorrectas y verifica que se muestre un mensaje de error.
     ...                Captura una pantalla después de verificar el mensaje de error.
-    Iniciar Sesion con '${CMS_RANDOM_USER_USERNAME}' y contraseña '${CMS_RANDOM_USER_PASSWORD}'
+    Iniciar sesion con usuario '${CMS_RANDOM_USER_USERNAME}' y contraseña '${CMS_RANDOM_USER_PASSWORD}'
     ${ERROR_MSG}    Set Variable    The username or password is incorrect.
     Wait Until Page Contains    ${ERROR_MSG}    timeout=10s
     Page Should Contain    ${ERROR_MSG}
     Recolectar captura de pantalla
-
 
 En la base de datos deberı́a existir el nuevo usuario registrado SIN ACTIVAR
     [Documentation]    Obtiene el nuevo usuario de la base de datos y verifica que no esté activo.
     ${USER_FROM_DB} =    Obtener el nuevo usuario de la DB
     ${IS_ACTIVE} =    Set Variable    ${USER_FROM_DB[9]}
     Should Not Be True    ${IS_ACTIVE}
+
+
+El usuario "${ROL_USER}" debería poder iniciar sesión en la plataforma con éxito
+    Acceder a la plataforma como usuario “${ROL_USER}”
+    Wait Until Page Contains    Welcome!
+    Page Should Not Contain    Sign in

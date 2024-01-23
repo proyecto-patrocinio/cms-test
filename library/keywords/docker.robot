@@ -53,8 +53,8 @@ Ejecutar el siguiente comando
 Chequear los contenedores de CMS esten listos
     [Documentation]    Se chequea que los contenedores backend y frontend del
     ...                sistema CMS se encuentren corriendo.
-    ${STATUS_FRONT} =    Chequear si el contenedor 'frontend' esta listo
-    ${STATUS_BACK} =    Chequear si el contenedor 'backend-app' esta listo
+    ${STATUS_FRONT} =    Chequear si el contenedor '${FRONT_CONTAINER_NAME}' esta listo
+    ${STATUS_BACK} =    Chequear si el contenedor '${BACK_CONTAINER_NAME}' esta listo
     ${ALL_STATUS}    Evaluate    $STATUS_FRONT and $STATUS_BACK
     RETURN    ${ALL_STATUS}
 
@@ -64,3 +64,14 @@ Chequear si el contenedor '${CONTAINER_NAME}' esta listo
     Run Keyword If    ${RC} == 0 and '${HEALTH_STATUS}' == 'healthy'    Log    Se levantó con éxito el contenedor '${CONTAINER_NAME}'    console=True
     ${STATUS}    Evaluate    $RC == 0 and '$HEALTH_STATUS' == 'healthy'
     RETURN    ${STATUS}
+
+Copiar el archivo '${FILENAME}' al contenedor '${CONTAINER_NAME}'
+    [Documentation]    Copia un archivo en la raiz del de directorio del contenedor especificado.
+    ${CMD_DOCKER_CP}    Set Variable    docker cp ${RESOURCES_PATH}/${FILENAME} ${CONTAINER_NAME}:/${FILENAME}
+    Ejecutar el siguiente comando    ${CMD_DOCKER_CP}
+
+Cargar los datos del archivo json '${FILENAME}' a la unidad
+    [Documentation]    Carga a la base de datos, a través de django, los datos contenidos en el json.
+    Copiar el archivo '${FILENAME}' al contenedor '${BACK_CONTAINER_NAME}'
+    ${CMD_DOCKER_LOADDATA}    Set Variable    docker exec -it ${BACK_CONTAINER_NAME} python manage.py loaddata /${FILENAME}
+    Ejecutar el siguiente comando    ${CMD_DOCKER_LOADDATA}

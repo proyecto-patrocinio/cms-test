@@ -56,6 +56,7 @@ Limpiar base de datos
     Execute Sql String    DELETE from "authtoken_token";
     Execute Sql String    DELETE from "account_emailaddress";
     Execute Sql String    DELETE from "account_emailconfirmation";
+    Execute Sql String    DELETE from "django_admin_log";
     Execute Sql String    DELETE from "auth_user";
     Execute Sql String    DELETE from "Panel_panel";
     Execute Sql String    DELETE from "Card_card";
@@ -66,4 +67,3 @@ Limpiar base de datos
     Execute Sql String    DELETE from "Calendar_event";
     Execute Sql String    DELETE from "Calendar_calendar";
     Disconnect From Database
-

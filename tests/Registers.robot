@@ -47,3 +47,17 @@ PAT-SYS-01: Registro de un Nuevo Usuario
     And Deberı́a ser redirigido a la página de inicio de sesión
     And Deberı́a recibir un error al intentar iniciar sesión
     And En la base de datos deberı́a existir el nuevo usuario registrado SIN ACTIVAR
+
+
+PAT-SYS-02: Activación de un Usuario Registrado
+    [Tags]  Automatico   SYS   PAT-SYS-02    PAT-139
+    Given Existe un superusuario administrador
+    And Existe un usuario registrado sin activar
+    And Se accedió a la plataforma como usuario “administrador”
+    And Se ingresó a la página de administración
+    And Se navegó a la pestaña “Users”
+
+    When Se edita el estado del usuario "nuevo" a "Activo"
+    And Se desloguea de la página de administración
+
+    Then El usuario "nuevo" debería poder iniciar sesión en la plataforma con éxito

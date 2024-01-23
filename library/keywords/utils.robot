@@ -8,7 +8,7 @@ Resource    ../../settings.robot
 
 *** Keywords ***
 Abrir la plataforma en el navegador
-    Open Browser    http://localhost:80/   ${BROWSER}
+    Open Browser    ${PAGE_BASE_CMS}   ${BROWSER}
 
 Cerrar el navegador
     Close Browser

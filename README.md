@@ -24,8 +24,14 @@ Instala los requisitos del proyecto:
 ```bash
 pip install -r requirements.txt
 ```
+### Configuración
+Es muy importante revisar y configurar las variables del archivo `./settings.robot`. Se deberá revisar cada una de las variables y setear los valores correctos.
+Para los emails, se deben utilizar emails reales y [contraseñas de aplicación](https://support.google.com/accounts/answer/185833?hl=es-419).
+
 
 ### Levanta el Docker compose de la unidad:
+Si se setea la variable `MODE_CMS_UP` en "manual" del archivo `settings.robot`, deberá levantarse la unidad por cuenta propia. A continuación se describen los pasos para levantar la unidad de forma manul.
+
 En algun directorio a convenir, clone el repo de la unidad:
 ```bash
 git clone https://github.com/proyecto-patrocinio/proyecto-patrocinio
