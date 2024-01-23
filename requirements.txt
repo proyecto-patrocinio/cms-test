@@ -1,0 +1,6 @@
+robotframework==7.0
+robotframework-seleniumlibrary==6.2.0
+robotframework-imaplibrary2==0.4.6
+robotframework-databaselibrary==1.4.3
+psycopg2-binary==2.9.9
+robotframework-jsonlibrary==0.5
