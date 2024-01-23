@@ -9,10 +9,15 @@ Library  Collections
 
 Resource  ../library/keywords/utils.robot
 Resource  ../library/keywords/testing_environment.robot
+Resource  ../library/keywords/docker.robot
 Resource  ../library/given.robot
 Resource  ../library/when.robot
 Resource  ../library/then.robot
 
+Suite Setup    Run Keywords
+    ...                Se inician los contenedores del CMS
+Suite Teardown
+    ...                Se paran los contenedores del CMS
 
 Test Setup    Run Keywords
     ...                Preparar una estructura limpia de directorios
@@ -26,7 +31,7 @@ Test Teardown    Run Keywords
     ...                Se limpian las capturas realizadas por selenium
 
 *** Test Cases ***
-Registro de un Nuevo Usuario
+PAT-SYS-01: Registro de un Nuevo Usuario
     [Documentation]    Se crea un nuevo usuario y se corrobora la
     ...    llegada exitosa del email de confirmación.
     ...    Además se corrobora que el usuario autenticado no pueda
