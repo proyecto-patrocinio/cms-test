@@ -1,0 +1,31 @@
+[
+  {
+    "model": "account.emailaddress",
+    "pk": 2,
+    "fields": {
+        "email" : "randomuser@gmail.com",
+        "verified" : true,
+        "primary" : true,
+        "user_id" : 2
+      }
+    },
+    {
+      "model": "auth.user",
+      "pk": 2,
+      "fields": {
+        "password": "pbkdf2_sha256$390000$LbA6Hq4cTWE46x4CHAEEeg$zYgO4Vl+lkaGAcxGsjih8JZ46HQ758C3lSYGztotIZA=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "randomuser",
+        "first_name": "",
+        "last_name": "",
+        "email": "randomuser@gmail.com",
+        "is_staff": false,
+        "is_active": false,
+        "date_joined": "2024-01-23T16:03:23.761Z",
+        "groups": [],
+        "user_permissions": []
+      }
+    }
+]
+    

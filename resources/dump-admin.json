@@ -1,0 +1,30 @@
+[
+    {
+        "model": "account.emailaddress",
+        "pk": 1,
+        "fields": {
+            "email": "admin@proyectopatrocinio.com",
+            "verified": true,
+            "primary": true,
+            "user_id": 1
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields":
+            {
+                "id" : 1,
+                "password" : "pbkdf2_sha256$390000$9wkxhd37d19I2nFl1OHRFV$NtIWkANbS6UOYvqI17oApu6WZMVhX22VAGsF\/EJ2BQM=",
+                "last_login" : null,
+                "is_superuser" : true,
+                "username" : "admin",
+                "first_name" : "",
+                "last_name" : "",
+                "email" : "admin@proyectopatrocinio.com",
+                "is_staff" : true,
+                "is_active" : true,
+                "date_joined" : "2024-01-23T20:28:38.372Z"
+            }
+    }
+]
