@@ -40,6 +40,16 @@ Existe un superusuario administrador
 Existe un usuario registrado sin activar
     Cargar los datos del archivo json 'dump-inactive-randomuser.json' a la unidad
 
+Existe un usuario registrado activo con permisos “common” y “${GROUP_USER}” en la DB
+    ${GROUP_USER} =    Convert To Lower Case    ${GROUP_USER}
+    IF    '${GROUP_USER}' == 'case_taker'
+        Cargar los datos del archivo json 'dump-case-taker.json' a la unidad
+    ELSE IF    '${GROUP_USER}' == 'professor'
+        Cargar los datos del archivo json 'dump-professor.json' a la unidad
+    ELSE
+        Fatal Error    La opción de grupo '${GROUP_USER}' no esta implementada.
+    END
+
 Se accedió a la plataforma como usuario “${ROL_USER}”
     Acceder a la plataforma como usuario “${ROL_USER}”
     #Espera hasta que se cargue la página
