@@ -42,7 +42,6 @@ PAT-SYS-3: Visibilidad de Pestañas para Usuario Tomador de Caso
     ...                Y se valida que se visualicen unicamente las pestañas
     ...                correspondientes al rol.
     [Tags]  Automatico   SYS   PAT-SYS-03    PAT-140
-
     Given Existe un usuario registrado activo con permisos “common” y “case_taker” en la DB
 
     When Se accede a la plataforma como el usuario "Tomador de Caso"
@@ -50,3 +49,15 @@ PAT-SYS-3: Visibilidad de Pestañas para Usuario Tomador de Caso
     Then La pestaña “Consultancy” deberı́a estar visible
     And Las pestañas “Consultations” y “Clients” del “Panel de Control” deberı́an estar visibles
     And La pestaña “Boards” no deberı́a estar visible
+
+
+PAT-SYS-4: Visibilidad de Pestañas para Usuario Profesor
+    [Documentation]    Se ingresa a la plataforma como usuario profesor
+    ...                Y se valida que se visualicen unicamente las pestañas
+    ...                correspondientes al rol.
+    [Tags]  Automatico   SYS   PAT-SYS-04    PAT-141
+    Given Existe un usuario registrado activo con permisos “common” y “professor” en la DB
+    When Se accede a la plataforma como el usuario "Profesor"
+    Then La pestaña “Boards” deberı́a estar visible
+    And La pestaña “Consultancy” no deberı́a estar visible
+    And Las pestañas “Consultations” y “Clients” del “Panel de Control” no deberı́an estar visibles

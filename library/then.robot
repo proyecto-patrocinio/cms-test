@@ -104,5 +104,8 @@ La pestaña “${CMS_PAGE_NAME}” NO deberı́a estar visible
 
     END
 
-And Las pestañas “Consultations” y “Clients” del “Panel de Control” deberı́an estar visibles
+Las pestañas “Consultations” y “Clients” del “Panel de Control” deberı́an estar visibles
     La pestaña “Panel de Control” deberı́a estar visible
+
+Las pestañas “Consultations” y “Clients” del “Panel de Control” no deberı́an estar visibles
+     Run Keyword And Expect Error    Element with locator*    La pestaña “Panel de Control” deberı́a estar visible
