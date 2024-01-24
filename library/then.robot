@@ -59,3 +59,50 @@ El usuario "${ROL_USER}" debería poder iniciar sesión en la plataforma con éx
     Acceder a la plataforma como usuario “${ROL_USER}”
     Wait Until Page Contains    Welcome!
     Page Should Not Contain    Sign in
+
+La pestaña “${CMS_PAGE_NAME}” deberı́a estar visible
+    [Documentation]    Verifica que la pestaña especificada esté visible en la interfaz del Case Management System (CMS).
+    ...                Los valores posibls para ${CMS_PAGE_NAME} son: 'consultancy', 'panel de control', 'boards'
+    ${CMS_PAGE_NAME} =    Convert To Lower Case    ${CMS_PAGE_NAME}
+    #Espera hasta que se cargue la página HOME
+    Wait Until Page Contains    Welcome!
+    IF    '${CMS_PAGE_NAME}' == 'consultancy'
+        ${XPATH_CONSULTANCY} =    Set Variable    xpath://span[@class='MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root' and contains(text(),'Consultancy')]
+        Element Should Be Visible    ${XPATH_CONSULTANCY}
+
+    ELSE IF    '${CMS_PAGE_NAME}' == 'panel de control'
+        ${XPATH_CONTORL_PANEL} =    Set Variable    xpath://span[@class='MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root' and contains(text(),'Control Panel')]
+        Element Should Be Visible    ${XPATH_CONTORL_PANEL}
+        Click Element    ${XPATH_CONTORL_PANEL}
+        
+        ${XPATH_CONSULTATIONS} =    Set Variable    xpath://span[@class='MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root' and contains(text(),'Consultations')]
+        Wait Until Element Is Visible    ${XPATH_CONSULTATIONS}
+  
+        ${XPATH_CLIENTS} =    Set Variable    xpath://span[@class='MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root' and contains(text(),'Clients')]
+        Wait Until Element Is Visible    ${XPATH_CLIENTS}
+
+    ELSE IF    '${CMS_PAGE_NAME}' == 'boards'
+        ${XPATH_BOARDS} =    Set Variable    xpath://div[@class='MuiButtonBase-root MuiListItemButton-root MuiListItemButton-gutters MuiListItemButton-root MuiListItemButton-gutters css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root' and .//span[text()='Boards']]
+        Element Should Be Visible    ${XPATH_BOARDS}
+
+    ELSE
+        Fatal Error    La opción de pestaña '${CMS_PAGE_NAME}' no esta implementada.  
+
+    END
+
+
+La pestaña “${CMS_PAGE_NAME}” NO deberı́a estar visible
+    [Documentation]    Verifica que la pestaña especificada NO esté visible en la interfaz del Case Management System (CMS).
+    ...                Los valores posibls para ${CMS_PAGE_NAME} son: 'consultancy', 'panel de control', 'boards'
+    ${CMS_PAGE_NAME} =    Convert To Lower Case    ${CMS_PAGE_NAME}
+    ${IS_OPTION_VALID} =    Evaluate    '${CMS_PAGE_NAME}' in ['consultancy', 'panel de control', 'boards']
+    IF    ${IS_OPTION_VALID} == ${True}
+        Run Keyword And Expect Error    Element with locator*    La pestaña “${CMS_PAGE_NAME}” deberı́a estar visible
+
+    ELSE
+        Fatal Error    La opción de pestaña '${CMS_PAGE_NAME}' no esta implementada.  
+
+    END
+
+And Las pestañas “Consultations” y “Clients” del “Panel de Control” deberı́an estar visibles
+    La pestaña “Panel de Control” deberı́a estar visible

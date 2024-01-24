@@ -57,6 +57,7 @@ Limpiar base de datos
     Execute Sql String    DELETE from "account_emailaddress";
     Execute Sql String    DELETE from "account_emailconfirmation";
     Execute Sql String    DELETE from "django_admin_log";
+    Execute Sql String    DELETE from "auth_user_groups";
     Execute Sql String    DELETE from "auth_user";
     Execute Sql String    DELETE from "Panel_panel";
     Execute Sql String    DELETE from "Card_card";

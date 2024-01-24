@@ -38,3 +38,6 @@ Se desloguea de la página de administración
     Desloguearse de la administración
     Go To    ${PAGE_BASE_CMS}
     Desloguearse de la plataforma
+
+Se accede a la plataforma como el usuario "${ROL_USER}"
+    Acceder a la plataforma como usuario “${ROL_USER}”

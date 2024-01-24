@@ -1,4 +1,6 @@
 *** Settings ***
+Documentation     Suite de test para el registro de usuarios.
+
 Library  SeleniumLibrary
 Library  ImapLibrary2
 Library  String
@@ -14,10 +16,13 @@ Resource  ../library/given.robot
 Resource  ../library/when.robot
 Resource  ../library/then.robot
 
+
 Suite Setup    Run Keywords
     ...                Se inician los contenedores del CMS
-Suite Teardown
+
+Suite Teardown    Run Keywords
     ...                Se paran los contenedores del CMS
+
 
 Test Setup    Run Keywords
     ...                Preparar una estructura limpia de directorios
@@ -29,6 +34,7 @@ Test Teardown    Run Keywords
     ...                Cerrar el navegador
     ...                Recolectar las evidencias
     ...                Se limpian las capturas realizadas por selenium
+
 
 *** Test Cases ***
 PAT-SYS-01: Registro de un Nuevo Usuario
@@ -50,6 +56,8 @@ PAT-SYS-01: Registro de un Nuevo Usuario
 
 
 PAT-SYS-02: Activación de un Usuario Registrado
+    [Documentation]    Se loguea como usuario administrador y se activa un usuario previamente registrado.
+    ...                Luego se corrobora que dicho usuario puede acceder correctamente.
     [Tags]  Automatico   SYS   PAT-SYS-02    PAT-139
     Given Existe un superusuario administrador
     And Existe un usuario registrado sin activar
