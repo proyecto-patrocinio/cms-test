@@ -56,11 +56,12 @@ En la base de datos deberı́a existir el nuevo usuario registrado SIN ACTIVAR
 
 
 El usuario "${ROL_USER}" debería poder iniciar sesión en la plataforma con éxito
-    Acceder a la plataforma como usuario “${ROL_USER}”
+    Acceder a la plataforma como usuario "${ROL_USER}"
     Wait Until Page Contains    Welcome!
     Page Should Not Contain    Sign in
+    Recolectar captura de pantalla
 
-La pestaña “${CMS_PAGE_NAME}” deberı́a estar visible
+La pestaña "${CMS_PAGE_NAME}" deberı́a estar visible
     [Documentation]    Verifica que la pestaña especificada esté visible en la interfaz del Case Management System (CMS).
     ...                Los valores posibls para ${CMS_PAGE_NAME} son: 'consultancy', 'panel de control', 'boards'
     ${CMS_PAGE_NAME} =    Convert To Lower Case    ${CMS_PAGE_NAME}
@@ -89,23 +90,23 @@ La pestaña “${CMS_PAGE_NAME}” deberı́a estar visible
         Fatal Error    La opción de pestaña '${CMS_PAGE_NAME}' no esta implementada.  
 
     END
+    Recolectar captura de pantalla
 
-
-La pestaña “${CMS_PAGE_NAME}” NO deberı́a estar visible
+La pestaña "${CMS_PAGE_NAME}" NO deberı́a estar visible
     [Documentation]    Verifica que la pestaña especificada NO esté visible en la interfaz del Case Management System (CMS).
     ...                Los valores posibls para ${CMS_PAGE_NAME} son: 'consultancy', 'panel de control', 'boards'
     ${CMS_PAGE_NAME} =    Convert To Lower Case    ${CMS_PAGE_NAME}
     ${IS_OPTION_VALID} =    Evaluate    '${CMS_PAGE_NAME}' in ['consultancy', 'panel de control', 'boards']
     IF    ${IS_OPTION_VALID} == ${True}
-        Run Keyword And Expect Error    Element with locator*    La pestaña “${CMS_PAGE_NAME}” deberı́a estar visible
+        Run Keyword And Expect Error    Element with locator*    La pestaña "${CMS_PAGE_NAME}" deberı́a estar visible
 
     ELSE
         Fatal Error    La opción de pestaña '${CMS_PAGE_NAME}' no esta implementada.  
 
     END
 
-Las pestañas “Consultations” y “Clients” del “Panel de Control” deberı́an estar visibles
-    La pestaña “Panel de Control” deberı́a estar visible
+Las pestañas "Consultations" y "Clients" del "Panel de Control" deberı́an estar visibles
+    La pestaña "Panel de Control" deberı́a estar visible
 
-Las pestañas “Consultations” y “Clients” del “Panel de Control” no deberı́an estar visibles
-     Run Keyword And Expect Error    Element with locator*    La pestaña “Panel de Control” deberı́a estar visible
+Las pestañas "Consultations" y "Clients" del "Panel de Control" no deberı́an estar visibles
+     Run Keyword And Expect Error    Element with locator*    La pestaña "Panel de Control" deberı́a estar visible

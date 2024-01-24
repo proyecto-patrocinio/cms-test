@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Suite de test para chequeal la visibilidad de las pestañas de la página CMS.
+Documentation     Suite de test para chequear la visibilidad de las pestañas de la página CMS.
 
 Library  SeleniumLibrary
 Library  ImapLibrary2
@@ -42,13 +42,13 @@ PAT-SYS-3: Visibilidad de Pestañas para Usuario Tomador de Caso
     ...                Y se valida que se visualicen unicamente las pestañas
     ...                correspondientes al rol.
     [Tags]  Automatico   SYS   PAT-SYS-03    PAT-140
-    Given Existe un usuario registrado activo con permisos “common” y “case_taker” en la DB
+    Given existe un usuario registrado activo con permisos "common" y "case_taker" en la DB
 
-    When Se accede a la plataforma como el usuario "Tomador de Caso"
+    When se accede a la plataforma como el usuario "Tomador de Caso"
 
-    Then La pestaña “Consultancy” deberı́a estar visible
-    And Las pestañas “Consultations” y “Clients” del “Panel de Control” deberı́an estar visibles
-    And La pestaña “Boards” no deberı́a estar visible
+    Then la pestaña "Consultancy" deberı́a estar visible
+    And las pestañas "Consultations" y "Clients" del "Panel de Control" deberı́an estar visibles
+    And la pestaña "Boards" no deberı́a estar visible
 
 
 PAT-SYS-4: Visibilidad de Pestañas para Usuario Profesor
@@ -56,8 +56,8 @@ PAT-SYS-4: Visibilidad de Pestañas para Usuario Profesor
     ...                Y se valida que se visualicen unicamente las pestañas
     ...                correspondientes al rol.
     [Tags]  Automatico   SYS   PAT-SYS-04    PAT-141
-    Given Existe un usuario registrado activo con permisos “common” y “professor” en la DB
-    When Se accede a la plataforma como el usuario "Profesor"
-    Then La pestaña “Boards” deberı́a estar visible
-    And La pestaña “Consultancy” no deberı́a estar visible
-    And Las pestañas “Consultations” y “Clients” del “Panel de Control” no deberı́an estar visibles
+    Given existe un usuario registrado activo con permisos "common" y "professor" en la DB
+    When se accede a la plataforma como el usuario "Profesor"
+    Then la pestaña "Boards" deberı́a estar visible
+    And la pestaña "Consultancy" no deberı́a estar visible
+    And las pestañas "Consultations" y "Clients" del "Panel de Control" no deberı́an estar visibles

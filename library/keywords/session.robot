@@ -7,6 +7,7 @@ Library  OperatingSystem
 
 Resource    ../../settings.robot
 Resource    ../../constants.robot
+Resource    testing_environment.robot
 
 *** Keywords ***
 
@@ -30,8 +31,9 @@ Iniciar sesion con usuario '${USER}' y contraseña '${PASSWORD}'
     Input Text    name:username    ${USER}
     Input Text    name:password    ${PASSWORD}
     Click Button    xpath://button[contains(@class, 'MuiButton-root')]
+    Recolectar captura de pantalla
 
-Acceder a la plataforma como usuario “${ROL_USER}”
+Acceder a la plataforma como usuario "${ROL_USER}"
     [Documentation]    Ingresa a la plataforma con un usuario definido por
     ...                el rol ${ROL_USER} (administrator, profesor, profesor o random),
     ...                suponiendo que dicho usuario existe en base de datos.
@@ -60,6 +62,7 @@ Editar el estado del usuario "${USERNAME}" a "${NEW_STATE}"
         Run Keyword If    '${is_checked}' != 'false'    Click Element    id=id_is_active
     END
     # Guardar cambios
+    Recolectar captura de pantalla
     Click Element    xpath://input[@name='_save']
 
 # =======================================================================
@@ -68,7 +71,9 @@ Editar el estado del usuario "${USERNAME}" a "${NEW_STATE}"
 Desloguearse de la administración
     Click Button    xpath://button[@type='submit' and contains(text(),'Log out')]
     Wait Until Page Contains    Logged out
+    Recolectar captura de pantalla
 
 Desloguearse de la plataforma
     Click Element    xpath://span[@class='MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root' and contains(text(),'Logout')]
     Wait Until Page Contains    Sign in
+    Recolectar captura de pantalla
