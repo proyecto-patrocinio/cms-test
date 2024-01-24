@@ -40,7 +40,7 @@ Existe un superusuario administrador
 Existe un usuario registrado sin activar
     Cargar los datos del archivo json 'dump-inactive-randomuser.json' a la unidad
 
-Existe un usuario registrado activo con permisos “common” y “${GROUP_USER}” en la DB
+Existe un usuario registrado activo con permisos "common" y "${GROUP_USER}" en la DB
     ${GROUP_USER} =    Convert To Lower Case    ${GROUP_USER}
     IF    '${GROUP_USER}' == 'case_taker'
         Cargar los datos del archivo json 'dump-case-taker.json' a la unidad
@@ -50,10 +50,11 @@ Existe un usuario registrado activo con permisos “common” y “${GROUP_USER}
         Fatal Error    La opción de grupo '${GROUP_USER}' no esta implementada.
     END
 
-Se accedió a la plataforma como usuario “${ROL_USER}”
-    Acceder a la plataforma como usuario “${ROL_USER}”
+Se accedió a la plataforma como usuario "${ROL_USER}"
+    Acceder a la plataforma como usuario "${ROL_USER}"
     #Espera hasta que se cargue la página
     Wait Until Page Contains    Welcome!
+    Recolectar captura de pantalla
 
 Se ingresó a la página de administración
     [Documentation]   Supone browser abierto.
@@ -61,7 +62,7 @@ Se ingresó a la página de administración
     #Espera hasta que se cargue la página
     Wait Until Page Contains Element    xpath://h1[contains(text(),'Site administration')]
 
-Se navegó a la pestaña “Users”
+Se navegó a la pestaña "Users"
     [Documentation]   Se navega a la pestaña users de la pagina de administración.
     ...               Supone browser abierto.
     Go To    ${PAGE_ADMIN_USER}

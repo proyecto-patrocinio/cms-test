@@ -40,4 +40,5 @@ Se desloguea de la página de administración
     Desloguearse de la plataforma
 
 Se accede a la plataforma como el usuario "${ROL_USER}"
-    Acceder a la plataforma como usuario “${ROL_USER}”
+    Acceder a la plataforma como usuario "${ROL_USER}"
+    Recolectar captura de pantalla
