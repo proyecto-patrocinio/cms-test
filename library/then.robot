@@ -110,3 +110,10 @@ Las pestañas "Consultations" y "Clients" del "Panel de Control" deberı́an est
 
 Las pestañas "Consultations" y "Clients" del "Panel de Control" no deberı́an estar visibles
      Run Keyword And Expect Error    Element with locator*    La pestaña "Panel de Control" deberı́a estar visible
+
+la consulta "${INPUT_TAG}" para el cliente con DNI "${INPUT_DNI}" deberı́a existir en base de datos
+    ${CONSULT} =    Obtener consulta con TAG '${INPUT_TAG}' de la DB
+    ${CLIENT_ID} =    Set Variable    ${CONSULT[-1]}
+    ${CLIENT} =    Obtener cliente con ID '${CLIENT_ID}' de la DB
+    ${CLIENT_DNI} =    Set Variable    ${CLIENT[4]}
+    Should Be Equal As Integers    ${INPUT_DNI}    ${CLIENT_DNI}

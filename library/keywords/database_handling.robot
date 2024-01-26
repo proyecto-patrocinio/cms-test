@@ -37,8 +37,40 @@ Obtener el nuevo usuario de la DB
     [Documentation]    Se conecta a la base de datos y se obtiene el ultimo usuario registrado.
     Conectar a Base de Datos existente
     ${QUERY}    Set Variable    SELECT * FROM auth_user ORDER BY id ASC;
-    ${RESULT}    Query    ${QUERY}
+    ${RESULT} =    Query    ${QUERY}
+    Disconnect From Database
     RETURN    ${RESULT[-1]}
+
+Obtener consulta con TAG '${TAG}' de la DB
+    [Documentation]    Obtiene la consulta segun el ${TAG}. Si no la encuentra devuelve ${None}.
+    Conectar a Base de Datos existente
+    ${QUERY}    Set Variable    SELECT * FROM "Consultation_consultation" where tag = '${TAG}' LIMIT 1;
+    ${RESULT} =    Query    ${QUERY}
+    ${FIRST_RESULT} =    Set Variable If    ${RESULT}    ${RESULT[0]}    ${None}
+    Disconnect From Database
+    RETURN    ${FIRST_RESULT}
+
+Obtener cliente con ID '${ID}' de la DB
+    [Documentation]    Obtiene el cliente según su ID. Si no lo encuentra devuelve ${None}.
+    Conectar a Base de Datos existente
+    ${QUERY}    Set Variable    SELECT * FROM "Clients_client" where id = '${ID}';
+    ${RESULT} =    Query    ${QUERY}
+    ${FIRST_RESULT} =    Set Variable If    ${RESULT}    ${RESULT[0]}    ${None}
+    Disconnect From Database
+    RETURN    ${FIRST_RESULT}
+
+######################################################################
+# Inserts
+
+Insertar cliente en la DB
+    [Arguments]    ${FIRST_NAME}    ${LAST_NAME}    ${ID_TYPE}    ${ID_VALUE}    ${SEX}    ${BIRTH_DATE}    ${ADDRESS}    ${POSTAL}    ${MARITAL_STATUS}    ${HOUSING_TYPE}    ${STUDIES}    ${EMAIL}    ${LOCALITY_ID}
+    Conectar a Base de Datos existente
+    ${KEYS}    Set Variable    first_name,last_name,id_type,id_value,sex,birth_date,address,postal,marital_status,housing_type,studies,email,locality_id
+    ${VALUES}    Set Variable    '${FIRST_NAME}','${LAST_NAME}','${ID_TYPE}','${ID_VALUE}','${SEX}','${BIRTH_DATE}','${ADDRESS}',${POSTAL},'${MARITAL_STATUS}','${HOUSING_TYPE}','${STUDIES}','${EMAIL}',${LOCALITY_ID}
+    ${QUERY}    Set Variable    INSERT INTO public."Clients_client" (${KEYS}) VALUES (${VALUES});
+    Execute SQL String    ${QUERY}
+    Disconnect From Database
+
 ########################################################################
 # Clear
 
