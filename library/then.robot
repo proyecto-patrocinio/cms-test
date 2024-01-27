@@ -151,3 +151,8 @@ La información de la consulta "${TAG}" deberı́a contener el campo "${KEY}" en
     ${ROW_LOCATOR}=    Obtener locator de la fila '${KEY}' para la tabla con locator ${TABLE_LOCATOR}
     Verificar fila de la tabla    ${ROW_LOCATOR}    ${KEY}:    ${VALUE}
     Cerrar Info de consulta
+
+El Popper de la comisión debería contener "${CONTENT}"
+    ${POPPER_LOCATOR}    Set Variable    id=transitions-popper
+    ${INFO_TEXT}    Get Text    ${POPPER_LOCATOR}
+    Should Contain    ${INFO_TEXT}    ${CONTENT}

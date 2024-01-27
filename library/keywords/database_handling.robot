@@ -108,11 +108,11 @@ Insertar la relación board "${BOARD_ID}" - user "${USER_ID}"
 
 Insertar consulta a la DB
     [Documentation]    Carga a DB, una nueva consulta con los parámetros otorgados. Supone un usuario existente.
-    [Arguments]    ${CLIENT_ID}    ${TAG}   ${OPP}    ${DESC}    ${AVAILABILITY}
+    [Arguments]    ${CLIENT_ID}    ${TAG}   ${OPP}    ${DESC}    ${AVAILABILITY}    ${PROGRESS}
     Conectar a Base de Datos existente
     ${CURRENT_DATE}    Get Current Date    result_format=%Y-%m-%d %H:%M:%S
     ${KEYS}    Set Variable    availability_state, progress_state,"time_stamp", start_time, description, opponent, tag, client_id
-    ${VALUES}    Set Variable    '${AVAILABILITY}','TODO','${CURRENT_DATE}','${CURRENT_DATE}','${DESC}','${OPP}','${TAG}',${CLIENT_ID}
+    ${VALUES}    Set Variable    '${AVAILABILITY}','${PROGRESS}','${CURRENT_DATE}','${CURRENT_DATE}','${DESC}','${OPP}','${TAG}',${CLIENT_ID}
     ${QUERY}    Set Variable    INSERT INTO public."Consultation_consultation" (${KEYS}) VALUES (${VALUES});
     Execute SQL String    ${QUERY}
     Disconnect From Database

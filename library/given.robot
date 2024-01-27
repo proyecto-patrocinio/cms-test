@@ -82,24 +82,29 @@ Existe un cliente con DNI "${DNI}" en la base de datos
         ...    "Av Poeta Lugones 12"    5012    SINGLE    HOUSE    COMPLETE_UNIVERSITY
         ...    romina96@gmail.com    704
 
-Existe un ticket para la siguiente comisión, con tag, DNI del cliente, oponente y descripción:
-    [Documentation]    Crea la consulta con los parametros especificados y un panel para el board
-    ...                titulado ${CONSULTANCY_NAME} y por último crea una card, para el nuevo panel y consulta.
-    [Arguments]    ${CONSULTANCY_NAME}    ${TAG}    ${DNI}    ${OPP}    ${DESC}
-    # Crear consulta
+Existe un panel llamado "${PANEL_NAME}" para el board de la comisión "${COMISION_NAME}"
+    # Crear panel
+    ${BOARD_ID}    Obtener el ID del board titulado "${COMISION_NAME}" de la DB
+    Crear un panel "${PANEL_NAME}" en el board con ID "${BOARD_ID}" desde la DB
+
+Existe una consulta con tag, DNI del cliente, oponente, descripción y estado:
+    [Arguments]    ${TAG}   ${DNI}    ${OPP}    ${DESC}    ${PROGRESS}
     ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
     ${CLIENT_ID}    Set Variable    ${CLIENT[0]}
-    Insertar consulta a la DB    ${CLIENT_ID}    ${TAG}   ${OPP}    ${DESC}    ASSIGNED
+    Insertar consulta a la DB    ${CLIENT_ID}    ${TAG}   ${OPP}    ${DESC}    ASSIGNED    ${PROGRESS}
+
+Existe un ticket para el panel, de la comisión, con tag, DNI del cliente, oponente, descripción y estado:
+    [Documentation]    Crea la consulta con los parametros especificados para el panel ${PANEL_NAME} del board
+    ...                titulado ${COMISION_NAME} y por último crea una card, para el nuevo panel y consulta.
+    [Arguments]    ${PANEL_NAME}    ${COMISION_NAME}    ${TAG}    ${DNI}    ${OPP}    ${DESC}    ${PROGRESS}
+    # Crear consulta
+    Existe una consulta con tag, DNI del cliente, oponente, descripción y estado:
+    ...    ${TAG}   ${DNI}    ${OPP}    ${DESC}    ${PROGRESS}
     ${CONSULT}    Obtener consulta con TAG '${TAG}' de la DB
     ${CONSULT_ID}    Set Variable    ${CONSULT[0]}
 
-    # Crear panel
-    ${BOARD_ID}    Obtener el ID del board titulado "${CONSULTANCY_NAME}" de la DB
-    ${PANEL_NAME}    Set Variable    Grupo A
-    Crear un panel "${PANEL_NAME}" en el board con ID "${BOARD_ID}" desde la DB
-    ${PANEL_ID}    Obtener el ID del panel titulado "${PANEL_NAME}"
-    
     # Crear card
+    ${PANEL_ID}    Obtener el ID del panel titulado "${PANEL_NAME}"
     Crear una card para la consulta "${TAG}" con ID "${CONSULT_ID}" en el panel con ID "${PANEL_ID}" desde la DB
 
 Existe el board "${TITLE}" en la DB

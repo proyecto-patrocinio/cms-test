@@ -68,13 +68,16 @@ Visualización de una consulta como usuario Profesor
     And existe un usuario registrado activo con permisos "common" y "professor" en la DB
     And el usuario profesor tiene acceso al board "Comisión A1"
     And existe un cliente con DNI "32165498" en la base de datos
-    And se accedió a la plataforma como usuario "profesor"
-    And existe un ticket para la siguiente comisión, con tag, DNI del cliente, oponente y descripción:
+    And existe un panel llamado "Panel A1" para el board de la comisión "Comisión A1"
+    And existe un ticket para el panel, de la comisión, con tag, DNI del cliente, oponente, descripción y estado:
+    ...    Panel A1
     ...    Comisión A1
     ...    Garantía
     ...    32165498
     ...    Samsung
     ...    Dummy
+    ...    TODO
+    And se accedió a la plataforma como usuario "profesor"
 
 
     When se navega a la pestaña "Board/Comisión A1"
