@@ -103,11 +103,8 @@ Existe un ticket para el panel, de la comisión, con tag, DNI del cliente, opone
     ${CONSULT}    Obtener consulta con TAG '${TAG}' de la DB
     ${CONSULT_ID}    Set Variable    ${CONSULT[0]}
 
-    # Crear panel
-    Existe un panel llamado "${PANEL_NAME}" para el board de la comisión "${COMISION_NAME}"
-    ${PANEL_ID}    Obtener el ID del panel titulado "${PANEL_NAME}"
-
     # Crear card
+    ${PANEL_ID}    Obtener el ID del panel titulado "${PANEL_NAME}"
     Crear una card para la consulta "${TAG}" con ID "${CONSULT_ID}" en el panel con ID "${PANEL_ID}" desde la DB
 
 Existe el board "${TITLE}" en la DB
