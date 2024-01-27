@@ -35,8 +35,10 @@ ${DB_PORT}              5432
 ${EMAIL_HOST}            imap.gmail.com
 ${CMS_EMAIL}             patrociniouba1@gmail.com  # Email del sistema CMS
 
-${EMAIL_RANDOM_USER}             randomuser@gmail.com      # Setear con email real (para user)
-${EMAIL_RANDOM_USER_PASSWORD}    bsgrrzkffmgjwitf    # Setear con contraseña real de aplicación para dicho email (para user)
+# ***IMPORTANTE***:
+# Cambiar gmail y contraseña de aplicación con otra real. (para user)
+${EMAIL_RANDOM_USER}             randomuser@gmail.com
+${EMAIL_RANDOM_USER_PASSWORD}    bsgrrzkffmgjwitf
 
 
 # Superuser
