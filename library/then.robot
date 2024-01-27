@@ -4,12 +4,14 @@ Documentation     Keywords utilizadas bajo el prefijo Then.
 Library  SeleniumLibrary
 Library  ImapLibrary2
 Library  String
+Library    XML
 
 Resource  ../settings.robot
 Resource  ../constants.robot
 Resource  ../library/keywords/database_handling.robot
 Resource  ../library/keywords/session.robot
 Resource  ../library/keywords/testing_environment.robot
+Resource    keywords/utils.robot
 
 *** Keywords ***
 Deberı́a recibir un correo electrónico con el enlace de confirmación
@@ -110,3 +112,40 @@ Las pestañas "Consultations" y "Clients" del "Panel de Control" deberı́an est
 
 Las pestañas "Consultations" y "Clients" del "Panel de Control" no deberı́an estar visibles
      Run Keyword And Expect Error    Element with locator*    La pestaña "Panel de Control" deberı́a estar visible
+
+La consulta "${INPUT_TAG}" para el cliente con DNI "${INPUT_DNI}" deberı́a existir en base de datos
+    ${CONSULT} =    Obtener consulta con TAG '${INPUT_TAG}' de la DB
+    ${CLIENT_ID} =    Set Variable    ${CONSULT[-1]}
+    ${CLIENT} =    Obtener cliente con ID '${CLIENT_ID}' de la DB
+    ${CLIENT_DNI} =    Set Variable    ${CLIENT[4]}
+    Should Be Equal As Integers    ${INPUT_DNI}    ${CLIENT_DNI}
+
+El ticket "${TAG}" deberı́a estar visible en el panel de entrada de la pizarra "${BOARD}"
+    [Documentation]    Valida que este visible el ticket de la consulta titulada ${TAG}.
+    ${TITLE_BOARD} =    Set Variable    xpath=//h1[contains(text(), '${BOARD}')]
+    Wait Until Element Is Visible    ${TITLE_BOARD}
+    ${TICKET_LOCATOR} =    Set Variable    xpath=//p[contains(text(), '${TAG}')]
+    Element Should Be Visible    ${TICKET_LOCATOR}
+
+La información de la consulta "${TAG}" deberı́a contener el cliente con DNI "${DNI}"
+    [Documentation]    Valida que la ventana de información de una consulta titulada ${TAG},
+    ...                contenga el cliente con el DNI proporcionado.
+    Abrir detalle de la consulta '${TAG}'
+    ${EXPAND_CLIENT_LOCATOR} =    Set Variable    //button[contains(@class, 'css-1rwt2y5-MuiButtonBase-root')]
+    Wait Until Element Is Visible    ${EXPAND_CLIENT_LOCATOR}
+    Click Element    ${EXPAND_CLIENT_LOCATOR}
+
+    ${ROW_LOCATOR}    Set Variable    xpath=/html/body/div[4]/div[3]/div/div[2]/div/div/table/tbody/tr[2]/td[2]/div/tr[4]
+    Verificar fila de la tabla    ${ROW_LOCATOR}    ID Value:    ${DNI}
+    Cerrar Info de consulta
+
+La información de la consulta "${TAG}" deberı́a contener el campo "${KEY}" en "${VALUE}"
+    [Documentation]    Se abre la ventana de detalle de la consulta y se busca la fila de la tabla de información
+    ...                que contiene el campo a validar. Luego se valida que contenga el valor
+    ...                correcto y se cierra la ventana.
+    Abrir detalle de la consulta '${TAG}'
+    ${TABLE_LOCATOR}    Set Variable    xpath=/html/body/div[4]/div[3]/div/div[2]/div/div/table/tbody
+    ${ROW_LOCATOR}=    Obtener locator de la fila '${KEY}' para la tabla con locator ${TABLE_LOCATOR}
+    Verificar fila de la tabla    ${ROW_LOCATOR}    ${KEY}:    ${VALUE}
+    Cerrar Info de consulta
+

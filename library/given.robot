@@ -68,3 +68,16 @@ Se navegó a la pestaña "Users"
     Go To    ${PAGE_ADMIN_USER}
     #Espera hasta que se cargue la página
     Wait Until Page Contains Element    xpath://h1[contains(text(),'Select user to change')]
+
+Se navegó a la pestaña "Consultancy"
+    [Documentation]   Supone browser abierto.
+    Go To    ${PAGE_CONSULTANCY}
+    #Espera hasta que se cargue la página
+    Wait Until Page Contains    Available Consultations
+    Recolectar captura de pantalla
+
+Existe un cliente con DNI "${DNI}" en la base de datos 
+    Insertar cliente en la DB
+        ...    Romina    Cugat    DOCUMENT    ${DNI}    FEMALE    1986-06-23
+        ...    "Av Poeta Lugones 12"    5012    SINGLE    HOUSE    COMPLETE_UNIVERSITY
+        ...    romina96@gmail.com    704
