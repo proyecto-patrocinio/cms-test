@@ -52,3 +52,9 @@ Se navega a la pestaña "Board/${COMISION_TITLE}"
     ${BOARD_ID} =    Obtener el ID del board titulado "${COMISION_TITLE}" de la DB
     Go To    ${PAGE_BOARD}/${BOARD_ID}
     Recolectar captura de pantalla
+
+Se selecciona el botón de información del panel "${COMISION_NAME}"
+    ${BOARD_ID}    Obtener el ID del board titulado "${COMISION_NAME}" de la DB
+    Click Button    id=board-info-button-${BOARD_ID}
+    Wait Until Page Contains    Board Information
+    Recolectar captura de pantalla
