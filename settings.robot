@@ -69,3 +69,4 @@ ${PAGE_SIGNUP}        ${PAGE_BASE_CMS}/signup
 ${PAGE_ADMIN}         ${PAGE_BASE_CMS}/admin
 ${PAGE_ADMIN_USER}        ${PAGE_ADMIN}/auth/user
 ${PAGE_CONSULTANCY}   ${PAGE_BASE_CMS}/consultancy
+${PAGE_BOARD}         ${PAGE_BASE_CMS}/board

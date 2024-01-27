@@ -13,19 +13,6 @@ Abrir la plataforma en el navegador
 Cerrar el navegador
     Close Browser
 
-
-Abrir detalle de la consulta '${TAG}'
-    [Documentation]    Abre el detalle de la consulta con el Tag proporcionado.
-    ${TICKET_LOCATOR} =    Set Variable    xpath=//p[text()='${TAG}']
-    Double Click Element    ${TICKET_LOCATOR}
-    Wait Until Page Contains    Consultation Details
-
-Cerrar Info de consulta
-    [Documentation]    Cierra la ventana de detalle de consulta.
-    Click Button    Close
-
-
-
 Obtener locator de la fila '${KEY}' para la tabla con locator ${TABLE_LOCATOR}
     [Documentation]    Dado el locator de la tabla recorre las filas hasta obtener
     ...                la fila que contenga el campo buscado igual a ${KEY}.

@@ -12,6 +12,8 @@ Resource  ../library/keywords/database_handling.robot
 Resource  ../library/keywords/session.robot
 Resource  ../library/keywords/testing_environment.robot
 Resource    keywords/utils.robot
+Resource    keywords/consultation.robot
+
 
 *** Keywords ***
 Deberı́a recibir un correo electrónico con el enlace de confirmación
@@ -116,14 +118,13 @@ Las pestañas "Consultations" y "Clients" del "Panel de Control" no deberı́an 
 La consulta "${INPUT_TAG}" para el cliente con DNI "${INPUT_DNI}" deberı́a existir en base de datos
     ${CONSULT} =    Obtener consulta con TAG '${INPUT_TAG}' de la DB
     ${CLIENT_ID} =    Set Variable    ${CONSULT[-1]}
-    ${CLIENT} =    Obtener cliente con ID '${CLIENT_ID}' de la DB
+    ${CLIENT} =    Obtener cliente con id '${CLIENT_ID}' de la DB
     ${CLIENT_DNI} =    Set Variable    ${CLIENT[4]}
     Should Be Equal As Integers    ${INPUT_DNI}    ${CLIENT_DNI}
 
-El ticket "${TAG}" deberı́a estar visible en el panel de entrada de la pizarra "${BOARD}"
+El ticket "${TAG}" deberı́a estar visible en el panel de entrada de la pizarra "${TITLE_BOARD}"
     [Documentation]    Valida que este visible el ticket de la consulta titulada ${TAG}.
-    ${TITLE_BOARD} =    Set Variable    xpath=//h1[contains(text(), '${BOARD}')]
-    Wait Until Element Is Visible    ${TITLE_BOARD}
+    Wait Until Page Contains    ${TITLE_BOARD}
     ${TICKET_LOCATOR} =    Set Variable    xpath=//p[contains(text(), '${TAG}')]
     Element Should Be Visible    ${TICKET_LOCATOR}
 
@@ -131,12 +132,14 @@ La información de la consulta "${TAG}" deberı́a contener el cliente con DNI "
     [Documentation]    Valida que la ventana de información de una consulta titulada ${TAG},
     ...                contenga el cliente con el DNI proporcionado.
     Abrir detalle de la consulta '${TAG}'
+    Recolectar captura de pantalla
     ${EXPAND_CLIENT_LOCATOR} =    Set Variable    //button[contains(@class, 'css-1rwt2y5-MuiButtonBase-root')]
     Wait Until Element Is Visible    ${EXPAND_CLIENT_LOCATOR}
     Click Element    ${EXPAND_CLIENT_LOCATOR}
 
     ${ROW_LOCATOR}    Set Variable    xpath=/html/body/div[4]/div[3]/div/div[2]/div/div/table/tbody/tr[2]/td[2]/div/tr[4]
     Verificar fila de la tabla    ${ROW_LOCATOR}    ID Value:    ${DNI}
+    Recolectar captura de pantalla
     Cerrar Info de consulta
 
 La información de la consulta "${TAG}" deberı́a contener el campo "${KEY}" en "${VALUE}"
@@ -148,4 +151,3 @@ La información de la consulta "${TAG}" deberı́a contener el campo "${KEY}" en
     ${ROW_LOCATOR}=    Obtener locator de la fila '${KEY}' para la tabla con locator ${TABLE_LOCATOR}
     Verificar fila de la tabla    ${ROW_LOCATOR}    ${KEY}:    ${VALUE}
     Cerrar Info de consulta
-

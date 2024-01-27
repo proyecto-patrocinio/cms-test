@@ -5,7 +5,9 @@ Library  SeleniumLibrary
 
 Resource  ../library/keywords/testing_environment.robot
 Resource  ../library/keywords/session.robot
+Resource  ../library/keywords/consultation.robot
 Resource  ../constants.robot
+Resource    keywords/database_handling.robot
 
 
 *** Keywords ***
@@ -44,26 +46,9 @@ Se accede a la plataforma como el usuario "${ROL_USER}"
     Recolectar captura de pantalla
 
 Se crea la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
-    [Documentation]    Se hace click sobre el botó "+" para agregar una nueva consulta.
-    ...                Supone que ya esta en la página Consultancy.
-    ...                Luego rellena el formulario y selecciona el botón aceptar.
-    ...                Se asume que el cliente existe.
-    Click Button    id=add-icon-button
-    Wait Until Page Contains    Load New Consultation
+    Crear la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
 
-    ${LOCATOR_DESC} =    Set Variable    xpath://textarea[@aria-invalid='false']
-
-
-    Input Text    ${LOCATOR_DESC}   ${DESC}
-    Input Text    name:opponent   ${OPP}
-    Input Text    name:tag   ${TAG}
-    Input Text    name:client   ${DNI}
-
-
-    Press Keys    name:client    ARROW_DOWN
-    Press Keys    name:client    ENTER
-    Press Keys    name:client    RETURN
-
+Se navega a la pestaña "Board/${COMISION_TITLE}"
+    ${BOARD_ID} =    Obtener el ID del board titulado "${COMISION_TITLE}" de la DB
+    Go To    ${PAGE_BOARD}/${BOARD_ID}
     Recolectar captura de pantalla
-    Click Button    id=button-accept
-    Sleep    1s

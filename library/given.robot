@@ -81,3 +81,36 @@ Existe un cliente con DNI "${DNI}" en la base de datos
         ...    Romina    Cugat    DOCUMENT    ${DNI}    FEMALE    1986-06-23
         ...    "Av Poeta Lugones 12"    5012    SINGLE    HOUSE    COMPLETE_UNIVERSITY
         ...    romina96@gmail.com    704
+
+Existe un ticket para la siguiente comisión, con tag, DNI del cliente, oponente y descripción:
+    [Documentation]    Crea la consulta con los parametros especificados y un panel para el board
+    ...                titulado ${CONSULTANCY_NAME} y por último crea una card, para el nuevo panel y consulta.
+    [Arguments]    ${CONSULTANCY_NAME}    ${TAG}    ${DNI}    ${OPP}    ${DESC}
+    # Crear consulta
+    ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
+    ${CLIENT_ID}    Set Variable    ${CLIENT[0]}
+    Insertar consulta a la DB    ${CLIENT_ID}    ${TAG}   ${OPP}    ${DESC}    ASSIGNED
+    ${CONSULT}    Obtener consulta con TAG '${TAG}' de la DB
+    ${CONSULT_ID}    Set Variable    ${CONSULT[0]}
+
+    # Crear panel
+    ${BOARD_ID}    Obtener el ID del board titulado "${CONSULTANCY_NAME}" de la DB
+    ${PANEL_NAME}    Set Variable    Grupo A
+    Crear un panel "${PANEL_NAME}" en el board con ID "${BOARD_ID}" desde la DB
+    ${PANEL_ID}    Obtener el ID del panel titulado "${PANEL_NAME}"
+    
+    # Crear card
+    Crear una card para la consulta "${TAG}" con ID "${CONSULT_ID}" en el panel con ID "${PANEL_ID}" desde la DB
+
+Existe el board "${TITLE}" en la DB
+    Insertar el board "${TITLE}" en la DB
+
+El usuario profesor tiene acceso al board "${TITLE_BOARD}"
+    [Documentation]    Supone que el usuario profesor es el
+    ...                último en agregarse a la base de datos.
+    ...                Crea la relación board-user para el
+    ...                ultimo usuario y el board titulado ${TITLE_BOARD}.
+    ${LAST_USER} =    Obtener el nuevo usuario de la DB
+    ${USER_ID} =    Set Variable    ${LAST_USER[0]}
+    ${BOARD_ID} =    Obtener el ID del board titulado "${TITLE_BOARD}" de la DB
+    Insertar la relación board "${BOARD_ID}" - user "${USER_ID}"

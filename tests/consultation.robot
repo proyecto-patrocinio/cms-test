@@ -58,3 +58,29 @@ PAT-SYS-5: Creación y visualización de una consulta como usuario Tomador de Ca
     And la información de la consulta "Garantía" deberı́a contener el campo "Progress State" en "TODO"
     And la información de la consulta "Garantía" deberı́a contener el campo "Opponent" en "Samsung"
     And la información de la consulta "Garantía" deberı́a contener el campo "Availability State" en "CREATED"
+
+
+Visualización de una consulta como usuario Profesor
+    [Documentation]    Se valida la correcta visualización de la información
+    ...                de una consulta como usuario profesor.
+    [Tags]  Automatico   SYS   PAT-SYS-06    PAT-143
+    Given existe el board "Comisión A1" en la DB
+    And existe un usuario registrado activo con permisos "common" y "professor" en la DB
+    And el usuario profesor tiene acceso al board "Comisión A1"
+    And existe un cliente con DNI "32165498" en la base de datos
+    And se accedió a la plataforma como usuario "profesor"
+    And existe un ticket para la siguiente comisión, con tag, DNI del cliente, oponente y descripción:
+    ...    Comisión A1
+    ...    Garantía
+    ...    32165498
+    ...    Samsung
+    ...    Dummy
+
+
+    When se navega a la pestaña "Board/Comisión A1"
+
+    Then el ticket "Garantía" deberı́a estar visible en el panel de entrada de la pizarra "Comisión A1"
+    And la información de la consulta "Garantía" deberı́a contener el cliente con DNI "32165498"
+    And la información de la consulta "Garantía" deberı́a contener el campo "Description" en "Dummy"
+    And la información de la consulta "Garantía" deberı́a contener el campo "Opponent" en "Samsung"
+    And la información de la consulta "Garantía" deberı́a contener el campo "Availability State" en "ASSIGNED"
