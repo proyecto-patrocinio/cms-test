@@ -69,7 +69,13 @@ Visualización de una consulta como usuario Profesor
     And el usuario profesor tiene acceso al board "Comisión A1"
     And existe un cliente con DNI "32165498" en la base de datos
     And se accedió a la plataforma como usuario "profesor"
-    And existe una consulta "Garantía" con Cliente "32165498", oponente "Samsung" y descripcion "Dummy"
+    And existe un ticket para la siguiente comisión, con tag, DNI del cliente, oponente y descripción:
+    ...    Comisión A1
+    ...    Garantía
+    ...    32165498
+    ...    Samsung
+    ...    Dummy
+
 
     When se navega a la pestaña "Board/Comisión A1"
 

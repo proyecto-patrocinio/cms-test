@@ -51,3 +51,4 @@ Se crea la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripci
 Se navega a la pestaña "Board/${COMISION_TITLE}"
     ${BOARD_ID} =    Obtener el ID del board titulado "${COMISION_TITLE}" de la DB
     Go To    ${PAGE_BOARD}/${BOARD_ID}
+    Recolectar captura de pantalla

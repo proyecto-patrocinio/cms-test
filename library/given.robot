@@ -82,11 +82,25 @@ Existe un cliente con DNI "${DNI}" en la base de datos
         ...    "Av Poeta Lugones 12"    5012    SINGLE    HOUSE    COMPLETE_UNIVERSITY
         ...    romina96@gmail.com    704
 
-Existe una consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
+Existe un ticket para la siguiente comisión, con tag, DNI del cliente, oponente y descripción:
+    [Documentation]    Crea la consulta con los parametros especificados y un panel para el board
+    ...                titulado ${CONSULTANCY_NAME} y por último crea una card, para el nuevo panel y consulta.
+    [Arguments]    ${CONSULTANCY_NAME}    ${TAG}    ${DNI}    ${OPP}    ${DESC}
+    # Crear consulta
     ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
     ${CLIENT_ID}    Set Variable    ${CLIENT[0]}
-    Insertar consulta a la DB    ${CLIENT_ID}
-    #TODO: agregar los cmapos en la consulta y agregar que este asignada al board.
+    Insertar consulta a la DB    ${CLIENT_ID}    ${TAG}   ${OPP}    ${DESC}    ASSIGNED
+    ${CONSULT}    Obtener consulta con TAG '${TAG}' de la DB
+    ${CONSULT_ID}    Set Variable    ${CONSULT[0]}
+
+    # Crear panel
+    ${BOARD_ID}    Obtener el ID del board titulado "${CONSULTANCY_NAME}" de la DB
+    ${PANEL_NAME}    Set Variable    Grupo A
+    Crear un panel "${PANEL_NAME}" en el board con ID "${BOARD_ID}" desde la DB
+    ${PANEL_ID}    Obtener el ID del panel titulado "${PANEL_NAME}"
+    
+    # Crear card
+    Crear una card para la consulta "${TAG}" con ID "${CONSULT_ID}" en el panel con ID "${PANEL_ID}" desde la DB
 
 Existe el board "${TITLE}" en la DB
     Insertar el board "${TITLE}" en la DB
