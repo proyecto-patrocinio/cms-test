@@ -64,13 +64,14 @@ Visualización de una consulta como usuario Profesor
     [Documentation]    Se valida la correcta visualización de la información
     ...                de una consulta como usuario profesor.
     [Tags]  Automatico   SYS   PAT-SYS-06    PAT-143
-    Given existe un usuario registrado activo con permisos "common" y "case_taker" en la DB
-    And existe el board "Comisión A1" en la DB
+    Given existe el board "Comisión A1" en la DB
+    And existe un usuario registrado activo con permisos "common" y "professor" en la DB
+    And el usuario profesor tiene acceso al board "Comisión A1"
+    And existe un cliente con DNI "32165498" en la base de datos
     And se accedió a la plataforma como usuario "profesor"
-    And el usuario Profesor tiene acceso al board "Comisión A1"
     And existe una consulta "Garantía" con Cliente "32165498", oponente "Samsung" y descripcion "Dummy"
 
-    When Se navega a la pestaña "Board/Comisión A1"
+    When se navega a la pestaña "Board/Comisión A1"
 
     Then el ticket "Garantía" deberı́a estar visible en el panel de entrada de la pizarra "Comisión A1"
     And la información de la consulta "Garantía" deberı́a contener el cliente con DNI "32165498"

@@ -7,6 +7,7 @@ Resource  ../library/keywords/testing_environment.robot
 Resource  ../library/keywords/session.robot
 Resource  ../library/keywords/consultation.robot
 Resource  ../constants.robot
+Resource    keywords/database_handling.robot
 
 
 *** Keywords ***
@@ -46,3 +47,7 @@ Se accede a la plataforma como el usuario "${ROL_USER}"
 
 Se crea la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
     Crear la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
+
+Se navega a la pestaña "Board/${COMISION_TITLE}"
+    ${BOARD_ID} =    Obtener el ID del board titulado "${COMISION_TITLE}" de la DB
+    Go To    ${PAGE_BOARD}/${BOARD_ID}

@@ -4,6 +4,7 @@ Documentation   Keywords para manejo de la base de datos postgres.
 Library  SeleniumLibrary
 Library  String
 Library  DatabaseLibrary
+Library    DateTime
 
 Resource    ../../settings.robot
 
@@ -50,12 +51,21 @@ Obtener consulta con TAG '${TAG}' de la DB
     Disconnect From Database
     RETURN    ${FIRST_RESULT}
 
-Obtener cliente con ID '${ID}' de la DB
-    [Documentation]    Obtiene el cliente según su ID. Si no lo encuentra devuelve ${None}.
+Obtener cliente con ${KEY_TYPE} '${ID}' de la DB
+    [Documentation]    Obtiene el cliente según su ${KEY_TYPE} (id, dni). Si no lo encuentra devuelve ${None}.
     Conectar a Base de Datos existente
-    ${QUERY}    Set Variable    SELECT * FROM "Clients_client" where id = '${ID}';
+    ${QUERY}    Set Variable    SELECT * FROM "Clients_client" where ${KEY_TYPE} = '${ID}';
     ${RESULT} =    Query    ${QUERY}
     ${FIRST_RESULT} =    Set Variable If    ${RESULT}    ${RESULT[0]}    ${None}
+    Disconnect From Database
+    RETURN    ${FIRST_RESULT}
+
+Obtener el ID del board titulado "${TITLE_BOARD}" de la DB
+    [Documentation]    Obtiene el ID del board según el título. Si no lo encuentra devuelve ${None}.
+    Conectar a Base de Datos existente
+    ${QUERY}    Set Variable    SELECT * FROM "Board_board" where title = '${TITLE_BOARD}';
+    ${RESULT} =    Query    ${QUERY}
+    ${FIRST_RESULT} =    Set Variable If    ${RESULT}    ${RESULT[0][0]}    ${None}
     Disconnect From Database
     RETURN    ${FIRST_RESULT}
 
@@ -68,6 +78,34 @@ Insertar cliente en la DB
     ${KEYS}    Set Variable    first_name,last_name,id_type,id_value,sex,birth_date,address,postal,marital_status,housing_type,studies,email,locality_id
     ${VALUES}    Set Variable    '${FIRST_NAME}','${LAST_NAME}','${ID_TYPE}','${ID_VALUE}','${SEX}','${BIRTH_DATE}','${ADDRESS}',${POSTAL},'${MARITAL_STATUS}','${HOUSING_TYPE}','${STUDIES}','${EMAIL}',${LOCALITY_ID}
     ${QUERY}    Set Variable    INSERT INTO public."Clients_client" (${KEYS}) VALUES (${VALUES});
+    Execute SQL String    ${QUERY}
+    Disconnect From Database
+
+Insertar el board "${TITLE}" en la DB
+    [Documentation]    Carga a la base de datos un nuevo board con titulo ${TITLE}.
+    Conectar a Base de Datos existente
+    ${QUERY}    Set Variable    INSERT INTO public."Board_board" (title) VALUES ('${TITLE}');
+    Execute SQL String    ${QUERY}
+    Disconnect From Database
+
+Insertar la relación board "${BOARD_ID}" - user "${USER_ID}"
+    [Documentation]    Carga a la DB, la relación board-user segun los argumentos.
+    Conectar a Base de Datos existente
+    ${CURRENT_DATE}    Get Current Date    result_format=%Y-%m-%d %H:%M:%S
+    ${KEYS}    Set Variable    created_at,board_id,user_id
+    ${VALUES}    Set Variable    '${CURRENT_DATE}',${BOARD_ID},${USER_ID}
+    ${QUERY}    Set Variable    INSERT INTO public."BoardUser_boarduser" (${KEYS}) VALUES (${VALUES});
+    Execute SQL String    ${QUERY}
+    Disconnect From Database
+
+Insertar consulta a la DB
+    [Documentation]    Carga a DB, una nueva consulta con los parámetros otorgados. Supone un usuario existente.
+    [Arguments]    ${CLIENT_ID}
+    Conectar a Base de Datos existente
+    ${CURRENT_DATE}    Get Current Date    result_format=%Y-%m-%d %H:%M:%S
+    ${KEYS}    Set Variable    availability_state, progress_state,"time_stamp", start_time, description, opponent, tag, client_id
+    ${VALUES}    Set Variable    'ASSIGNED','TODO','${CURRENT_DATE}','${CURRENT_DATE}','DUMMY','opponent','tag',${CLIENT_ID}
+    ${QUERY}    Set Variable    INSERT INTO public."Consultation_consultation" (${KEYS}) VALUES (${VALUES});
     Execute SQL String    ${QUERY}
     Disconnect From Database
 
@@ -90,12 +128,12 @@ Limpiar base de datos
     Execute Sql String    DELETE from "account_emailconfirmation";
     Execute Sql String    DELETE from "django_admin_log";
     Execute Sql String    DELETE from "auth_user_groups";
+    Execute Sql String    DELETE from "BoardUser_boarduser";
     Execute Sql String    DELETE from "auth_user";
     Execute Sql String    DELETE from "Panel_panel";
     Execute Sql String    DELETE from "Card_card";
     Execute Sql String    DELETE from "Comment_file";
     Execute Sql String    DELETE from "Comment_comment";
-    Execute Sql String    DELETE from "BoardUser_boarduser";
     Execute Sql String    DELETE from "Board_board";
     Execute Sql String    DELETE from "Calendar_event";
     Execute Sql String    DELETE from "Calendar_calendar";

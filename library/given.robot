@@ -83,4 +83,20 @@ Existe un cliente con DNI "${DNI}" en la base de datos
         ...    romina96@gmail.com    704
 
 Existe una consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
-    Crear la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
+    ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
+    ${CLIENT_ID}    Set Variable    ${CLIENT[0]}
+    Insertar consulta a la DB    ${CLIENT_ID}
+    #TODO: agregar los cmapos en la consulta y agregar que este asignada al board.
+
+Existe el board "${TITLE}" en la DB
+    Insertar el board "${TITLE}" en la DB
+
+El usuario profesor tiene acceso al board "${TITLE_BOARD}"
+    [Documentation]    Supone que el usuario profesor es el
+    ...                último en agregarse a la base de datos.
+    ...                Crea la relación board-user para el
+    ...                ultimo usuario y el board titulado ${TITLE_BOARD}.
+    ${LAST_USER} =    Obtener el nuevo usuario de la DB
+    ${USER_ID} =    Set Variable    ${LAST_USER[0]}
+    ${BOARD_ID} =    Obtener el ID del board titulado "${TITLE_BOARD}" de la DB
+    Insertar la relación board "${BOARD_ID}" - user "${USER_ID}"
