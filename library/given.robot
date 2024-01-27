@@ -81,3 +81,6 @@ Existe un cliente con DNI "${DNI}" en la base de datos
         ...    Romina    Cugat    DOCUMENT    ${DNI}    FEMALE    1986-06-23
         ...    "Av Poeta Lugones 12"    5012    SINGLE    HOUSE    COMPLETE_UNIVERSITY
         ...    romina96@gmail.com    704
+
+Existe una consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
+    Crear la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion "${DESC}"

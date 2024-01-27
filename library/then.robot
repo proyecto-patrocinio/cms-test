@@ -12,6 +12,8 @@ Resource  ../library/keywords/database_handling.robot
 Resource  ../library/keywords/session.robot
 Resource  ../library/keywords/testing_environment.robot
 Resource    keywords/utils.robot
+Resource    keywords/consultation.robot
+
 
 *** Keywords ***
 Deberı́a recibir un correo electrónico con el enlace de confirmación
@@ -148,4 +150,3 @@ La información de la consulta "${TAG}" deberı́a contener el campo "${KEY}" en
     ${ROW_LOCATOR}=    Obtener locator de la fila '${KEY}' para la tabla con locator ${TABLE_LOCATOR}
     Verificar fila de la tabla    ${ROW_LOCATOR}    ${KEY}:    ${VALUE}
     Cerrar Info de consulta
-
