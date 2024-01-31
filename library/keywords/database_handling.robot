@@ -51,10 +51,10 @@ Obtener consulta con TAG '${TAG}' de la DB
     Disconnect From Database
     RETURN    ${FIRST_RESULT}
 
-Obtener cliente con ${KEY_TYPE} '${ID}' de la DB
+Obtener cliente con ${KEY_TYPE} '${VALUE}' de la DB
     [Documentation]    Obtiene el cliente según su ${KEY_TYPE} (id, dni). Si no lo encuentra devuelve ${None}.
     Conectar a Base de Datos existente
-    ${QUERY}    Set Variable    SELECT * FROM "Clients_client" where ${KEY_TYPE} = '${ID}';
+    ${QUERY}    Set Variable    SELECT * FROM "Clients_client" where ${KEY_TYPE} = '${VALUE}';
     ${RESULT} =    Query    ${QUERY}
     ${FIRST_RESULT} =    Set Variable If    ${RESULT}    ${RESULT[0]}    ${None}
     Disconnect From Database
@@ -74,6 +74,23 @@ Obtener el ID del panel titulado "${PANEL_NAME}"
     ${QUERY}    Set Variable    SELECT * FROM "Panel_panel" where title = '${PANEL_NAME}';
     ${RESULT} =    Query    ${QUERY}
     ${FIRST_RESULT} =    Set Variable If    ${RESULT}    ${RESULT[0][0]}    ${None}
+    Disconnect From Database
+    RETURN    ${FIRST_RESULT}
+
+Obtener el token de la última sesion
+    Conectar a Base de Datos existente
+    ${QUERY}    Set Variable    SELECT "key" FROM public.authtoken_token ORDER BY created ASC;
+    ${RESULT} =    Query    ${QUERY}
+    ${LAST_RESULT} =    Set Variable If    ${RESULT}    ${RESULT[-1]}    ${None}
+    ${TOKEN}    Set Variable    ${LAST_RESULT[0]}
+    Disconnect From Database
+    RETURN    ${TOKEN}
+
+Obtener la Request Consultation para la consulta con ID "${CONSULT_ID}"
+    Conectar a Base de Datos existente
+    ${QUERY}    Set Variable    SELECT * FROM public."Consultation_requestconsultation" where consultation_id = ${CONSULT_ID};
+    ${RESULT} =    Query    ${QUERY}
+    ${FIRST_RESULT} =    Set Variable If    ${RESULT}    ${RESULT[0]}    ${None}
     Disconnect From Database
     RETURN    ${FIRST_RESULT}
 
