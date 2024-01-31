@@ -8,6 +8,7 @@ Resource  ../library/keywords/session.robot
 Resource  ../library/keywords/consultation.robot
 Resource  ../constants.robot
 Resource    keywords/database_handling.robot
+Resource    keywords/http_request.robot
 
 
 *** Keywords ***
@@ -57,4 +58,43 @@ Se selecciona el botón de información del panel "${COMISION_NAME}"
     ${BOARD_ID}    Obtener el ID del board titulado "${COMISION_NAME}" de la DB
     Click Button    id=board-info-button-${BOARD_ID}
     Wait Until Page Contains    Board Information
+    Recolectar captura de pantalla
+
+Se acepta la solicitud de asignación de consulta "${CONSULT_TAG}" para el panel "${PANEL_NAME}"
+    [Documentation]    Se obtienen los ID de la consulta y del Panel y se envía un Post a la API Rest
+    ...                para aceptar la Request Consultatión y asignar la card en el panel proporcionado.
+    ${PANEL_ID}    Obtener el ID del panel titulado "${PANEL_NAME}"
+    ${CONSULT}    Obtener consulta con TAG '${CONSULT_TAG}' de la DB
+    ${CONSULT_ID}    Set Variable    ${CONSULT}[0]
+    # Request ID == Consultation ID.
+    ${RESPONSE} =    Aceptar la solicitud de asignación de consulta
+    ...    ${CONSULT_ID}    ${PANEL_ID}
+    La respuesta obtenida en la peticion deberia ser exitosa    ${RESPONSE}
+
+Se crea la solicitud de asignación de consulta "${CONSULT_TAG}" a la comisión "${BOARD_NAME}"
+    [Documentation]    Se obtienen los ID de la consulta y del board y se envía un POST a la API Rest
+    ...                para crear una Request Consultation, de dicha consulta para dicho board.
+    ...                Luego actualiza la página.
+    ${BOARD_ID}    Obtener el ID del board titulado "${BOARD_NAME}" de la DB
+    ${CONSULT}    Obtener consulta con TAG '${CONSULT_TAG}' de la DB
+    ${CONSULT_ID}    Set Variable    ${CONSULT}[0]
+    ${RESPONSE} =    Crear la solicitud de asignación de consulta
+    ...    ${CONSULT_ID}    ${BOARD_ID}
+    La respuesta obtenida en la peticion deberia ser exitosa    ${RESPONSE}
+    # Se actualiza la página
+    Reload Page
+    Wait Until Page Contains    ${BOARD_NAME}    timeout=10s
+    Recolectar captura de pantalla
+
+Se elimina la solicitud de asignación de consulta "${CONSULT_TAG}"
+    [Documentation]    Se obtienen los ID de la consulta y se envía un DELETE a la API Rest
+    ...                para eliminar una Request Consultation, de dicha consulta.
+    ...                Luego actualiza la página.
+    ${CONSULT}    Obtener consulta con TAG '${CONSULT_TAG}' de la DB
+    ${CONSULT_ID}    Set Variable    ${CONSULT}[0]
+    ${RESPONSE} =    eliminar la solicitud de asignación con ID "${CONSULT_ID}"
+    La respuesta obtenida en la peticion deberia ser exitosa    ${RESPONSE}
+    # Se actualiza la página
+    Reload Page
+    Wait Until Page Contains    ${CONSULT_TAG}    timeout=10s
     Recolectar captura de pantalla
