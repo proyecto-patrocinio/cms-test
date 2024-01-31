@@ -88,10 +88,10 @@ Existe un panel llamado "${PANEL_NAME}" para el board de la comisión "${COMISIO
     Crear un panel "${PANEL_NAME}" en el board con ID "${BOARD_ID}" desde la DB
 
 Existe una consulta con tag, DNI del cliente, oponente, descripción y estado:
-    [Arguments]    ${TAG}   ${DNI}    ${OPP}    ${DESC}    ${PROGRESS}
+    [Arguments]    ${TAG}   ${DNI}    ${OPP}    ${DESC}    ${PROGRESS}    ${STATE}=ASSIGNED
     ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
     ${CLIENT_ID}    Set Variable    ${CLIENT[0]}
-    Insertar consulta a la DB    ${CLIENT_ID}    ${TAG}   ${OPP}    ${DESC}    ASSIGNED    ${PROGRESS}
+    Insertar consulta a la DB    ${CLIENT_ID}    ${TAG}   ${OPP}    ${DESC}    ${STATE}    ${PROGRESS}
 
 Existe un ticket para el panel, de la comisión, con tag, DNI del cliente, oponente, descripción y estado:
     [Documentation]    Crea la consulta con los parametros especificados para el panel ${PANEL_NAME} del board

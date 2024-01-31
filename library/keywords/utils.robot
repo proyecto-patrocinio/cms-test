@@ -8,7 +8,9 @@ Resource    ../../settings.robot
 
 *** Keywords ***
 Abrir la plataforma en el navegador
+    Set Selenium Speed    ${SPEED_SELENIUM}
     Open Browser    ${PAGE_BASE_CMS}   ${BROWSER}
+    Maximize Browser Window
 
 Cerrar el navegador
     Close Browser

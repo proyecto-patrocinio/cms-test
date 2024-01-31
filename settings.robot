@@ -59,14 +59,21 @@ ${BACK_CONTAINER_NAME}     backend-app
 # ===================================================================
 # Selenium
 
-${BROWSER}    chrome
+${BROWSER}           Chrome
+${SPEED_SELENIUM}    0.05
 
 # ===================================================================
 # Pages
 
 ${PAGE_BASE_CMS}      http://localhost:80
-${PAGE_SIGNUP}        ${PAGE_BASE_CMS}/signup
-${PAGE_ADMIN}         ${PAGE_BASE_CMS}/admin
-${PAGE_ADMIN_USER}        ${PAGE_ADMIN}/auth/user
-${PAGE_CONSULTANCY}   ${PAGE_BASE_CMS}/consultancy
-${PAGE_BOARD}         ${PAGE_BASE_CMS}/board
+${PAGE_SIGNUP}            ${PAGE_BASE_CMS}/signup
+${PAGE_ADMIN}             ${PAGE_BASE_CMS}/admin
+${PAGE_ADMIN_USER}            ${PAGE_ADMIN}/auth/user
+${PAGE_CONSULTANCY}       ${PAGE_BASE_CMS}/consultancy
+${PAGE_BOARD}             ${PAGE_BASE_CMS}/board
+
+# ===================================================================
+# API backend
+
+${API_BASE_CMS}      http://localhost:8000/api
+${API_REQ_CONSULT}      ${API_BASE_CMS}/consultations/request_consultation

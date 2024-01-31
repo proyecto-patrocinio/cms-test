@@ -156,3 +156,45 @@ El Popper de la comisión debería contener "${CONTENT}"
     ${POPPER_LOCATOR}    Set Variable    id=transitions-popper
     ${INFO_TEXT}    Get Text    ${POPPER_LOCATOR}
     Should Contain    ${INFO_TEXT}    ${CONTENT}
+
+Debería existir una "request consultation" de la consulta "${CONSULT_TAG}" al board "${BOARD_NAME}" en la DB
+    [Documentation]    Obtiene de la base de datos la "request consultation" correspondiente
+    ...                a la consulta llamada ${CONSULT_TAG} y corrobora que sea destinada al Board
+    ...                llamado  ${BOARD_NAME}.
+    ${EXPECT_BOARD_ID}    Obtener el ID del board titulado "${BOARD_NAME}" de la DB
+    ${CONSULT}    Obtener consulta con TAG '${CONSULT_TAG}' de la DB
+    ${CONSULT_ID}    Set Variable    ${CONSULT}[0]
+    ${REQUEST}    Obtener la Request Consultation para la consulta con ID "${CONSULT_ID}"
+    ${BOARD_ID_FROM_REQ}    Set Variable    ${REQUEST[1]}
+    Should Be Equal As Integers    ${BOARD_ID_FROM_REQ}    ${EXPECT_BOARD_ID}
+
+Debería haberse eliminado la "request consultation" de la consulta "${CONSULT_TAG}" de la DB
+    ${CONSULT}    Obtener consulta con TAG '${CONSULT_TAG}' de la DB
+    ${CONSULT_ID}    Set Variable    ${CONSULT}[0]
+    ${REQUEST}    Obtener la Request Consultation para la consulta con ID "${CONSULT_ID}"
+    Should Be Equal    ${REQUEST}    ${None}
+
+El ticket "${CONSULT_TAG}" debería estar en el primer panel "${PANEL_NAME}"
+    [Documentation]    Supone que el panel esperado es el primer panel INTERNO (no de entrada)
+    ...                de la pizarra. Chequea que coincida el titulo del panel con el esperado
+    ...                y valida que exista una card con el titulo ${CONSULT_TAG}.
+    ...                Esta keyword supone que el panel solo contiene una sola card y ésta es la esperada.
+    ${XPATH_PANEL_1}    Set Variable    xpath=//*[@id="root"]/div/div/main/div[2]/main/div/div/div[3]
+
+    ${PANEL_CONTENT}    Get Text    ${XPATH_PANEL_1}
+    Should Contain    ${PANEL_CONTENT}    ${PANEL_NAME}
+
+    ${CARD_IN_PANEL_1}    Set Variable    ${XPATH_PANEL_1}/div[2]
+    ${CARD_CONTENT}    Get Text    ${CARD_IN_PANEL_1}
+    Should Contain    ${CARD_CONTENT}    ${CONSULT_TAG}
+
+El ticket "${CONSULT_TAG}" debería estar en el panel de entrada "${PANEL_NAME}"
+    [Documentation]    Se valida que en el panel de entrada, contenga una card titulada ${CONSULT_TAG}.
+    ${XPATH_PANEL_1}    Set Variable    xpath=//*[@id="root"]/div/div/main/div[2]/main/div/div/div[1]
+
+    ${PANEL_CONTENT}    Get Text    ${XPATH_PANEL_1}
+    Should Contain    ${PANEL_CONTENT}    ${PANEL_NAME}
+
+    ${CARD_IN_PANEL_1}    Set Variable    ${XPATH_PANEL_1}/div/div[2]
+    ${CARD_CONTENT}    Get Text    ${CARD_IN_PANEL_1}
+    Should Contain    ${CARD_CONTENT}    ${CONSULT_TAG}
