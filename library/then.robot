@@ -203,6 +203,7 @@ El ticket "${CONSULT_TAG}" debería estar en el panel de entrada "${PANEL_NAME}"
 El ticket "${CONSULT_TAG}" debería estar en el primer panel "${PANEL_NAME}" del board
     [Documentation]    Se valida que en el panel de entrada del board,
     ...                contenga una card titulada ${CONSULT_TAG}.
+    ...                Esta keyword supone que solo existe un ticket en el panel.
     ${XPATH_PANEL_1}    Set Variable    xpath=//*[@id="root"]/div/div/main/div[2]/main/div/div/div/div[3]/div[1]
 
     ${PANEL_CONTENT}    Get Text    ${XPATH_PANEL_1}
@@ -211,3 +212,6 @@ El ticket "${CONSULT_TAG}" debería estar en el primer panel "${PANEL_NAME}" del
     ${CARD_IN_PANEL_1}    Set Variable    ${XPATH_PANEL_1}/div[2]
     ${CARD_CONTENT}    Get Text    ${CARD_IN_PANEL_1}
     Should Contain    ${CARD_CONTENT}    ${CONSULT_TAG}
+
+No debería existir el ticket "${TITLE}" en el board
+    Page Should Not Contain    ${TITLE}

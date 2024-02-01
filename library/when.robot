@@ -102,3 +102,16 @@ Se elimina la solicitud de asignación de consulta "${CONSULT_TAG}"
     Reload Page
     Wait Until Page Contains    ${CONSULT_TAG}    timeout=10s
     Recolectar captura de pantalla
+
+Se selecciona la opción rejected del menu del ticket "${TICKET_TAG}"
+    [Documentation]    Esta keyword supone que solo existe un único
+    ...                ticket en el panel de entrada al board.
+    ${XPATH_TICKET}      Set Variable    xpath=//*[@id="root"]/div/div/main/div[2]/main/div/div/div/div[1]/div/div[2]
+    ${XPATH_MENU}        Set Variable    ${XPATH_TICKET}/div/div/div/div/div/button
+    ${XPATH_REJECTED}    Set Variable    xpath=/html/body/div[4]/div[3]/ul
+    Mouse Over    ${XPATH_TICKET}
+    Click Element    ${XPATH_MENU}
+    Click Element    ${XPATH_REJECTED}
+    Recolectar captura de pantalla
+    Wait Until Page Does Not Contain    ${TICKET_TAG}
+    Recolectar captura de pantalla

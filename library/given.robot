@@ -121,14 +121,6 @@ El usuario profesor tiene acceso al board "${TITLE_BOARD}"
     Insertar la relación board "${BOARD_ID}" - user "${USER_ID}"
 
 Existe una solicitud de asignación de la consulta "${CONSULT_TAG}" a la comisión "${TITLE_BOARD}"
-    Existe un cliente con DNI "32165498" en la base de datos
-    Existe una consulta con tag, DNI del cliente, oponente, descripción y estado:
-    ...    ${CONSULT_TAG}
-    ...    32165498
-    ...    Samsung
-    ...    Dummy
-    ...    TODO
-    ...    CREATED
     ${BOARD_ID} =    Obtener el ID del board titulado "${TITLE_BOARD}" de la DB
     ${CONSULT}    Obtener consulta con TAG '${CONSULT_TAG}' de la DB
     ${CONSULT_ID}    Set Variable    ${CONSULT[0]}
