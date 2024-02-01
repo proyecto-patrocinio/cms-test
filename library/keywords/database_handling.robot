@@ -152,6 +152,13 @@ Crear una card para la consulta "${TAG}" con ID "${CONSULT_ID}" en el panel con 
     Execute SQL String    ${QUERY}
     Disconnect From Database
 
+Crear una Request Consultation de la consulta con ID "${CONSULT_ID}" al board con ID "${BOARD_ID}" desde la DB
+    Conectar a Base de Datos existente
+    ${KEYS}    Set Variable    consultation_id,destiny_board_id
+    ${VALUES}    Set Variable    ${CONSULT_ID},${BOARD_ID}
+    ${QUERY}    Set Variable    INSERT INTO public."Consultation_requestconsultation" (${KEYS}) VALUES (${VALUES});
+    Execute SQL String    ${QUERY}
+    Disconnect From Database
 
 ########################################################################
 # Clear

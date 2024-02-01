@@ -119,3 +119,9 @@ El usuario profesor tiene acceso al board "${TITLE_BOARD}"
     ${USER_ID} =    Set Variable    ${LAST_USER[0]}
     ${BOARD_ID} =    Obtener el ID del board titulado "${TITLE_BOARD}" de la DB
     Insertar la relación board "${BOARD_ID}" - user "${USER_ID}"
+
+Existe una solicitud de asignación de la consulta "${CONSULT_TAG}" a la comisión "${TITLE_BOARD}"
+    ${BOARD_ID} =    Obtener el ID del board titulado "${TITLE_BOARD}" de la DB
+    ${CONSULT}    Obtener consulta con TAG '${CONSULT_TAG}' de la DB
+    ${CONSULT_ID}    Set Variable    ${CONSULT[0]}
+    Crear una Request Consultation de la consulta con ID "${CONSULT_ID}" al board con ID "${BOARD_ID}" desde la DB

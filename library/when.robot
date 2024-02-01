@@ -60,7 +60,7 @@ Se selecciona el botón de información del panel "${COMISION_NAME}"
     Wait Until Page Contains    Board Information
     Recolectar captura de pantalla
 
-Se acepta la solicitud de asignación de consulta "${CONSULT_TAG}" para el panel "${PANEL_NAME}"
+Se acepta la solicitud de asignación de consulta "${CONSULT_TAG}" y se asigna al panel "${PANEL_NAME}"
     [Documentation]    Se obtienen los ID de la consulta y del Panel y se envía un Post a la API Rest
     ...                para aceptar la Request Consultatión y asignar la card en el panel proporcionado.
     ${PANEL_ID}    Obtener el ID del panel titulado "${PANEL_NAME}"
@@ -70,6 +70,10 @@ Se acepta la solicitud de asignación de consulta "${CONSULT_TAG}" para el panel
     ${RESPONSE} =    Aceptar la solicitud de asignación de consulta
     ...    ${CONSULT_ID}    ${PANEL_ID}
     La respuesta obtenida en la peticion deberia ser exitosa    ${RESPONSE}
+    # Se actualiza la página
+    Reload Page
+    Wait Until Page Contains    ${CONSULT_TAG}    timeout=10s
+    Recolectar captura de pantalla
 
 Se crea la solicitud de asignación de consulta "${CONSULT_TAG}" a la comisión "${BOARD_NAME}"
     [Documentation]    Se obtienen los ID de la consulta y del board y se envía un POST a la API Rest
@@ -97,4 +101,17 @@ Se elimina la solicitud de asignación de consulta "${CONSULT_TAG}"
     # Se actualiza la página
     Reload Page
     Wait Until Page Contains    ${CONSULT_TAG}    timeout=10s
+    Recolectar captura de pantalla
+
+Se selecciona la opción rejected del menu del ticket "${TICKET_TAG}"
+    [Documentation]    Esta keyword supone que solo existe un único
+    ...                ticket en el panel de entrada al board.
+    ${XPATH_TICKET}      Set Variable    xpath=//*[@id="root"]/div/div/main/div[2]/main/div/div/div/div[1]/div/div[2]
+    ${XPATH_MENU}        Set Variable    ${XPATH_TICKET}/div/div/div/div/div/button
+    ${XPATH_REJECTED}    Set Variable    xpath=/html/body/div[4]/div[3]/ul
+    Mouse Over    ${XPATH_TICKET}
+    Click Element    ${XPATH_MENU}
+    Click Element    ${XPATH_REJECTED}
+    Recolectar captura de pantalla
+    Wait Until Page Does Not Contain    ${TICKET_TAG}
     Recolectar captura de pantalla
