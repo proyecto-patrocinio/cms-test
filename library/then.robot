@@ -174,7 +174,7 @@ Debería haberse eliminado la "request consultation" de la consulta "${CONSULT_T
     ${REQUEST}    Obtener la Request Consultation para la consulta con ID "${CONSULT_ID}"
     Should Be Equal    ${REQUEST}    ${None}
 
-El ticket "${CONSULT_TAG}" debería estar en el primer panel "${PANEL_NAME}"
+El ticket "${CONSULT_TAG}" debería estar en el primer panel "${PANEL_NAME}" de la comisión
     [Documentation]    Supone que el panel esperado es el primer panel INTERNO (no de entrada)
     ...                de la pizarra. Chequea que coincida el titulo del panel con el esperado
     ...                y valida que exista una card con el titulo ${CONSULT_TAG}.
@@ -188,13 +188,26 @@ El ticket "${CONSULT_TAG}" debería estar en el primer panel "${PANEL_NAME}"
     ${CARD_CONTENT}    Get Text    ${CARD_IN_PANEL_1}
     Should Contain    ${CARD_CONTENT}    ${CONSULT_TAG}
 
-El ticket "${CONSULT_TAG}" debería estar en el panel de entrada "${PANEL_NAME}"
-    [Documentation]    Se valida que en el panel de entrada, contenga una card titulada ${CONSULT_TAG}.
+El ticket "${CONSULT_TAG}" debería estar en el panel de entrada "${PANEL_NAME}" de la comisión
+    [Documentation]    Se valida que en el panel de entrada de la comisión,
+    ...                contenga una card titulada ${CONSULT_TAG}.
     ${XPATH_PANEL_1}    Set Variable    xpath=//*[@id="root"]/div/div/main/div[2]/main/div/div/div[1]
 
     ${PANEL_CONTENT}    Get Text    ${XPATH_PANEL_1}
     Should Contain    ${PANEL_CONTENT}    ${PANEL_NAME}
 
     ${CARD_IN_PANEL_1}    Set Variable    ${XPATH_PANEL_1}/div/div[2]
+    ${CARD_CONTENT}    Get Text    ${CARD_IN_PANEL_1}
+    Should Contain    ${CARD_CONTENT}    ${CONSULT_TAG}
+
+El ticket "${CONSULT_TAG}" debería estar en el primer panel "${PANEL_NAME}" del board
+    [Documentation]    Se valida que en el panel de entrada del board,
+    ...                contenga una card titulada ${CONSULT_TAG}.
+    ${XPATH_PANEL_1}    Set Variable    xpath=//*[@id="root"]/div/div/main/div[2]/main/div/div/div/div[3]/div[1]
+
+    ${PANEL_CONTENT}    Get Text    ${XPATH_PANEL_1}
+    Should Contain    ${PANEL_CONTENT}    ${PANEL_NAME}
+
+    ${CARD_IN_PANEL_1}    Set Variable    ${XPATH_PANEL_1}/div[2]
     ${CARD_CONTENT}    Get Text    ${CARD_IN_PANEL_1}
     Should Contain    ${CARD_CONTENT}    ${CONSULT_TAG}

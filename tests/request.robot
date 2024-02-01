@@ -37,7 +37,7 @@ Test Teardown    Run Keywords
 
 
 *** Test Cases ***
-Creación de solicitud de asignación de caso a una comisión
+PAT-SYS-08: Creación de solicitud de asignación de caso a una comisión
     [Documentation]    Se valida la creación y eliminación existosa de una solicitud de asignación
     ...                de una consulta a una comisión como usuario tomador de caso.
     [Tags]  Automatico   SYS   PAT-SYS-08    PAT-145
@@ -58,9 +58,27 @@ Creación de solicitud de asignación de caso a una comisión
     When se crea la solicitud de asignación de consulta "Garantía" a la comisión "Comisión A1"
 
     Then debería existir una "request consultation" de la consulta "Garantía" al board "Comisión A1" en la DB
-    And el ticket "Garantía" debería estar en el primer panel "Comisión A1"
+    And el ticket "Garantía" debería estar en el primer panel "Comisión A1" de la comisión
 
     When se elimina la solicitud de asignación de consulta "Garantía"
 
     Then debería haberse eliminado la "request consultation" de la consulta "Garantía" de la DB
-    And el ticket "Garantía" debería estar en el panel de entrada "Available Consultations"
+    And el ticket "Garantía" debería estar en el panel de entrada "Available Consultations" de la comisión
+
+
+PAT-SYS-11: Aceptar solicitud de asignación de caso
+    [Documentation]    Se valida la aceptación existosa de una solicitud de asignación
+    ...                de una consulta a una comisión como usuario profesor, integrante de dicha comisión.
+    [Tags]  Automatico   SYS   PAT-SYS-11    PAT-146
+    Given Existe el board "Comisión A1" en la DB
+    And existe una solicitud de asignación de la consulta "Garantía" a la comisión "Comisión A1"
+    And existe un panel llamado "Panel A1" para el board de la comisión "Comisión A1"
+    And existe un usuario registrado activo con permisos "common" y "professor" en la DB
+    And el usuario profesor tiene acceso al board "Comisión A1"
+    And se accedió a la plataforma como usuario "Profesor"
+    And se navega a la pestaña "Board/Comisión A1"
+
+    When se acepta la solicitud de asignación de consulta "Garantía" y se asigna al panel "Panel A1"
+
+    Then debería haberse eliminado la "request consultation" de la consulta "Garantía" de la DB
+    And el ticket "Garantía" debería estar en el primer panel "Panel A1" del board

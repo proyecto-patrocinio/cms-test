@@ -60,7 +60,7 @@ Se selecciona el botón de información del panel "${COMISION_NAME}"
     Wait Until Page Contains    Board Information
     Recolectar captura de pantalla
 
-Se acepta la solicitud de asignación de consulta "${CONSULT_TAG}" para el panel "${PANEL_NAME}"
+Se acepta la solicitud de asignación de consulta "${CONSULT_TAG}" y se asigna al panel "${PANEL_NAME}"
     [Documentation]    Se obtienen los ID de la consulta y del Panel y se envía un Post a la API Rest
     ...                para aceptar la Request Consultatión y asignar la card en el panel proporcionado.
     ${PANEL_ID}    Obtener el ID del panel titulado "${PANEL_NAME}"
@@ -70,6 +70,10 @@ Se acepta la solicitud de asignación de consulta "${CONSULT_TAG}" para el panel
     ${RESPONSE} =    Aceptar la solicitud de asignación de consulta
     ...    ${CONSULT_ID}    ${PANEL_ID}
     La respuesta obtenida en la peticion deberia ser exitosa    ${RESPONSE}
+    # Se actualiza la página
+    Reload Page
+    Wait Until Page Contains    ${CONSULT_TAG}    timeout=10s
+    Recolectar captura de pantalla
 
 Se crea la solicitud de asignación de consulta "${CONSULT_TAG}" a la comisión "${BOARD_NAME}"
     [Documentation]    Se obtienen los ID de la consulta y del board y se envía un POST a la API Rest

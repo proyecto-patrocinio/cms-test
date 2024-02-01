@@ -60,7 +60,7 @@ PAT-SYS-5: Creación y visualización de una consulta como usuario Tomador de Ca
     And la información de la consulta "Garantía" deberı́a contener el campo "Availability State" en "CREATED"
 
 
-Visualización de una consulta como usuario Profesor
+PAT-SYS-06: Visualización de una consulta como usuario Profesor
     [Documentation]    Se valida la correcta visualización de la información
     ...                de una consulta como usuario profesor.
     [Tags]  Automatico   SYS   PAT-SYS-06    PAT-143
