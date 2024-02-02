@@ -5,7 +5,7 @@ Library  SeleniumLibrary
 Library  ImapLibrary2
 Library  String
 Library  DatabaseLibrary
-Library  OperatingSystem
+Library  OperatingSystem    WITH NAME    OS
 Library  JSONLibrary
 Library  Collections
 
@@ -74,6 +74,13 @@ Se navegó a la pestaña "Consultancy"
     Go To    ${PAGE_CONSULTANCY}
     #Espera hasta que se cargue la página
     Wait Until Page Contains    Available Consultations
+    Recolectar captura de pantalla
+
+Se navegó a la pestaña "Control Panel - Consultations"
+    [Documentation]   Supone browser abierto.
+    Go To    ${PAGE_CONSULTATIONS}
+    #Espera hasta que se cargue la página
+    Wait Until Page Contains    CONTROL PANEL - CONSULTATIONS
     Recolectar captura de pantalla
 
 Existe un cliente con DNI "${DNI}" en la base de datos 

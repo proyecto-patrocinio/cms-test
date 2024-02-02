@@ -60,7 +60,7 @@ ${BACK_CONTAINER_NAME}     backend-app
 # Selenium
 
 ${BROWSER}           Chrome
-${SPEED_SELENIUM}    0.05
+${SPEED_SELENIUM}    0.01
 
 # ===================================================================
 # Pages
@@ -70,6 +70,9 @@ ${PAGE_SIGNUP}            ${PAGE_BASE_CMS}/signup
 ${PAGE_ADMIN}             ${PAGE_BASE_CMS}/admin
 ${PAGE_ADMIN_USER}            ${PAGE_ADMIN}/auth/user
 ${PAGE_CONSULTANCY}       ${PAGE_BASE_CMS}/consultancy
+${PAGE_CONTROL_PANEL}     ${PAGE_BASE_CMS}/controlpage
+${PAGE_CONSULTATIONS}         ${PAGE_CONTROL_PANEL}/consultations
+${PAGE_CLIENTS}               ${PAGE_CONTROL_PANEL}/clients
 ${PAGE_BOARD}             ${PAGE_BASE_CMS}/board
 
 # ===================================================================

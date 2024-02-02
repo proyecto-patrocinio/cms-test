@@ -4,7 +4,7 @@ Documentation     Keywords utilizadas bajo el prefijo Then.
 Library  SeleniumLibrary
 Library  ImapLibrary2
 Library  String
-Library    XML
+Library  CSVLibrary
 
 Resource  ../settings.robot
 Resource  ../constants.robot
@@ -215,3 +215,82 @@ El ticket "${CONSULT_TAG}" debería estar en el primer panel "${PANEL_NAME}" del
 
 No debería existir el ticket "${TITLE}" en el board
     Page Should Not Contain    ${TITLE}
+
+La tabla debería contener ${EXPECT_NUM_ROWS} consultas
+    [Documentation]    Valida que la cantidad de filas es la esperada.
+    ...                Obtiene la cantidad de filas encontradas contando la
+    ...                primera fila con los titulos.
+    ...                y verifica que la cantidad encontrada -1 sea igual a la esperada.
+    ...                Se setea la variable de test ${EXPECT_NUM_ROWS}.
+    ${NUM_ROWS}    Get Element Count    xpath=//div[@role='row']
+    Log    La cantidad de filas es: ${NUM_ROWS}
+    ${NUM_ROWS}    Evaluate    ${NUM_ROWS}-1
+    Should Be Equal As Integers    ${NUM_ROWS}    ${EXPECT_NUM_ROWS}
+    Set Test Variable    ${EXPECT_NUM_ROWS}
+
+La tabla debería contener la consulta:
+    [Arguments]    ${TAG}   ${DNI}    ${OPP}    ${DESC}
+    ${CONSULT}    Obtener consulta con TAG '${TAG}' de la DB
+    ${CONSULT_ID}    Set Variable    ${CONSULT[0]}
+    ${CONTENT_ROW}    Obtener el texto de la fila para la consulta con ID '${CONSULT_ID}'
+    Log    FILA: ${CONTENT_ROW}
+    Should Contain    ${CONTENT_ROW}    ${TAG}
+    Should Contain    ${CONTENT_ROW}    ${DNI}
+    Should Contain    ${CONTENT_ROW}    ${OPP}
+    Should Contain    ${CONTENT_ROW}    ${DESC}
+
+
+Obtener el texto de la fila para la consulta con ID '${CONSULT_ID}'
+    [Documentation]    Obtiene de la tabla "control panel - consultations" el texto del row con el ID especificado.
+    ${ROW_DATA}    Get Text    xpath=//div[@data-id='${CONSULT_ID}']
+    RETURN    ${ROW_DATA}
+
+El archivo se debería haber descargado correctamente
+    [Documentation]    Chequea la existencia del archivo descargado.
+    ...                Luego chequea que el mismo no este vacio.
+    ...                Finalmente mueve el archivo a la carpeta temporal de trabajo
+    ...                Y setea el nombre del archivo como variable de entorno FILENAME_DOWNLOAD.
+    [Arguments]    ${FILENAME_DOWNLOAD}=clientsDataBase.csv
+    ${FILE_PATH}    Obtener el path del archivo descargado '${FILENAME_DOWNLOAD}'
+    File Should Exist    ${FILE_PATH}
+    File Should Not Be Empty    ${FILE_PATH}
+
+    ${DOWNLOAD_FILE_PATH}    Set Variable    ${TEST_TEMP_FOLDER}/${FILENAME_DOWNLOAD}
+    Move File    ${FILE_PATH}    ${DOWNLOAD_FILE_PATH}
+    Set Test Variable    ${DOWNLOAD_FILE_PATH}
+
+
+El archivo de consultas descargado debería ser el esperado '${EXPECTED_FILENAME}'
+    [Documentation]    Esta keyword, necesita de la variable de test ${EXPECT_NUM_ROWS},
+    ...                previamente seteada con la cantidad de filas de la tabla.
+    ${EXPECTED_FILE_PATH}    Set Variable    ${RESOURCES_PATH}/${EXPECTED_FILENAME}
+    @{EXPECTED_TABLE}    read csv file to associative    ${EXPECTED_FILE_PATH}    delimiter=;
+
+    @{DOWNLOAD_TABLE}    read csv file to associative     ${DOWNLOAD_FILE_PATH}    delimiter=;
+
+    FOR    ${INDEX}    IN RANGE    ${EXPECT_NUM_ROWS}
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Availability State]    ${DOWNLOAD_TABLE}[${INDEX}][Availability State]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Progress State]        ${DOWNLOAD_TABLE}[${INDEX}][Progress State]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Description]           ${DOWNLOAD_TABLE}[${INDEX}][Description]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Opponent]              ${DOWNLOAD_TABLE}[${INDEX}][Opponent]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Client]                ${DOWNLOAD_TABLE}[${INDEX}][Client]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Tag]                   ${DOWNLOAD_TABLE}[${INDEX}][Tag]
+    END
+
+
+Se crea el filtro "${FILTER_TYPE}" con "${FILTER_TEXT}"
+    [Documentation]    Selecciona el menu de la columna correspondiente a ${FILTER_TYPE}.
+    ...                Luego, selecciona la opcion FILTER, e ingresa el valor de
+    ...                ${FILTER_TEXT} como filtro de búsqueda.
+    ${XPATH_COLUMN}    Set Variable    xpath=//div[@aria-label="${FILTER_TYPE}"]
+    Mouse Over    ${XPATH_COLUMN}
+
+    ${LOCATOR_MENU}    Set Variable    ${XPATH_COLUMN}//button[@aria-label="Menu"]
+    Click Element    ${LOCATOR_MENU}
+
+    ${XPATH_FILTER_OPTION}    Set Variable    xpath=//span[text()='Filter']
+    Click Element    ${XPATH_FILTER_OPTION}
+
+    ${XPATH_INPUT}    Set Variable    xpath=//input[@placeholder="Filter value"]
+    Input Text    ${XPATH_INPUT}    ${FILTER_TEXT}
+    Sleep    1s

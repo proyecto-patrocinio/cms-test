@@ -6,7 +6,7 @@ Library  SeleniumLibrary
 Library  ImapLibrary2
 Library  String
 Library  DatabaseLibrary
-Library  OperatingSystem
+Library  OperatingSystem    WITH NAME    OS
 Library  JSONLibrary
 Library  Collections
 
