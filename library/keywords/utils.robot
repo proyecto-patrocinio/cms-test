@@ -2,7 +2,8 @@
 Documentation    Keywords utilitarias.
 
 Library  SeleniumLibrary
-Library  OperatingSystem
+Library  OperatingSystem    WITH NAME    OS
+Library  Collections
 
 Resource    ../../settings.robot
 
@@ -41,3 +42,24 @@ Verificar fila de la tabla
     ${valor} =    Get Text    ${ROW_LOCATOR}/td[2]
     Should Be Equal As Strings    ${KEY}    ${EXPECTED_KEY}
     Should Be Equal As Strings    ${valor}    ${EXPECTED_VALUE}
+
+Obtener el path del archivo descargado '${FILENAME}'
+    ${DOWNLOAD_DIRECTORY}    Obtener Directorio de Descarga
+    ${FILE_PATH}    Set Variable    ${DOWNLOAD_DIRECTORY}/${FILENAME}
+    RETURN    ${FILE_PATH}
+
+Obtener Directorio de Descarga
+    ${HOME_PATH} =    Get Environment Variable  HOME
+
+    # Verificar si existe un archivo llamado "Descargas" en el directorio HOME
+    ${DESCARGAS_EXISTS} =  Run Keyword And Return Status
+    ...    File Should Exist  ${HOME_PATH}/Descargas
+
+    IF  ${DESCARGAS_EXISTS}
+        ${DOWNLOAD_DIR}    Set Variable  ${HOME_PATH}/Descargas
+    ELSE
+    # Si no existe "Descargas", se usa supone la carpeta llamada "Downloads"
+        ${DOWNLOAD_DIR}    Set Variable  ${HOME_PATH}/Downloads
+    END
+
+    RETURN  ${DOWNLOAD_DIR}
