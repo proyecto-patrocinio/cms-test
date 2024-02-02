@@ -5,7 +5,7 @@ Library  SeleniumLibrary
 Library  ImapLibrary2
 Library  String
 Library  DatabaseLibrary
-Library  OperatingSystem
+Library  OperatingSystem    WITH NAME    OS
 Library  JSONLibrary
 Library  Collections
 
@@ -70,9 +70,9 @@ PAT-SYS-11: Aceptar y eliminar solicitudes de asignación de caso
     [Documentation]    Se valida la aceptación existosa de una solicitud de asignación
     ...                de una consulta a una comisión como usuario profesor, integrante de dicha comisión.
     [Tags]  Automatico   SYS   PAT-SYS-11    PAT-146
-    Given Existe el board "Comisión A1" en la DB
-    And Existe un cliente con DNI "32165498" en la base de datos
-    And Existe una consulta con tag, DNI del cliente, oponente, descripción y estado:
+    Given existe el board "Comisión A1" en la DB
+    And existe un cliente con DNI "32165498" en la base de datos
+    And existe una consulta con tag, DNI del cliente, oponente, descripción y estado:
     ...    Garantía1
     ...    32165498
     ...    Samsung
@@ -80,7 +80,7 @@ PAT-SYS-11: Aceptar y eliminar solicitudes de asignación de caso
     ...    TODO
     ...    CREATED
     And existe una solicitud de asignación de la consulta "Garantía1" a la comisión "Comisión A1"
-    And Existe una consulta con tag, DNI del cliente, oponente, descripción y estado:
+    And existe una consulta con tag, DNI del cliente, oponente, descripción y estado:
     ...    Garantía2
     ...    32165498
     ...    Samsung
@@ -97,7 +97,7 @@ PAT-SYS-11: Aceptar y eliminar solicitudes de asignación de caso
     When se acepta la solicitud de asignación de consulta "Garantía1" y se asigna al panel "Panel A1"
 
     Then debería haberse eliminado la "request consultation" de la consulta "Garantía1" de la DB
-    And el ticket "Garantía" debería estar en el primer panel "Panel A1" del board
+    And el ticket "Garantía1" debería estar en el primer panel "Panel A1" del board
 
     When se selecciona la opción rejected del menu del ticket "Garantía2"
 
