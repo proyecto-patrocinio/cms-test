@@ -3,7 +3,7 @@ Documentation    Keywords para manejo de registros y sesiones de usuarios.
 
 Library  SeleniumLibrary
 Library  String
-Library  OperatingSystem
+Library  OperatingSystem    WITH NAME    OS
 
 Resource    ../../settings.robot
 Resource    ../../constants.robot
