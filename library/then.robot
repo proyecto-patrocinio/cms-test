@@ -216,7 +216,7 @@ El ticket "${CONSULT_TAG}" debería estar en el primer panel "${PANEL_NAME}" del
 No debería existir el ticket "${TITLE}" en el board
     Page Should Not Contain    ${TITLE}
 
-La tabla debería contener ${EXPECT_NUM_ROWS} consultas
+La tabla debería contener ${EXPECT_NUM_ROWS} filas
     [Documentation]    Valida que la cantidad de filas es la esperada.
     ...                Obtiene la cantidad de filas encontradas contando la
     ...                primera fila con los titulos.
@@ -229,18 +229,30 @@ La tabla debería contener ${EXPECT_NUM_ROWS} consultas
     Set Test Variable    ${EXPECT_NUM_ROWS}
 
 La tabla debería contener la consulta:
-    [Arguments]    ${TAG}   ${DNI}    ${OPP}    ${DESC}
-    ${CONSULT}    Obtener consulta con TAG '${TAG}' de la DB
+    [Documentation]    El primer elemento de la lista debería
+    ...    contener el TAG de la consulta.
+    [Arguments]    @{DATA_LIST}
+    ${CONSULT}    Obtener consulta con TAG '${DATA_LIST[0]}' de la DB
     ${CONSULT_ID}    Set Variable    ${CONSULT[0]}
-    ${CONTENT_ROW}    Obtener el texto de la fila para la consulta con ID '${CONSULT_ID}'
-    Log    FILA: ${CONTENT_ROW}
-    Should Contain    ${CONTENT_ROW}    ${TAG}
-    Should Contain    ${CONTENT_ROW}    ${DNI}
-    Should Contain    ${CONTENT_ROW}    ${OPP}
-    Should Contain    ${CONTENT_ROW}    ${DESC}
 
+    ${CONTENT_ROW}    Obtener el texto de la fila con ID '${CONSULT_ID}'
+    Log    FILA: ${CONTENT_ROW}    console=${True}
+    FOR    ${DATA}    IN    @{DATA_LIST}
+        Should Contain    ${CONTENT_ROW}    ${DATA} 
+    END
 
-Obtener el texto de la fila para la consulta con ID '${CONSULT_ID}'
+La tabla debería contener el cliente:
+    [Documentation]    El primer elemento de la lista debería ser el DNI del cliente.
+    [Arguments]    @{DATA_LIST}
+    ${CLIENT}    Obtener cliente con id_value '${DATA_LIST[0]}' de la DB
+    ${ID_CLIENT}    Set Variable    ${CLIENT[0]}
+    ${CONTENT_ROW}    Obtener el texto de la fila con ID '${ID_CLIENT}'
+    Log    FILA: ${CONTENT_ROW}    console=${True}
+    FOR    ${DATA}    IN    @{DATA_LIST}
+        Should Contain    ${CONTENT_ROW}    ${DATA} 
+    END
+
+Obtener el texto de la fila con ID '${CONSULT_ID}'
     [Documentation]    Obtiene de la tabla "control panel - consultations" el texto del row con el ID especificado.
     ${ROW_DATA}    Get Text    xpath=//div[@data-id='${CONSULT_ID}']
     RETURN    ${ROW_DATA}
@@ -277,6 +289,40 @@ El archivo de consultas descargado debería ser el esperado '${EXPECTED_FILENAME
         Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Tag]                   ${DOWNLOAD_TABLE}[${INDEX}][Tag]
     END
 
+El archivo de clientes descargado debería ser el esperado '${EXPECTED_FILENAME}'
+    [Documentation]    Esta keyword, necesita de la variable de test ${EXPECT_NUM_ROWS},
+    ...                previamente seteada con la cantidad de filas de la tabla.
+    ${EXPECTED_FILE_PATH}    Set Variable    ${RESOURCES_PATH}/${EXPECTED_FILENAME}
+    @{EXPECTED_TABLE}    read csv file to associative    ${EXPECTED_FILE_PATH}    delimiter=;
+
+    @{DOWNLOAD_TABLE}    read csv file to associative     ${DOWNLOAD_FILE_PATH}    delimiter=;
+
+    FOR    ${INDEX}    IN RANGE  ${EXPECT_NUM_ROWS}
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Postal]    ${DOWNLOAD_TABLE}[${INDEX}][Postal]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Address]        ${DOWNLOAD_TABLE}[${INDEX}][Address]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Marital Status]           ${DOWNLOAD_TABLE}[${INDEX}][Marital Status]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Housing Type]              ${DOWNLOAD_TABLE}[${INDEX}][Housing Type]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Education Level]                ${DOWNLOAD_TABLE}[${INDEX}][Education Level]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Email]                   ${DOWNLOAD_TABLE}[${INDEX}][Email]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][ID Type]                   ${DOWNLOAD_TABLE}[${INDEX}][ID Type]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][ID Value]                   ${DOWNLOAD_TABLE}[${INDEX}][ID Value]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][First Name]                   ${DOWNLOAD_TABLE}[${INDEX}][First Name]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Last Name]                   ${DOWNLOAD_TABLE}[${INDEX}][Last Name]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Birth Date]                   ${DOWNLOAD_TABLE}[${INDEX}][Birth Date]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Sex]                   ${DOWNLOAD_TABLE}[${INDEX}][Sex]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Nationality]                   ${DOWNLOAD_TABLE}[${INDEX}][Nationality]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Province]                   ${DOWNLOAD_TABLE}[${INDEX}][Province]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Locality]                   ${DOWNLOAD_TABLE}[${INDEX}][Locality]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Phone Numbers]                   ${DOWNLOAD_TABLE}[${INDEX}][Phone Numbers]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Employment]                   ${DOWNLOAD_TABLE}[${INDEX}][Employment]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Other Incomet]                   ${DOWNLOAD_TABLE}[${INDEX}][Other Incomet]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Amount Other Incomet]                   ${DOWNLOAD_TABLE}[${INDEX}][Amount Other Incomet]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Amount Retirement]                   ${DOWNLOAD_TABLE}[${INDEX}][Amount Retirement]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Amount Pension]                   ${DOWNLOAD_TABLE}[${INDEX}][Amount Pension]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Vehicle]                   ${DOWNLOAD_TABLE}[${INDEX}][Vehicle]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Partner Salary]                   ${DOWNLOAD_TABLE}[${INDEX}][Partner Salary]
+        Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Children]                   ${DOWNLOAD_TABLE}[${INDEX}][Children]
+    END
 
 Se crea el filtro "${FILTER_TYPE}" con "${FILTER_TEXT}"
     [Documentation]    Selecciona el menu de la columna correspondiente a ${FILTER_TYPE}.

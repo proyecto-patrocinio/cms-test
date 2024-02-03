@@ -83,7 +83,23 @@ Se navegó a la pestaña "Control Panel - Consultations"
     Wait Until Page Contains    CONTROL PANEL - CONSULTATIONS
     Recolectar captura de pantalla
 
-Existe un cliente con DNI "${DNI}" en la base de datos 
+Se navegó a la pestaña "Control Panel - Clients"
+    [Documentation]   Supone browser abierto.
+    Go To    ${PAGE_CLIENTS}
+    #Espera hasta que se cargue la página
+    Wait Until Page Contains    CONTROL PANEL - CLIENTS
+    Recolectar captura de pantalla
+
+Existe el cliente en la base de datos:
+    [Arguments]    ${FIRST_NAME}    ${LAST_NAME}    ${ID_TYPE}    ${ID_VALUE}
+    ...    ${SEX}    ${BIRTH_DATE}    ${ADDRESS}    ${POSTAL}    ${MARITAL_STATUS}
+    ...    ${HOUSING_TYPE}    ${STUDIES}    ${EMAIL}
+    Insertar cliente en la DB    ${FIRST_NAME}    ${LAST_NAME}    ${ID_TYPE}
+    ...    ${ID_VALUE}    ${SEX}    ${BIRTH_DATE}    ${ADDRESS}    ${POSTAL}
+    ...    ${MARITAL_STATUS}    ${HOUSING_TYPE}    ${STUDIES}    ${EMAIL}
+    ...    704
+
+Existe un cliente con DNI "${DNI}" en la base de datos
     Insertar cliente en la DB
         ...    Romina    Cugat    DOCUMENT    ${DNI}    FEMALE    1986-06-23
         ...    "Av Poeta Lugones 12"    5012    SINGLE    HOUSE    COMPLETE_UNIVERSITY

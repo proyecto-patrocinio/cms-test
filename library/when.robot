@@ -116,8 +116,8 @@ Se selecciona la opción rejected del menu del ticket "${TICKET_TAG}"
     Wait Until Page Does Not Contain    ${TICKET_TAG}
     Recolectar captura de pantalla
 
-Se descarga el csv de la tabla "Consultations"
+Se descarga el csv de la tabla
     Click Button    Export
-    Click Element    xpath=//*[@id=":r4:"]/li[1]
+    Click Element    xpath=//li[text()="Download as CSV"]
     Recolectar captura de pantalla
     Sleep   5s
