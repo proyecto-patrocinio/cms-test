@@ -54,7 +54,7 @@ Se accedió a la plataforma como usuario "${ROL_USER}"
     Acceder a la plataforma como usuario "${ROL_USER}"
     #Espera hasta que se cargue la página
     Wait Until Page Contains    Welcome!
-    Recolectar captura de pantalla
+    Recolectar captura de pantalla    sesion_success
 
 Se ingresó a la página de administración
     [Documentation]   Supone browser abierto.
@@ -74,21 +74,21 @@ Se navegó a la pestaña "Consultancy"
     Go To    ${PAGE_CONSULTANCY}
     #Espera hasta que se cargue la página
     Wait Until Page Contains    Available Consultations
-    Recolectar captura de pantalla
+    Recolectar captura de pantalla    navegate_consultancy
 
 Se navegó a la pestaña "Control Panel - Consultations"
     [Documentation]   Supone browser abierto.
     Go To    ${PAGE_CONSULTATIONS}
     #Espera hasta que se cargue la página
     Wait Until Page Contains    CONTROL PANEL - CONSULTATIONS
-    Recolectar captura de pantalla
+    Recolectar captura de pantalla    navegate_control_panel_consultations
 
 Se navegó a la pestaña "Control Panel - Clients"
     [Documentation]   Supone browser abierto.
     Go To    ${PAGE_CLIENTS}
     #Espera hasta que se cargue la página
     Wait Until Page Contains    CONTROL PANEL - CLIENTS
-    Recolectar captura de pantalla
+    Recolectar captura de pantalla    control_panel_cleints
 
 Existe el cliente en la base de datos:
     [Arguments]    ${FIRST_NAME}    ${LAST_NAME}    ${ID_TYPE}    ${ID_VALUE}

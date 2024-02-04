@@ -87,3 +87,39 @@ PAT-SYS-06: Visualización de una consulta como usuario Profesor
     And la información de la consulta "Garantía" deberı́a contener el campo "Description" en "Dummy"
     And la información de la consulta "Garantía" deberı́a contener el campo "Opponent" en "Samsung"
     And la información de la consulta "Garantía" deberı́a contener el campo "Availability State" en "ASSIGNED"
+
+
+PAT-SYS-13: Realizar cambios de una consulta como usuario Profesor
+    [Documentation]    Dado que se ingresa a la plataforma como usuario profesor,
+    ...    con permisos a una comisión con una consulta asignada, se valida que
+    ...    el usuario, pueda realizar cambios 'Description', 'Opponent', 'Progress State', 'Tag'
+    ...    en los campos de la consulta.
+    [Tags]  Automatico   SYS   PAT-SYS-06    PAT-149
+    Given existe el board "Comisión A1" en la DB
+    And existe un usuario registrado activo con permisos "common" y "professor" en la DB
+    And el usuario profesor tiene acceso al board "Comisión A1"
+    And existe un cliente con DNI "32165498" en la base de datos
+    And existe un panel llamado "Panel A1" para el board de la comisión "Comisión A1"
+    And existe un ticket para el panel, de la comisión, con tag, DNI del cliente, oponente, descripción y estado:
+    ...    Panel A1
+    ...    Comisión A1
+    ...    Divorcio
+    ...    32165498
+    ...    Samsung
+    ...    Dummy
+    ...    TODO
+    And se accedió a la plataforma como usuario "profesor"
+    And se navega a la pestaña "Board/Comisión A1"
+
+    When se edita el campo "Description" a "otra descripcion" del ticket "Divorcio"
+    And se edita el campo "Opponent" a "otro oponente" del ticket "Divorcio"
+    And se edita el campo "Progress State" seleccionando la opción "IN_PROGRESS" del ticket "Divorcio"
+    And se edita el campo "Tag" a "CODE-123: Divorcio" del ticket "Divorcio"
+
+    Then No debería existir el ticket "Divorcio" en el board
+    Then el ticket "CODE-123: Divorcio" deberı́a estar visible en el panel de entrada de la pizarra "Comisión A1"
+    And la información de la consulta "CODE-123: Divorcio" deberı́a contener el campo "Tag" en "CODE-123: Divorcio"
+    And la información de la consulta "CODE-123: Divorcio" deberı́a contener el cliente con DNI "32165498"
+    And la información de la consulta "CODE-123: Divorcio" deberı́a contener el campo "Description" en "otra descripcion"
+    And la información de la consulta "CODE-123: Divorcio" deberı́a contener el campo "Opponent" en "otro oponente"
+    And la información de la consulta "CODE-123: Divorcio" deberı́a contener el campo "Availability State" en "ASSIGNED"
