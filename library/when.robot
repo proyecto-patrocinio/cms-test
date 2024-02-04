@@ -121,3 +121,60 @@ Se descarga el csv de la tabla
     Click Element    xpath=//li[text()="Download as CSV"]
     Recolectar captura de pantalla    download_csv
     Sleep   5s
+
+Se edita el campo "${KEY}" a "${NEW_VALUE}" del ticket "${TAG}"
+    [Documentation]    Edita el campo de texto especificado en un ticket cambiando su valor.
+    ...                  - KEY: Nombre del campo a editar.
+    ...                  - NEW_VALUE: Nuevo valor que se asignará al campo.
+    ...                  - TAG: Nombre del ticket.
+    # Localizar y abrir el detalle de consulta
+    Abrir detalle de la consulta '${TAG}'
+    ${TABLE_LOCATOR}    Set Variable    xpath=/html/body/div[4]/div[3]/div/div[2]/div/div/table/tbody
+    ${ROW_LOCATOR}=    Obtener locator de la fila '${KEY}' para la tabla con locator ${TABLE_LOCATOR}
+
+    # Click botón edit
+    Recolectar captura de pantalla    before_edit_field_${KEY}
+    ${EDIT_BUTTON_LOCATOR}    Set Variable    ${ROW_LOCATOR}//button[@id="field-edit-button"]
+    Click Element    ${EDIT_BUTTON_LOCATOR}
+
+    # Editar campo
+    ${TEXTAREA_LOCATOR}    Set Variable    ${ROW_LOCATOR}//textarea[@id="edit-field-textarea"]
+    Clear Element Text    ${TEXTAREA_LOCATOR}    
+    Input Text    ${TEXTAREA_LOCATOR}    ${NEW_VALUE}
+    Recolectar captura de pantalla    edit_field_${KEY}_to_${NEW_VALUE}
+
+    # Guardar cambios
+    ${SAVE_BUTTON_LOCATOR}    Set Variable    ${ROW_LOCATOR}//button[@id="field-save-button"]
+    Click Element    ${SAVE_BUTTON_LOCATOR}
+    Recolectar captura de pantalla    saved_data
+
+    Cerrar Info de consulta
+
+Se edita el campo "${KEY}" seleccionando la opción "${NEW_STATE}" del ticket "${TAG}"
+    [Documentation]    Edita el campo de tipo 'options' especificado en un ticket seleccionando una nueva opción.
+    ...                  - KEY: Nombre del campo a editar.
+    ...                  - NEW_STATE: Nueva opción que se seleccionará para el campo.
+    ...                  - TAG: Nombre del ticket.
+    # Localizar y abrir el detalle de consulta
+    Abrir detalle de la consulta '${TAG}'
+    ${TABLE_LOCATOR}    Set Variable    xpath=/html/body/div[4]/div[3]/div/div[2]/div/div/table/tbody
+    ${ROW_LOCATOR}=    Obtener locator de la fila '${KEY}' para la tabla con locator ${TABLE_LOCATOR}
+
+    # Click botón edit
+    ${EDIT_BUTTON_LOCATOR}    Set Variable    ${ROW_LOCATOR}//button
+    Click Element    ${EDIT_BUTTON_LOCATOR}
+
+    # Abrir selector
+    ${SELECTOR_LOCATOR}    Set Variable    xpath=//div[@aria-haspopup="listbox"]
+    Click Element    ${SELECTOR_LOCATOR}
+
+    # Seleccionar nueva opción
+    ${NEW_OPTION_LOCATOR}    Set Variable    //li[@data-value="${NEW_STATE}"]
+    Click Element    ${NEW_OPTION_LOCATOR} 
+
+    # Guardar cambios
+    ${SAVE_BUTTON_LOCATOR}    Set Variable    ${ROW_LOCATOR}//button[.//*[contains(@data-testid, 'SaveIcon')]]
+
+    Click Element    ${SAVE_BUTTON_LOCATOR}
+
+    Cerrar Info de consulta
