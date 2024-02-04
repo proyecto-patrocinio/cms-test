@@ -72,18 +72,18 @@ La pestaña "${CMS_PAGE_NAME}" deberı́a estar visible
     #Espera hasta que se cargue la página HOME
     Wait Until Page Contains    Welcome!
     IF    '${CMS_PAGE_NAME}' == 'consultancy'
-        ${XPATH_CONSULTANCY} =    Set Variable    xpath://span[@class='MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root' and contains(text(),'Consultancy')]
+        ${XPATH_CONSULTANCY} =    Set Variable    xpath://span[@class='MuiListItemText-primary' and contains(text(),'Consultancy')]
         Element Should Be Visible    ${XPATH_CONSULTANCY}
 
     ELSE IF    '${CMS_PAGE_NAME}' == 'panel de control'
-        ${XPATH_CONTORL_PANEL} =    Set Variable    xpath://span[@class='MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root' and contains(text(),'Control Panel')]
+        ${XPATH_CONTORL_PANEL} =    Set Variable    xpath://span[@class='MuiListItemText-primary' and contains(text(),'Control Panel')]
         Element Should Be Visible    ${XPATH_CONTORL_PANEL}
         Click Element    ${XPATH_CONTORL_PANEL}
         
-        ${XPATH_CONSULTATIONS} =    Set Variable    xpath://span[@class='MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root' and contains(text(),'Consultations')]
+        ${XPATH_CONSULTATIONS} =    Set Variable    xpath://span[@class='MuiListItemText-primary' and contains(text(),'Consultations')]
         Wait Until Element Is Visible    ${XPATH_CONSULTATIONS}
   
-        ${XPATH_CLIENTS} =    Set Variable    xpath://span[@class='MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root' and contains(text(),'Clients')]
+        ${XPATH_CLIENTS} =    Set Variable    xpath://span[@class='MuiListItemText-primary' and contains(text(),'Clients')]
         Wait Until Element Is Visible    ${XPATH_CLIENTS}
 
     ELSE IF    '${CMS_PAGE_NAME}' == 'boards'
@@ -331,7 +331,6 @@ Se crea el filtro "${FILTER_TYPE}" con "${FILTER_TEXT}"
     ...                ${FILTER_TEXT} como filtro de búsqueda.
     ${XPATH_COLUMN}    Set Variable    xpath=//div[@aria-label="${FILTER_TYPE}"]
     Mouse Over    ${XPATH_COLUMN}
-
     ${LOCATOR_MENU}    Set Variable    ${XPATH_COLUMN}//button[@aria-label="Menu"]
     Click Element    ${LOCATOR_MENU}
 
@@ -341,3 +340,32 @@ Se crea el filtro "${FILTER_TYPE}" con "${FILTER_TEXT}"
     ${XPATH_INPUT}    Set Variable    xpath=//input[@placeholder="Filter value"]
     Input Text    ${XPATH_INPUT}    ${FILTER_TEXT}
     Sleep    1s
+
+La vista de comentarios de la consulta "${TAG}" debería contener "${COMMENT}"
+    Abrir detalle de la consulta '${TAG}'
+    Click Button    Comments
+
+    Element Should Be Visible    xpath=//p[text()="${COMMENT}"]
+
+    Cerrar Info de consulta
+
+El comentario "${COMMENT}" para la consulta "${TAG}" debería existir en la DB
+    ${COMMENT} =    Obtener el comentario "${COMMENT}" de la DB
+    ${CONSULT_ID_FROM_COMMENT}    Set Variable    ${COMMENT[3]}
+
+    ${CONSULT}    Obtener consulta con TAG '${TAG}' de la DB
+    ${EXPECTED_CONSULT_ID}    Set Variable    ${CONSULT[0]}
+
+    Should Be Equal As Integers    ${EXPECTED_CONSULT_ID}    ${CONSULT_ID_FROM_COMMENT}
+
+La vista de comentarios de la consulta "${TAG}" NO debería contener "${COMMENT}"
+    Run Keyword And Expect Error
+    ...    *
+    ...    La vista de comentarios de la consulta "${TAG}" debería contener "${COMMENT}"
+    Cerrar Info de consulta
+
+
+El comentario "${COMMENT}" para la consulta "${TAG}" NO debería existir en la DB
+    Run Keyword And Expect Error
+    ...    *
+    ...    El comentario "${COMMENT}" para la consulta "${TAG}" debería existir en la DB

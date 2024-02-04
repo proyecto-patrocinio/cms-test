@@ -2,6 +2,7 @@
 Documentation     Keywords utilizadas bajo el prefijo When.
 
 Library  SeleniumLibrary
+Library    XML
 
 Resource  ../library/keywords/testing_environment.robot
 Resource  ../library/keywords/session.robot
@@ -177,4 +178,71 @@ Se edita el campo "${KEY}" seleccionando la opción "${NEW_STATE}" del ticket "$
 
     Click Element    ${SAVE_BUTTON_LOCATOR}
 
+    Cerrar Info de consulta
+
+Se agrega el comentario "${COMMENT}" al ticket "${TAG}"
+    [Documentation]    Abre el detalle de consultas, se mueve a la pestaña de comentarios
+    ...    y agrega el nuevo comentario $COMMENT, guarda los cambios y cierra la ventana.
+    Abrir detalle de la consulta '${TAG}'
+    Click Button    Comments
+
+    ${TEXTAREA_LOCATOR}    Set Variable    xpath=//textarea[@id="outlined-textarea"]
+    Input Text    ${TEXTAREA_LOCATOR}    ${COMMENT}
+    
+    ${DIALOG_LOCATOR}    Set Variable    xpath=//div[@role="dialog"]
+    Click Element    ${DIALOG_LOCATOR}//button[@id='add-icon-button']
+
+    Cerrar Info de consulta
+
+Se elimina el comentario "${COMMENT}" al ticket "${TAG}"
+    [Documentation]    Abre el dialogo del detalle de la consulta $TAG,
+    ...    selecciona la opción eliminar del menu del comentario $COMMENT.
+    ...    Finalmente cierra el dialogo.
+    Abrir detalle de la consulta '${TAG}'
+    Click Button    Comments
+
+    # Seleccionar el menu
+    ${COMMENT_LOCATOR}    Set Variable   xpath=//div[contains(@class, 'MuiCard-root') and .//*[text()='${COMMENT}']]
+    Mouse Over    ${COMMENT_LOCATOR}
+    ${MENU_LOCATOR}    Set Variable     ${COMMENT_LOCATOR}//button[@aria-label="menu-ticket"]
+    Wait Until Element Is Visible    ${MENU_LOCATOR}
+    Click Element    ${MENU_LOCATOR}
+
+    ${DELETE_OPTION}    Set Variable    xpath=//li[text()='Delete']
+    Click Element    ${DELETE_OPTION}
+
+    Cerrar Info de consulta
+
+Se edita el comentario "${OLD_COMMENT}" a "${NEW_COMMENT}" al ticket "${TAG}"
+    [Documentation]    Abre el dialogo del detalle de la consulta $TAG,
+    ...    selecciona la opción de editar del menu del comentario $OLD_COMMENT.
+    ...    Edita el comentario a $NEW_COMMENT. Finalmente cierra el dialogo.
+    Abrir detalle de la consulta '${TAG}'
+    Click Button    Comments
+
+    # Seleccionar el menu
+    ${COMMENT_LOCATOR}    Set Variable   xpath=//div[contains(@class, 'MuiCard-root') and .//*[text()='${OLD_COMMENT}']]
+    Mouse Over    ${COMMENT_LOCATOR}
+    ${MENU_LOCATOR}    Set Variable     ${COMMENT_LOCATOR}//button[@aria-label="menu-ticket"]
+    Click Element    ${MENU_LOCATOR}
+
+    # Seleccionar la opción editar
+    ${EDITE_OPTION}    Set Variable    xpath=//li[text()='Edit']
+    Click Element    ${EDITE_OPTION}
+    Sleep    1s
+
+    # Cambiar contenido
+    ${TEXTAREA_LOCATOR}    Set Variable    xpath=//textarea[@id="edit-comment-area"]
+    Double Click Element    ${TEXTAREA_LOCATOR}
+    ${COMMENT_LENGTH}    Get Length    ${OLD_COMMENT}
+    Sleep    1s
+    FOR    ${LETER}    IN RANGE    ${COMMENT_LENGTH}
+        Press Keys    ${TEXTAREA_LOCATOR}    \ue012\ue017    # left + Delete
+    END
+    Clear Element Text    ${TEXTAREA_LOCATOR}
+    Input Text    ${TEXTAREA_LOCATOR}    ${NEW_COMMENT}
+
+    # Guardar cambios
+    ${SAVE_BUTTON_LOCATOR}    Set Variable    xpath=//button[@id="comment-edit-confim-button"]
+    Click Element    ${SAVE_BUTTON_LOCATOR}
     Cerrar Info de consulta
