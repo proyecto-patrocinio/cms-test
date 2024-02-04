@@ -94,6 +94,14 @@ Obtener la Request Consultation para la consulta con ID "${CONSULT_ID}"
     Disconnect From Database
     RETURN    ${FIRST_RESULT}
 
+Obtener el comentario "${COMMENT}" de la DB
+    Conectar a Base de Datos existente
+    ${QUERY}    Set Variable    SELECT * FROM public."Comment_comment" where text = '${COMMENT}';
+    ${RESULT} =    Query    ${QUERY}
+    ${FIRST_RESULT} =    Set Variable If    ${RESULT}    ${RESULT[0]}    ${None}
+    Disconnect From Database
+    RETURN    ${FIRST_RESULT}
+
 ######################################################################
 # Inserts
 
@@ -173,6 +181,7 @@ Limpiar base de datos
     Execute Sql String    DELETE from "Clients_family";
     Execute Sql String    DELETE from "Consultation_requestconsultation";
     Execute Sql String    DELETE from "Card_card";
+    Execute Sql String    DELETE from "Comment_comment";
     Execute Sql String    DELETE from "Consultation_consultation";
     Execute Sql String    DELETE from "Clients_client";
     Execute Sql String    DELETE from "authtoken_token";
@@ -184,7 +193,6 @@ Limpiar base de datos
     Execute Sql String    DELETE from "auth_user";
     Execute Sql String    DELETE from "Panel_panel";
     Execute Sql String    DELETE from "Comment_file";
-    Execute Sql String    DELETE from "Comment_comment";
     Execute Sql String    DELETE from "Board_board";
     Execute Sql String    DELETE from "Calendar_event";
     Execute Sql String    DELETE from "Calendar_calendar";
