@@ -31,7 +31,7 @@ Crear la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion
     Press Keys    name:client    ENTER
     Press Keys    name:client    RETURN
 
-    Recolectar captura de pantalla
+    Recolectar captura de pantalla    new_consultation
     Click Button    id=button-accept
     Sleep    1s
 

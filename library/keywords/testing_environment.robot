@@ -29,9 +29,9 @@ Recolectar las evidencias
     Log to Console      Preparando directorio de almacenamiento de evidencias...
     ${TEST_EVIDENCES_FOLDER} =    Set variable    ${EVIDENCES_FOLDER}/${TEST_ID}
     OS.Remove Directory    ${TEST_EVIDENCES_FOLDER}    recursive=True
-    OS.Create Directory    ${TEST_EVIDENCES_FOLDER}
 
-    OS.Move Directory      ${TEST_TEMP_FOLDER}    ${TEST_EVIDENCES_FOLDER}/tmpWorkdir
+    OS.Move Directory      ${TEST_TEMP_FOLDER}
+    ...    ${EVIDENCES_FOLDER}/${TEST_ID}
     Log to Console      Evidencias recolectadas.
 
 Existe el archivo local
@@ -89,7 +89,8 @@ Se limpian las capturas realizadas por selenium
 
 Recolectar captura de pantalla
     [Documentation]    Recolecta las capturas de pantalla y las almacena en el directorio temporal
+    [Arguments]    ${NAME_SCREENSHOT}=screenshot
     ${INDEX_SCREENSHOT} =    Get Variable Value    $INDEX_SCREENSHOT    ${0}
     ${INDEX_SCREENSHOT} =    Evaluate    int($INDEX_SCREENSHOT)+1
     Set Test Variable   ${INDEX_SCREENSHOT}
-    Capture Page Screenshot    ${TEST_TEMP_FOLDER}/${INDEX_SCREENSHOT}_screenshot.png
+    Capture Page Screenshot    ${TEST_TEMP_FOLDER}/${INDEX_SCREENSHOT}_${NAME_SCREENSHOT}.png

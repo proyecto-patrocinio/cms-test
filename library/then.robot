@@ -41,7 +41,7 @@ Deberı́a ser redirigido a la página de inicio de sesión
     Go To    ${EMAIL_LINK}
     Wait Until Page Contains    Sign In    timeout=10s
     Page Should Contain    Sign In
-    Recolectar captura de pantalla
+    Recolectar captura de pantalla    email_redirect_sigin_page
 
 Deberı́a recibir un error al intentar iniciar sesión
     [Documentation]    Intenta iniciar sesión con credenciales incorrectas y verifica que se muestre un mensaje de error.
@@ -50,7 +50,7 @@ Deberı́a recibir un error al intentar iniciar sesión
     ${ERROR_MSG}    Set Variable    The username or password is incorrect.
     Wait Until Page Contains    ${ERROR_MSG}    timeout=10s
     Page Should Contain    ${ERROR_MSG}
-    Recolectar captura de pantalla
+    Recolectar captura de pantalla    error_signin
 
 En la base de datos deberı́a existir el nuevo usuario registrado SIN ACTIVAR
     [Documentation]    Obtiene el nuevo usuario de la base de datos y verifica que no esté activo.
@@ -63,7 +63,7 @@ El usuario "${ROL_USER}" debería poder iniciar sesión en la plataforma con éx
     Acceder a la plataforma como usuario "${ROL_USER}"
     Wait Until Page Contains    Welcome!
     Page Should Not Contain    Sign in
-    Recolectar captura de pantalla
+    Recolectar captura de pantalla    signin_success
 
 La pestaña "${CMS_PAGE_NAME}" deberı́a estar visible
     [Documentation]    Verifica que la pestaña especificada esté visible en la interfaz del Case Management System (CMS).
@@ -94,7 +94,7 @@ La pestaña "${CMS_PAGE_NAME}" deberı́a estar visible
         Fatal Error    La opción de pestaña '${CMS_PAGE_NAME}' no esta implementada.  
 
     END
-    Recolectar captura de pantalla
+    Recolectar captura de pantalla    window_${CMS_PAGE_NAME}_visible
 
 La pestaña "${CMS_PAGE_NAME}" NO deberı́a estar visible
     [Documentation]    Verifica que la pestaña especificada NO esté visible en la interfaz del Case Management System (CMS).
@@ -132,14 +132,14 @@ La información de la consulta "${TAG}" deberı́a contener el cliente con DNI "
     [Documentation]    Valida que la ventana de información de una consulta titulada ${TAG},
     ...                contenga el cliente con el DNI proporcionado.
     Abrir detalle de la consulta '${TAG}'
-    Recolectar captura de pantalla
     ${EXPAND_CLIENT_LOCATOR} =    Set Variable    //button[contains(@class, 'css-1rwt2y5-MuiButtonBase-root')]
     Wait Until Element Is Visible    ${EXPAND_CLIENT_LOCATOR}
+    Recolectar captura de pantalla    content_client_${DNI}_unexpanded
     Click Element    ${EXPAND_CLIENT_LOCATOR}
 
     ${ROW_LOCATOR}    Set Variable    xpath=/html/body/div[4]/div[3]/div/div[2]/div/div/table/tbody/tr[2]/td[2]/div/tr[4]
     Verificar fila de la tabla    ${ROW_LOCATOR}    ID Value:    ${DNI}
-    Recolectar captura de pantalla
+    Recolectar captura de pantalla    content_client_${DNI}_expanded
     Cerrar Info de consulta
 
 La información de la consulta "${TAG}" deberı́a contener el campo "${KEY}" en "${VALUE}"
@@ -214,7 +214,8 @@ El ticket "${CONSULT_TAG}" debería estar en el primer panel "${PANEL_NAME}" del
     Should Contain    ${CARD_CONTENT}    ${CONSULT_TAG}
 
 No debería existir el ticket "${TITLE}" en el board
-    Page Should Not Contain    ${TITLE}
+    ${TICKET_LOCATOR}    Set Variable    xpath=//div[text()='${TITLE}']
+    Should Not Exist    ${TICKET_LOCATOR}
 
 La tabla debería contener ${EXPECT_NUM_ROWS} filas
     [Documentation]    Valida que la cantidad de filas es la esperada.
