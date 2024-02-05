@@ -7,3 +7,4 @@ output.xml
 report.html
 .vscode/launch.json
 evidences
+library/keywords/python_tools.py/__pycache__/file_handling.cpython-38.pyc

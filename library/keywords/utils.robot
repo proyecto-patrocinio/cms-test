@@ -4,6 +4,7 @@ Documentation    Keywords utilitarias.
 Library  SeleniumLibrary
 Library  OperatingSystem    WITH NAME    OS
 Library  Collections
+Library    python_tools.py/file_handling.py
 
 Resource    ../../settings.robot
 
@@ -45,7 +46,7 @@ Verificar fila de la tabla
 
 Obtener el path del archivo descargado '${FILENAME}'
     ${DOWNLOAD_DIRECTORY}    Obtener Directorio de Descarga
-    ${FILE_PATH}    Set Variable    ${DOWNLOAD_DIRECTORY}/${FILENAME}
+    ${FILE_PATH}    Get Latest Matching File    ${DOWNLOAD_DIRECTORY}    ${FILENAME}
     RETURN    ${FILE_PATH}
 
 Obtener Directorio de Descarga

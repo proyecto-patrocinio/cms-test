@@ -30,7 +30,7 @@ Para los emails, se deben utilizar emails reales y [contraseñas de aplicación]
 
 
 ### Levanta el Docker compose de la unidad:
-Si se setea la variable `MODE_CMS_UP` en "manual" del archivo `settings.robot`, deberá levantarse la unidad por cuenta propia. A continuación se describen los pasos para levantar la unidad de forma manul.
+Si se setea la variable `MODE_CMS_UP` en "manual" del archivo `settings.robot`, deberá levantarse la unidad por cuenta propia. A continuación se describen los pasos para levantar la unidad de forma manual.
 
 En algun directorio a convenir, clone el repo de la unidad:
 ```bash
@@ -43,8 +43,9 @@ Levanta el entorno Docker Compose de la unidad:
 docker-compose up --build
 ```
 
+Si desea que los contenedores se levanten automaticamente configure la variable `MODE_CMS_UP` en "automatic".
 ## Uso
-Se debe tener el entorno virtual activado y el Docker Compose en ejecución.
+Se debe tener el entorno virtual activado y el Docker Compose en ejecución (si se configuró manual).
 
 Luego Ejecute las pruebas de Robot Framework:
 ```bash

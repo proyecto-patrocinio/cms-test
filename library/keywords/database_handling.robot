@@ -102,6 +102,23 @@ Obtener el comentario "${COMMENT}" de la DB
     Disconnect From Database
     RETURN    ${FIRST_RESULT}
 
+Obtener el evento "${EVENT_TITLE}" de la card con ID ${CARD_ID} en DB
+    [Documentation]    Obtiene de la base de datos, el evento de titulado $EVENT_TITLE,
+    ...    para la consulta con ID proporcionado.
+    ...    Los datos retornados son: id, title, description , start , end y card_id.
+    @{QUERY}    Create List
+    ...    SELECT e.id, e.title, e.description , e."start" , e."end", c.card_id
+    ...    FROM public."Calendar_event" e
+    ...    JOIN public."Calendar_calendar" c ON e.calendar_id = c.id
+    ...    WHERE e.title = '${EVENT_TITLE}' AND c.card_id = ${CARD_ID};
+    ${QUERY}    Evaluate    ' '.join($QUERY)
+
+    Conectar a Base de Datos existente
+    ${RESULT} =    Query    ${QUERY}
+    ${FIRST_RESULT} =    Set Variable If    ${RESULT}    ${RESULT[0]}    ${None}
+    Disconnect From Database
+    RETURN    ${FIRST_RESULT}
+
 ######################################################################
 # Inserts
 
@@ -180,6 +197,8 @@ Limpiar base de datos
     Execute Sql String    DELETE from "Clients_patrimony";
     Execute Sql String    DELETE from "Clients_family";
     Execute Sql String    DELETE from "Consultation_requestconsultation";
+    Execute Sql String    DELETE from "Calendar_event";
+    Execute Sql String    DELETE from "Calendar_calendar";
     Execute Sql String    DELETE from "Card_card";
     Execute Sql String    DELETE from "Comment_comment";
     Execute Sql String    DELETE from "Consultation_consultation";
@@ -194,6 +213,4 @@ Limpiar base de datos
     Execute Sql String    DELETE from "Panel_panel";
     Execute Sql String    DELETE from "Comment_file";
     Execute Sql String    DELETE from "Board_board";
-    Execute Sql String    DELETE from "Calendar_event";
-    Execute Sql String    DELETE from "Calendar_calendar";
     Disconnect From Database

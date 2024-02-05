@@ -8,11 +8,11 @@ Library  CSVLibrary
 
 Resource  ../settings.robot
 Resource  ../constants.robot
-Resource  ../library/keywords/database_handling.robot
-Resource  ../library/keywords/session.robot
-Resource  ../library/keywords/testing_environment.robot
-Resource    keywords/utils.robot
-Resource    keywords/consultation.robot
+Resource  keywords/database_handling.robot
+Resource  keywords/session.robot
+Resource  keywords/testing_environment.robot
+Resource  keywords/utils.robot
+Resource  keywords/consultation.robot
 
 
 *** Keywords ***
@@ -72,18 +72,18 @@ La pestaña "${CMS_PAGE_NAME}" deberı́a estar visible
     #Espera hasta que se cargue la página HOME
     Wait Until Page Contains    Welcome!
     IF    '${CMS_PAGE_NAME}' == 'consultancy'
-        ${XPATH_CONSULTANCY} =    Set Variable    xpath://span[@class='MuiListItemText-primary' and contains(text(),'Consultancy')]
+        ${XPATH_CONSULTANCY} =    Set Variable    xpath://span[contains(@class,'MuiListItemText-primary') and contains(text(),'Consultancy')]
         Element Should Be Visible    ${XPATH_CONSULTANCY}
 
     ELSE IF    '${CMS_PAGE_NAME}' == 'panel de control'
-        ${XPATH_CONTORL_PANEL} =    Set Variable    xpath://span[@class='MuiListItemText-primary' and contains(text(),'Control Panel')]
+        ${XPATH_CONTORL_PANEL} =    Set Variable    xpath://span[contains(@class,'MuiListItemText-primary') and contains(text(),'Control Panel')]
         Element Should Be Visible    ${XPATH_CONTORL_PANEL}
         Click Element    ${XPATH_CONTORL_PANEL}
-        
-        ${XPATH_CONSULTATIONS} =    Set Variable    xpath://span[@class='MuiListItemText-primary' and contains(text(),'Consultations')]
+
+        ${XPATH_CONSULTATIONS} =    Set Variable    xpath://span[contains(@class,'MuiListItemText-primary') and contains(text(),'Consultations')]
         Wait Until Element Is Visible    ${XPATH_CONSULTATIONS}
-  
-        ${XPATH_CLIENTS} =    Set Variable    xpath://span[@class='MuiListItemText-primary' and contains(text(),'Clients')]
+
+        ${XPATH_CLIENTS} =    Set Variable    xpath://span[contains(@class,'MuiListItemText-primary') and contains(text(),'Clients')]
         Wait Until Element Is Visible    ${XPATH_CLIENTS}
 
     ELSE IF    '${CMS_PAGE_NAME}' == 'boards'
@@ -91,7 +91,7 @@ La pestaña "${CMS_PAGE_NAME}" deberı́a estar visible
         Element Should Be Visible    ${XPATH_BOARDS}
 
     ELSE
-        Fatal Error    La opción de pestaña '${CMS_PAGE_NAME}' no esta implementada.  
+        Fatal Error    La opción de pestaña '${CMS_PAGE_NAME}' no esta implementada.
 
     END
     Recolectar captura de pantalla    window_${CMS_PAGE_NAME}_visible
@@ -140,7 +140,7 @@ La información de la consulta "${TAG}" deberı́a contener el cliente con DNI "
     ${ROW_LOCATOR}    Set Variable    xpath=/html/body/div[4]/div[3]/div/div[2]/div/div/table/tbody/tr[2]/td[2]/div/tr[4]
     Verificar fila de la tabla    ${ROW_LOCATOR}    ID Value:    ${DNI}
     Recolectar captura de pantalla    content_client_${DNI}_expanded
-    Cerrar Info de consulta
+    Se cierra el dialogo de detalle de consulta
 
 La información de la consulta "${TAG}" deberı́a contener el campo "${KEY}" en "${VALUE}"
     [Documentation]    Se abre la ventana de detalle de la consulta y se busca la fila de la tabla de información
@@ -150,7 +150,7 @@ La información de la consulta "${TAG}" deberı́a contener el campo "${KEY}" en
     ${TABLE_LOCATOR}    Set Variable    xpath=/html/body/div[4]/div[3]/div/div[2]/div/div/table/tbody
     ${ROW_LOCATOR}=    Obtener locator de la fila '${KEY}' para la tabla con locator ${TABLE_LOCATOR}
     Verificar fila de la tabla    ${ROW_LOCATOR}    ${KEY}:    ${VALUE}
-    Cerrar Info de consulta
+    Se cierra el dialogo de detalle de consulta
 
 El Popper de la comisión debería contener "${CONTENT}"
     ${POPPER_LOCATOR}    Set Variable    id=transitions-popper
@@ -223,7 +223,7 @@ La tabla debería contener ${EXPECT_NUM_ROWS} filas
     ...                primera fila con los titulos.
     ...                y verifica que la cantidad encontrada -1 sea igual a la esperada.
     ...                Se setea la variable de test ${EXPECT_NUM_ROWS}.
-    ${NUM_ROWS}    Get Element Count    xpath=//div[@role='row']
+    ${NUM_ROWS}    SeleniumLibrary.Get Element Count    xpath=//div[@role='row']
     Log    La cantidad de filas es: ${NUM_ROWS}
     ${NUM_ROWS}    Evaluate    ${NUM_ROWS}-1
     Should Be Equal As Integers    ${NUM_ROWS}    ${EXPECT_NUM_ROWS}
@@ -263,7 +263,7 @@ El archivo se debería haber descargado correctamente
     ...                Luego chequea que el mismo no este vacio.
     ...                Finalmente mueve el archivo a la carpeta temporal de trabajo
     ...                Y setea el nombre del archivo como variable de entorno FILENAME_DOWNLOAD.
-    [Arguments]    ${FILENAME_DOWNLOAD}=clientsDataBase.csv
+    [Arguments]    ${FILENAME_DOWNLOAD}=data_table_*.csv
     ${FILE_PATH}    Obtener el path del archivo descargado '${FILENAME_DOWNLOAD}'
     File Should Exist    ${FILE_PATH}
     File Should Not Be Empty    ${FILE_PATH}
@@ -347,7 +347,7 @@ La vista de comentarios de la consulta "${TAG}" debería contener "${COMMENT}"
 
     Element Should Be Visible    xpath=//p[text()="${COMMENT}"]
 
-    Cerrar Info de consulta
+    Se cierra el dialogo de detalle de consulta
 
 El comentario "${COMMENT}" para la consulta "${TAG}" debería existir en la DB
     ${COMMENT} =    Obtener el comentario "${COMMENT}" de la DB
@@ -362,10 +362,34 @@ La vista de comentarios de la consulta "${TAG}" NO debería contener "${COMMENT}
     Run Keyword And Expect Error
     ...    *
     ...    La vista de comentarios de la consulta "${TAG}" debería contener "${COMMENT}"
-    Cerrar Info de consulta
+    Se cierra el dialogo de detalle de consulta
 
 
 El comentario "${COMMENT}" para la consulta "${TAG}" NO debería existir en la DB
     Run Keyword And Expect Error
     ...    *
     ...    El comentario "${COMMENT}" para la consulta "${TAG}" debería existir en la DB
+
+La vista calendario de la consulta "${TAG}" debería contener el evento "${EVENT_TITLE}" el día de la fecha
+    [Documentation]    Esta keyword supone que el dialogo de detalle de la consulta se encuentra presente,
+    ...                con la pestaña Calendar visible.
+    ${EVENT_LOCATOR}    Set Variable    xpath=//div[@title="${EVENT_TITLE}"]
+    Wait Until Element Is Visible    ${EVENT_LOCATOR}
+
+El evento "${EVENT_TITLE}" hoy para la consulta "${TAG}" y descripción "${EXPECT_DESCRIPT}" debería existir en la DB
+    ${CONSULT}    Obtener consulta con TAG '${TAG}' de la DB
+    ${CONSULT_ID}    Set Variable    ${CONSULT[0]}
+    ${EVENT}    Obtener el evento "${EVENT_TITLE}" de la card con ID ${CONSULT_ID} en DB
+    ${DESCRIPT_FROM_DB}    Set Variable    ${EVENT[2]}
+    Should Be Equal As Strings    ${DESCRIPT_FROM_DB}    ${EXPECT_DESCRIPT}
+
+La vista calendario de la consulta "${TAG}" NO debería contener el evento "${EVENT_TITLE}"
+    Run Keyword And Expect Error
+    ...    *
+    ...    La vista calendario de la consulta "${TAG}" debería contener el evento "${EVENT_TITLE}" el día de la fecha
+
+No debería existir el evento "${EVENT_TITLE}" para la consulta "${TAG}" en la DB
+    ${CONSULT}    Obtener consulta con TAG '${TAG}' de la DB
+    ${CONSULT_ID}    Set Variable    ${CONSULT[0]}
+    ${EVENT}    Obtener el evento "${EVENT_TITLE}" de la card con ID ${CONSULT_ID} en DB
+    Should Be Equal    ${EVENT}    ${None}

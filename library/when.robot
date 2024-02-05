@@ -149,7 +149,7 @@ Se edita el campo "${KEY}" a "${NEW_VALUE}" del ticket "${TAG}"
     Click Element    ${SAVE_BUTTON_LOCATOR}
     Recolectar captura de pantalla    saved_data
 
-    Cerrar Info de consulta
+    Se cierra el dialogo de detalle de consulta
 
 Se edita el campo "${KEY}" seleccionando la opción "${NEW_STATE}" del ticket "${TAG}"
     [Documentation]    Edita el campo de tipo 'options' especificado en un ticket seleccionando una nueva opción.
@@ -178,7 +178,7 @@ Se edita el campo "${KEY}" seleccionando la opción "${NEW_STATE}" del ticket "$
 
     Click Element    ${SAVE_BUTTON_LOCATOR}
 
-    Cerrar Info de consulta
+    Se cierra el dialogo de detalle de consulta
 
 Se agrega el comentario "${COMMENT}" al ticket "${TAG}"
     [Documentation]    Abre el detalle de consultas, se mueve a la pestaña de comentarios
@@ -192,7 +192,7 @@ Se agrega el comentario "${COMMENT}" al ticket "${TAG}"
     ${DIALOG_LOCATOR}    Set Variable    xpath=//div[@role="dialog"]
     Click Element    ${DIALOG_LOCATOR}//button[@id='add-icon-button']
 
-    Cerrar Info de consulta
+    Se cierra el dialogo de detalle de consulta
 
 Se elimina el comentario "${COMMENT}" al ticket "${TAG}"
     [Documentation]    Abre el dialogo del detalle de la consulta $TAG,
@@ -211,7 +211,7 @@ Se elimina el comentario "${COMMENT}" al ticket "${TAG}"
     ${DELETE_OPTION}    Set Variable    xpath=//li[text()='Delete']
     Click Element    ${DELETE_OPTION}
 
-    Cerrar Info de consulta
+    Se cierra el dialogo de detalle de consulta
 
 Se edita el comentario "${OLD_COMMENT}" a "${NEW_COMMENT}" al ticket "${TAG}"
     [Documentation]    Abre el dialogo del detalle de la consulta $TAG,
@@ -245,4 +245,30 @@ Se edita el comentario "${OLD_COMMENT}" a "${NEW_COMMENT}" al ticket "${TAG}"
     # Guardar cambios
     ${SAVE_BUTTON_LOCATOR}    Set Variable    xpath=//button[@id="comment-edit-confim-button"]
     Click Element    ${SAVE_BUTTON_LOCATOR}
-    Cerrar Info de consulta
+    Se cierra el dialogo de detalle de consulta
+
+Se agrega el evento para hoy al ticket "${TAG}" titulado "${TITLE}" con descripción "${DESCRIPTION}"
+    [Documentation]    Abre el dialogo con el calendario de la consulta titlado $TAG, y crea un nuevo evento
+    ...    para el día de la fecha, con el titulo $TITLE y la descripción $DESCRIPTION.
+    ...    No cierra el dialogo.
+    Abrir detalle de la consulta '${TAG}'
+    Click Button    Calendar
+
+    ${TODAY_LOCATOR}    Set Variable    xpath=//div[@class="rbc-day-bg rbc-today"]
+    Click Element    ${TODAY_LOCATOR}
+
+    Input Text    id=title    ${TITLE}
+    Input Text    id=description    ${DESCRIPTION}
+
+    Click Button    Accept
+
+Se elimina el evento "${EVENT_TITLE}" del ticket "${TAG}"
+    [Documentation]    Esta keyword supone que el dialogo del detalle de la consulta
+    ...    esta visible en la pestaña Calendar.
+    ${EVENT_LOCATOR}    Set Variable    xpath=//div[@title="${EVENT_TITLE}"]
+    Click Element    ${EVENT_LOCATOR}
+
+    ${TRASH_BUTTON}    Set Variable     xpath=/html/body/div[4]/div[3]/div/div[2]/div/div[2]/button
+    Sleep    1s
+    Click Element    ${TRASH_BUTTON}
+    Sleep    2s
