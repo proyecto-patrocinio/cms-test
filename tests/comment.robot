@@ -42,7 +42,7 @@ PAT-SYS-12: Creación, edición y elimnación de un comentario de una consulta
     ...    board de la comisión perteneciente, abre el detalle de una consulta y
     ...    se verifica que pueda crear, editar y eliminar un comentario en dicha consulta
     ...    validando contra la base de datos y con la GUI.
-    [Tags]  Automatico   SYS   PAT-SYS-12    PAT-150
+    [Tags]  Automatico   SYS   PAT-SYS-12    PAT-149
     Given existe el board "Comisión A1" en la DB
     And existe un usuario registrado activo con permisos "common" y "professor" en la DB
     And el usuario profesor tiene acceso al board "Comisión A1"
@@ -61,17 +61,17 @@ PAT-SYS-12: Creación, edición y elimnación de un comentario de una consulta
 
     When se agrega el comentario "dummy" al ticket "Divorcio"
 
-    Then La vista de comentarios de la consulta "Divorcio" debería contener "dummy"
+    Then la vista de comentarios de la consulta "Divorcio" debería contener "dummy"
     And el comentario "dummy" para la consulta "Divorcio" debería existir en la DB
 
     When se edita el comentario "dummy" a "lore ipsum" al ticket "Divorcio"
 
-    Then La vista de comentarios de la consulta "Divorcio" debería contener "lore ipsum"
+    Then la vista de comentarios de la consulta "Divorcio" debería contener "lore ipsum"
     And el comentario "lore ipsum" para la consulta "Divorcio" debería existir en la DB
-    And La vista de comentarios de la consulta "Divorcio" NO debería contener "dummy"
+    And la vista de comentarios de la consulta "Divorcio" NO debería contener "dummy"
     And el comentario "dummy" para la consulta "Divorcio" NO debería existir en la DB
 
     When se elimina el comentario "lore ipsum" al ticket "Divorcio"
     
-    Then La vista de comentarios de la consulta "Divorcio" NO debería contener "lore ipsum"
+    Then la vista de comentarios de la consulta "Divorcio" NO debería contener "lore ipsum"
     And el comentario "lore ipsum" para la consulta "Divorcio" NO debería existir en la DB
