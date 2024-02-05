@@ -100,7 +100,7 @@ PAT-SYS-10: Visualización y manipulación de la tabla en la ventana clients
     ...    a la página de clients del panel de control. Valida que contenga los valores en la tabla
     ...    esperados. Valida el funcionamiento del filtro por 'Last Name' y el correcto funcionamiento de la
     ...    exportación de la tabla a CSV.
-    [Tags]  Automatico   SYS   PAT-SYS-10    PAT-148
+    [Tags]  Automatico   SYS   PAT-SYS-10    PAT-151
     Given existe un usuario registrado activo con permisos "common" y "case_taker" en la DB
     And existe el cliente en la base de datos:
         ...    Romina    Cugat    DOCUMENT    32165498    FEMALE    1996-06-23

@@ -41,6 +41,6 @@ Abrir detalle de la consulta '${TAG}'
     Double Click Element    ${TICKET_LOCATOR}
     Wait Until Page Contains    Consultation Details
 
-Cerrar Info de consulta
+Se cierra el dialogo de detalle de consulta
     [Documentation]    Cierra la ventana de detalle de consulta.
     Click Button    Close

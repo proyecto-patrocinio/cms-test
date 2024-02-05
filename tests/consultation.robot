@@ -1,5 +1,6 @@
 *** Settings ***
-Documentation     Suite de test para pruebas relacionadas al CRUD de la consulta.
+Documentation     Suite de test para pruebas relacionadas al CRUD de la consulta
+...    y a la visualización basica de la información de la misma en el detalle de la consulta.
 
 Library  SeleniumLibrary
 Library  ImapLibrary2
@@ -94,7 +95,7 @@ PAT-SYS-13: Realizar cambios de una consulta como usuario Profesor
     ...    con permisos a una comisión con una consulta asignada, se valida que
     ...    el usuario, pueda realizar cambios 'Description', 'Opponent', 'Progress State', 'Tag'
     ...    en los campos de la consulta.
-    [Tags]  Automatico   SYS   PAT-SYS-13    PAT-149
+    [Tags]  Automatico   SYS   PAT-SYS-13    PAT-148
     Given existe el board "Comisión A1" en la DB
     And existe un usuario registrado activo con permisos "common" y "professor" en la DB
     And el usuario profesor tiene acceso al board "Comisión A1"

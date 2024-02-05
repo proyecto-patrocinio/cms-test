@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Suite de test para pruebas relacionadas a los comentarios de las consultas.
+Documentation     Suite de test para pruebas relacionadas al CRUD de los eventos de una consulta.
 
 Library  SeleniumLibrary
 Library  ImapLibrary2
@@ -30,6 +30,7 @@ Test Setup    Run Keywords
     ...                Limpiar base de datos
 
 Test Teardown    Run Keywords
+    ...                Se cierra el dialogo de detalle de consulta
     ...                Desloguearse de la plataforma
     ...                Cerrar el navegador
     ...                Recolectar las evidencias
@@ -37,12 +38,13 @@ Test Teardown    Run Keywords
 
 
 *** Test Cases ***
-PAT-SYS-12: Creación, edición y elimnación de un comentario de una consulta
-    [Documentation]    Dado el ingreso a la plataforma como profesor. Navega al
-    ...    board de la comisión perteneciente, abre el detalle de una consulta y
-    ...    se verifica que pueda crear, editar y eliminar un comentario en dicha consulta
-    ...    validando contra la base de datos y con la GUI.
-    [Tags]  Automatico   SYS   PAT-SYS-12    PAT-149
+
+PAT-SYS-14: Creación y eliminación de eventos de una consulta
+    [Documentation]    Dado que se ingresa a la plataforma como usuario profesor,
+    ...    se intenta crear, visualizar y eliminar un evento para el día de la fecha
+    ...    en la pestaña 'Calendar', del dialogo 'Detalle de la Consulta'
+    ...    para la consulta perteneciente a la comisión del profesor.
+    [Tags]  Automatico   SYS   PAT-SYS-14    PAT-152
     Given existe el board "Comisión A1" en la DB
     And existe un usuario registrado activo con permisos "common" y "professor" en la DB
     And el usuario profesor tiene acceso al board "Comisión A1"
@@ -59,19 +61,12 @@ PAT-SYS-12: Creación, edición y elimnación de un comentario de una consulta
     And se accedió a la plataforma como usuario "profesor"
     And se navega a la pestaña "Board/Comisión A1"
 
-    When se agrega el comentario "dummy" al ticket "Divorcio"
+    When Se agrega el evento para hoy al ticket "Divorcio" titulado "Junta" con descripción "sucursal principal"
 
-    Then la vista de comentarios de la consulta "Divorcio" debería contener "dummy"
-    And el comentario "dummy" para la consulta "Divorcio" debería existir en la DB
+    Then la vista calendario de la consulta "Divorcio" debería contener el evento "Junta" el día de la fecha
+    And el evento "Junta" hoy para la consulta "Divorcio" y descripción "sucursal principal" debería existir en la DB
 
-    When se edita el comentario "dummy" a "lore ipsum" al ticket "Divorcio"
+    When se elimina el evento "Junta" del ticket "Divorcio"
 
-    Then la vista de comentarios de la consulta "Divorcio" debería contener "lore ipsum"
-    And el comentario "lore ipsum" para la consulta "Divorcio" debería existir en la DB
-    And la vista de comentarios de la consulta "Divorcio" NO debería contener "dummy"
-    And el comentario "dummy" para la consulta "Divorcio" NO debería existir en la DB
-
-    When se elimina el comentario "lore ipsum" al ticket "Divorcio"
-    
-    Then la vista de comentarios de la consulta "Divorcio" NO debería contener "lore ipsum"
-    And el comentario "lore ipsum" para la consulta "Divorcio" NO debería existir en la DB
+    Then la vista calendario de la consulta "Divorcio" NO debería contener el evento "Junta"
+    And no debería existir el evento "Junta" para la consulta "Divorcio" en la DB
