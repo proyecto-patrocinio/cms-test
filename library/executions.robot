@@ -272,3 +272,18 @@ Se elimina el evento "${EVENT_TITLE}" del ticket "${TAG}"
     Sleep    1s
     Click Element    ${TRASH_BUTTON}
     Sleep    2s
+
+# Se arrastra el ticket "${TAG}" al panel "${PANEL_NAME}"
+#     ${TICKET_LOCATOR}    Set Variable    xpath=//*[@id="root"]/div/div/main/div[2]/main/div/div/div[1]/div/div[2]/div/div/div/div
+#     ${DROPPEABLE}    Set Variable    xpath=//*[@id="root"]/div/div/main/div[2]/main/div/div/div[3]/div[2]  #//*[@id="root"]/div/div/main/div[2]/main/div/div/div[3]/div[2]
+#     Wait Until Element Is Visible    ${TICKET_LOCATOR}    timeout=10s
+
+#     Drag And Drop    ${TICKET_LOCATOR}    ${DROPPEABLE}
+#     ${Y_OFFSET}    Get Vertical Position    ${DROPPEABLE}
+#     ${X_OFFESET}    Get Horizontal Position    ${DROPPEABLE}
+#     ${X_OFFESET_2}    Get Horizontal Position    ${TICKET_LOCATOR}
+#     ${Y_OFFSET_2}    Get Vertical Position    ${TICKET_LOCATOR}
+#     ${X}    Evaluate    $X_OFFESET-$X_OFFESET_2
+#     ${Y}    Evaluate    $Y_OFFSET-$Y_OFFSET_2
+#     Drag And Drop By Offset    ${TICKET_LOCATOR}    800    0
+#     Sleep    3s

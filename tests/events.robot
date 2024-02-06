@@ -12,9 +12,9 @@ Library  Collections
 Resource  ../library/keywords/utils.robot
 Resource  ../library/keywords/testing_environment.robot
 Resource  ../library/keywords/docker.robot
-Resource  ../library/given.robot
-Resource  ../library/when.robot
-Resource  ../library/then.robot
+Resource  ../library/preconditions.robot
+Resource  ../library/executions.robot
+Resource  ../library/validations.robot
 
 
 Suite Setup    Run Keywords
@@ -61,7 +61,7 @@ PAT-SYS-14: Creación y eliminación de eventos de una consulta
     And se accedió a la plataforma como usuario "profesor"
     And se navega a la pestaña "Board/Comisión A1"
 
-    When Se agrega el evento para hoy al ticket "Divorcio" titulado "Junta" con descripción "sucursal principal"
+    When se agrega el evento para hoy al ticket "Divorcio" titulado "Junta" con descripción "sucursal principal"
 
     Then la vista calendario de la consulta "Divorcio" debería contener el evento "Junta" el día de la fecha
     And el evento "Junta" hoy para la consulta "Divorcio" y descripción "sucursal principal" debería existir en la DB

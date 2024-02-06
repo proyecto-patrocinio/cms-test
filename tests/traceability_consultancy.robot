@@ -13,9 +13,9 @@ Library  Collections
 Resource  ../library/keywords/utils.robot
 Resource  ../library/keywords/testing_environment.robot
 Resource  ../library/keywords/docker.robot
-Resource  ../library/given.robot
-Resource  ../library/when.robot
-Resource  ../library/then.robot
+Resource  ../library/preconditions.robot
+Resource  ../library/executions.robot
+Resource  ../library/validations.robot
 
 
 Suite Setup    Run Keywords
