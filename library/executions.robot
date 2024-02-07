@@ -237,7 +237,7 @@ Se edita el comentario "${OLD_COMMENT}" a "${NEW_COMMENT}" al ticket "${TAG}"
     ${COMMENT_LENGTH}    Get Length    ${OLD_COMMENT}
     Sleep    1s
     FOR    ${LETER}    IN RANGE    ${COMMENT_LENGTH}
-        Press Keys    ${TEXTAREA_LOCATOR}    \ue012\ue017    # left + Delete
+        Press Keys    ${TEXTAREA_LOCATOR}    ${LEFT_DELETE}
     END
     Clear Element Text    ${TEXTAREA_LOCATOR}
     Input Text    ${TEXTAREA_LOCATOR}    ${NEW_COMMENT}
@@ -273,17 +273,77 @@ Se elimina el evento "${EVENT_TITLE}" del ticket "${TAG}"
     Click Element    ${TRASH_BUTTON}
     Sleep    2s
 
-# Se arrastra el ticket "${TAG}" al panel "${PANEL_NAME}"
-#     ${TICKET_LOCATOR}    Set Variable    xpath=//*[@id="root"]/div/div/main/div[2]/main/div/div/div[1]/div/div[2]/div/div/div/div
-#     ${DROPPEABLE}    Set Variable    xpath=//*[@id="root"]/div/div/main/div[2]/main/div/div/div[3]/div[2]  #//*[@id="root"]/div/div/main/div[2]/main/div/div/div[3]/div[2]
-#     Wait Until Element Is Visible    ${TICKET_LOCATOR}    timeout=10s
+Se crea un nuevo cliente "${CLIENT_NAME}" con DNI "${CLIENT_DNI}"
+    @{CLIENT_NAMES}    Split String    ${CLIENT_NAME}
+    Click Button    Add record
+    Escribir en la tabla de clientes    postal    1111
+    Escribir en la tabla de clientes    address    dummy address
+    Seleccionar la opción "SINGLE" de la columna "marital_status"
+    Seleccionar la opción "HOUSE" de la columna "housing_type"
+    Seleccionar la opción "COMPLETE_UNIVERSITY" de la columna "studies"
+    Escribir en la tabla de clientes    email    dummy_address@email.com
+    Seleccionar la opción "DOCUMENT" de la columna "id_type"
+    Escribir en la tabla de clientes    id_value    12345678
+    Escribir en la tabla de clientes    first_name    ${CLIENT_NAMES[0]}
+    Escribir en la tabla de clientes    last_name    ${CLIENT_NAMES[1]}
+    Seleccionar la opción "FEMALE" de la columna "sex"
+    Escribir en la tabla de clientes    birth_date    2024-02-06
+    Escribir en la tabla de clientes     nationality    Argentina
+    Escribir en la tabla de clientes     province    Catamarca
+    Escribir en la tabla de clientes     locality    Ancasti
+    Escribir en la tabla de clientes    patrimony.employment    dummy employment
+    Escribir en la tabla de clientes    patrimony.salary    1111
+    Escribir en la tabla de clientes    patrimony.other_income    No
+    Escribir en la tabla de clientes    patrimony.amount_other_income    0
+    Escribir en la tabla de clientes    patrimony.amount_retirement    0
+    Escribir en la tabla de clientes    patrimony.amount_pension    0
+    Escribir en la tabla de clientes    patrimony.vehicle    N0
+    Escribir en la tabla de clientes    family.partner_salary    0
 
-#     Drag And Drop    ${TICKET_LOCATOR}    ${DROPPEABLE}
-#     ${Y_OFFSET}    Get Vertical Position    ${DROPPEABLE}
-#     ${X_OFFESET}    Get Horizontal Position    ${DROPPEABLE}
-#     ${X_OFFESET_2}    Get Horizontal Position    ${TICKET_LOCATOR}
-#     ${Y_OFFSET_2}    Get Vertical Position    ${TICKET_LOCATOR}
-#     ${X}    Evaluate    $X_OFFESET-$X_OFFESET_2
-#     ${Y}    Evaluate    $Y_OFFSET-$Y_OFFSET_2
-#     Drag And Drop By Offset    ${TICKET_LOCATOR}    800    0
-#     Sleep    3s
+    Click Element    xpath=//button[@aria-label="Save"]
+
+Seleccionar la opción "${OPTION}" de la columna "${CURRENT_KEY}"
+    [Documentation]    Selecciona la opción elegida para campo especificado.
+    ...    Esta keyword funciona para columnas de tipo "selector".
+    ...    En caso de no encontrar el elemento visible, esta keyword supone la
+    ...    variable de test PREV_LOCATOR seteada con el elemento de tipo "text"
+    ...    mas cercano del lado izquierdo al elemento deseado.
+    ${ROW_LOCATOR}    Set Variable    xpath=//div[contains(@class,"MuiDataGrid-virtualScrollerRenderZone")]
+    ${CURRENT_LOCATOR}    Set Variable    ${ROW_LOCATOR}//div[@data-field="${CURRENT_KEY}"]/div
+
+    ${IS_VISIBLE}    Run Keyword And Return Status
+    ...    Element Should Be Visible    ${CURRENT_LOCATOR}
+    IF    ${IS_VISIBLE}
+        Click Element    ${CURRENT_LOCATOR}
+    ELSE
+        Press Keys    ${PREV_LOCATOR}    ${TAB_KEY}
+        Wait Until Element Is Visible    ${CURRENT_LOCATOR}
+        Click Element    ${CURRENT_LOCATOR}
+    END
+    ${OPTION_LOCATOR}    Set Variable    xpath=//li[@data-value="${OPTION}"]
+    Wait Until Element Is Visible    ${OPTION_LOCATOR}
+    Click Element    ${OPTION_LOCATOR}
+
+Escribir en la tabla de clientes
+    [Documentation]    Ingresa un dato en un elemento de la tabla Clients,
+    ...    de la página panel de control. Verifica si el elemento esta visible.
+    ...    En caso de no estarlo, presiona la tecla tab del elemento anterior
+    ...    y vuelve a intentar escribir.
+    ...    Simula un scroll a la derecha, si el elemento no es visible.
+    ...    Esta keyword, debe utilizarse en orden de izquierda a derecha
+    ...    comenzando por primera vez con un elemento visible.
+    [Arguments]    ${CURRENT_KEY}    ${VALUE}
+    ${CURRENT_LOCATOR}    Set Variable    xpath=//div[@data-field="${CURRENT_KEY}"]//input
+
+    ${IS_VISIBLE}    Run Keyword And Return Status
+    ...    Element Should Be Visible    ${CURRENT_LOCATOR}
+    IF    ${IS_VISIBLE}
+        Input Text    ${CURRENT_LOCATOR}    ${VALUE}
+    ELSE
+        Press Keys    ${PREV_LOCATOR}    ${TAB_KEY}
+        Wait Until Element Is Visible    ${CURRENT_LOCATOR}
+        Input Text    ${CURRENT_LOCATOR}    ${VALUE}
+    END
+    # Se actualiza el ultimo elemento previo.
+    ${PREV_LOCATOR} =    Set Variable    ${CURRENT_LOCATOR}
+    Set Test Variable    ${PREV_LOCATOR}

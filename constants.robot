@@ -18,3 +18,7 @@ ${CMS_CASE_TAKER_USER_USERNAME}    tomadordecaso
 ${CMS_CASE_TAKER_USER_PASSWORD}    Cl21!2AHDF
 
 ####################################################
+# Keys
+
+${TAB_KEY}    \ue004
+${LEFT_DELETE}    \ue012\ue017
