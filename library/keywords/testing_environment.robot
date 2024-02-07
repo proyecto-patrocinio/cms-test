@@ -51,7 +51,7 @@ Existe el archivo local
 
 Configurar el ID del Test
     [Documentation]    Busca un tag que comience con la subcadena del proyecto y lo configura
-    ...                como variable global con fines de administración de tests.
+    ...                como variable global con fines de administracion de tests.
     ${HAS_TAGS} =    Run Keyword And Return Status
     ...              Should Not Be Empty    ${TEST_TAGS}
     IF    $HAS_TAGS == False

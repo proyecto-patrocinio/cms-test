@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Suite de test para chequear la visibilidad de las pestañas de la página CMS.
+Documentation     Suite de test para chequear la visibilidad de las pestañas de la pagina CMS.
 
 Library  SeleniumLibrary
 Library  ImapLibrary2
@@ -12,9 +12,9 @@ Library  Collections
 Resource  ../library/keywords/utils.robot
 Resource  ../library/keywords/testing_environment.robot
 Resource  ../library/keywords/docker.robot
-Resource  ../library/given.robot
-Resource  ../library/when.robot
-Resource  ../library/then.robot
+Resource  ../library/preconditions.robot
+Resource  ../library/executions.robot
+Resource  ../library/validations.robot
 
 
 Suite Setup    Run Keywords

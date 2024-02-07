@@ -21,7 +21,7 @@ Obtener locator de la fila '${KEY}' para la tabla con locator ${TABLE_LOCATOR}
     [Documentation]    Dado el locator de la tabla recorre las filas hasta obtener
     ...                la fila que contenga el campo buscado igual a ${KEY}.
     ...                Retorna el Locator de la fila encontrada. Si no la encuentra
-    ...                lanza una excepción.
+    ...                lanza una excepcion.
     ${ROW_LIST} =    Get WebElements    ${TABLE_LOCATOR}//tr
     ${NUM_ROWS}    Get Length    ${ROW_LIST}
     FOR    ${INDEX}    IN RANGE    ${NUM_ROWS}
@@ -29,11 +29,11 @@ Obtener locator de la fila '${KEY}' para la tabla con locator ${TABLE_LOCATOR}
         ${CONTENT_ROW} =    Get Text    ${ROW_LOCATOR}
         ${IS_CONTAINS}    Run Keyword And Return Status    Should Contain    ${CONTENT_ROW}    ${KEY}
         IF    ${IS_CONTAINS}
-            Log    Se encontró la fila con "${KEY}:"
+            Log    Se encontro la fila con "${KEY}:"
             RETURN    ${ROW_LOCATOR}
         END
     END
-    Fatal Error    No se encontró ninguna fila con "${KEY}:"
+    Fatal Error    No se encontro ninguna fila con "${KEY}:"
 
 Verificar fila de la tabla
     [Documentation]    Valida que la fila con locator ${ROW_LOCATOR} de la tabla,
@@ -64,3 +64,11 @@ Obtener Directorio de Descarga
     END
 
     RETURN  ${DOWNLOAD_DIR}
+
+Confirmar seleccion autocompletada
+    [Documentation]    Esta keyword funciona para elementos que contienen
+    ...   una input de tipo aria-autocomplete.
+    [Arguments]    ${CURRENT_LOCATOR}
+    Press Keys    ${CURRENT_LOCATOR}    ARROW_DOWN
+    Press Keys    ${CURRENT_LOCATOR}    ENTER
+    Press Keys    ${CURRENT_LOCATOR}    RETURN

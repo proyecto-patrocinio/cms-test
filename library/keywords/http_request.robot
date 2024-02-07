@@ -12,8 +12,8 @@ Resource    database_handling.robot
 # Solicutudes generales
 Enviar un Post a la API
     [Documentation]    Se ejecuta request para enviar un Post a la URL
-    ...                y el Body proporcionado. Además se deberá proporcionar
-    ...                el Token de autorización de la sesión.
+    ...                y el Body proporcionado. Ademas se debera proporcionar
+    ...                el Token de autorizacion de la sesion.
     [Arguments]    ${TOKEN}    ${URL}    ${BODY}
     ${HEADERS} =    Create Dictionary
     ...    Content-Type=application/json
@@ -24,8 +24,8 @@ Enviar un Post a la API
 
 Enviar un Delete a la API
     [Documentation]    Se ejecuta request para enviar un Delete a la URL
-    ...                proporcionada. Además se deberá proporcionar
-    ...                el Token de autorización de la sesión.
+    ...                proporcionada. Ademas se debera proporcionar
+    ...                el Token de autorizacion de la sesion.
     [Arguments]    ${TOKEN}    ${URL}
     ${HEADERS} =    Create Dictionary
     ...    Content-Type=application/json
@@ -36,31 +36,31 @@ Enviar un Delete a la API
 
 # ======================================================================
 # Solicitudes particulares
-Aceptar la solicitud de asignación de consulta
-    [Documentation]    Acepta la solicitud de asignación con el ID ${REQUEST_ID}
-    ...                enviado al Panel con ID ${PANEL_ID} utilizando la última
-    ...                sesión creada.
+Aceptar la solicitud de asignacion de consulta
+    [Documentation]    Acepta la solicitud de asignacion con el ID ${REQUEST_ID}
+    ...                enviado al Panel con ID ${PANEL_ID} utilizando la ultima
+    ...                sesion creada.
     [Arguments]    ${REQUEST_ID}    ${PANEL_ID}
-    ${USER_TOKEN}    Obtener el token de la última sesion
+    ${USER_TOKEN}    Obtener el token de la ultima sesion
     ${URL_ACCEPT}    Set Variable    ${API_REQ_CONSULT}/${REQUEST_ID}/accepted/
     ${BODY}    Create Dictionary    destiny_panel    ${PANEL_ID}
     ${STATUS} =    Enviar un Post a la API    ${USER_TOKEN}    ${URL_ACCEPT}    ${BODY}
     RETURN    ${STATUS}
 
-Crear la solicitud de asignación de consulta
-    [Documentation]    Crea la solicitud de asignación de la consulta
+Crear la solicitud de asignacion de consulta
+    [Documentation]    Crea la solicitud de asignacion de la consulta
     ...                con ID ${CONSULT_ID} enviado al Board con
-    ...                ID ${BOARD_ID} utilizando la última sesión creada.
+    ...                ID ${BOARD_ID} utilizando la ultima sesion creada.
     [Arguments]    ${CONSULT_ID}    ${BOARD_ID}
-    ${USER_TOKEN}    Obtener el token de la última sesion
+    ${USER_TOKEN}    Obtener el token de la ultima sesion
     ${BODY}    Create Dictionary
     ...    consultation    ${CONSULT_ID}
     ...    destiny_board    ${BOARD_ID}
     ${STATUS} =    Enviar un Post a la API    ${USER_TOKEN}    ${API_REQ_CONSULT}/    ${BODY}
     RETURN    ${STATUS}
 
-Eliminar la solicitud de asignación con ID "${CONSULT_ID}"
-    ${USER_TOKEN}    Obtener el token de la última sesion
+Eliminar la solicitud de asignacion con ID "${CONSULT_ID}"
+    ${USER_TOKEN}    Obtener el token de la ultima sesion
     ${STATUS} =    Enviar un Delete a la API    ${USER_TOKEN}    ${API_REQ_CONSULT}/${CONSULT_ID}
     RETURN    ${STATUS}
 
