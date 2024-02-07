@@ -15,13 +15,13 @@ Resource    ../../settings.robot
 # Conections
 
 Conectar a Base de Datos existente
-    [Documentation]    Conexión a base de datos que usa la unidad con sus credenciales.
-    ...                Utilizada como paso previo a la ejecución de querys
+    [Documentation]    Conexion a base de datos que usa la unidad con sus credenciales.
+    ...                Utilizada como paso previo a la ejecucion de querys
     ...                a una base de datos ya creada.
     Conectar a Base de Datos "${DB_NAME}"
 
 Conectar a Base de Datos "${DATABASE_TO_CONNECT}"
-    [Documentation]    Esta instancia se utiliza para conectar a una base de datos según si fue creada anteriormente o no.
+    [Documentation]    Esta instancia se utiliza para conectar a una base de datos segun si fue creada anteriormente o no.
     Connect To Database
     ...    dbapiModuleName=psycopg2
     ...    dbName=${DATABASE_TO_CONNECT}
@@ -52,7 +52,7 @@ Obtener consulta con TAG '${TAG}' de la DB
     RETURN    ${FIRST_RESULT}
 
 Obtener cliente con ${KEY_TYPE} '${VALUE}' de la DB
-    [Documentation]    Obtiene el cliente según su ${KEY_TYPE} (id, dni). Si no lo encuentra devuelve ${None}.
+    [Documentation]    Obtiene el cliente segun su ${KEY_TYPE} (id, dni). Si no lo encuentra devuelve ${None}.
     Conectar a Base de Datos existente
     ${QUERY}    Set Variable    SELECT * FROM "Clients_client" where ${KEY_TYPE} = '${VALUE}';
     ${RESULT} =    Query    ${QUERY}
@@ -61,7 +61,7 @@ Obtener cliente con ${KEY_TYPE} '${VALUE}' de la DB
     RETURN    ${FIRST_RESULT}
 
 Obtener el ID del board titulado "${TITLE_BOARD}" de la DB
-    [Documentation]    Obtiene el ID del board según el título. Si no lo encuentra devuelve ${None}.
+    [Documentation]    Obtiene el ID del board segun el titulo. Si no lo encuentra devuelve ${None}.
     Conectar a Base de Datos existente
     ${QUERY}    Set Variable    SELECT * FROM "Board_board" where title = '${TITLE_BOARD}';
     ${RESULT} =    Query    ${QUERY}
@@ -77,7 +77,7 @@ Obtener el ID del panel titulado "${PANEL_NAME}"
     Disconnect From Database
     RETURN    ${FIRST_RESULT}
 
-Obtener el token de la última sesion
+Obtener el token de la ultima sesion
     Conectar a Base de Datos existente
     ${QUERY}    Set Variable    SELECT "key" FROM public.authtoken_token ORDER BY created ASC;
     ${RESULT} =    Query    ${QUERY}
@@ -121,7 +121,7 @@ Obtener el evento "${EVENT_TITLE}" de la card con ID ${CARD_ID} en DB
 
 Obtener el campo "${FIELD}" del cliente con id_value '${DNI}' de la DB
     [Documentation]    Obtiene el campo solicitado del cliente con DNI ${DNI}.
-    ...    Para la obtención del campo, se tiene en cuenta todas las relaciones
+    ...    Para la obtencion del campo, se tiene en cuenta todas las relaciones
     ...    uno a uno del cliente (Familia, Patrimonio y Cliente).
     @{QUERY}    Create List
     ...    SELECT ${FIELD}
@@ -156,8 +156,8 @@ Insertar el board "${TITLE}" en la DB
     Execute SQL String    ${QUERY}
     Disconnect From Database
 
-Insertar la relación board "${BOARD_ID}" - user "${USER_ID}"
-    [Documentation]    Carga a la DB, la relación board-user segun los argumentos.
+Insertar la relacion board "${BOARD_ID}" - user "${USER_ID}"
+    [Documentation]    Carga a la DB, la relacion board-user segun los argumentos.
     Conectar a Base de Datos existente
     ${CURRENT_DATE}    Get Current Date    result_format=%Y-%m-%d %H:%M:%S
     ${KEYS}    Set Variable    created_at,board_id,user_id
@@ -167,7 +167,7 @@ Insertar la relación board "${BOARD_ID}" - user "${USER_ID}"
     Disconnect From Database
 
 Insertar consulta a la DB
-    [Documentation]    Carga a DB, una nueva consulta con los parámetros otorgados. Supone un usuario existente.
+    [Documentation]    Carga a DB, una nueva consulta con los parametros otorgados. Supone un usuario existente.
     [Arguments]    ${CLIENT_ID}    ${TAG}   ${OPP}    ${DESC}    ${AVAILABILITY}    ${PROGRESS}
     Conectar a Base de Datos existente
     ${CURRENT_DATE}    Get Current Date    result_format=%Y-%m-%d %H:%M:%S
@@ -207,7 +207,7 @@ Crear una Request Consultation de la consulta con ID "${CONSULT_ID}" al board co
 # Clear
 
 Limpiar base de datos
-    [Documentation]    Limpia todas la tablas, ignorando las de inicialización como
+    [Documentation]    Limpia todas la tablas, ignorando las de inicializacion como
     ...    la tabla de localidades, grupos, permisos, etc.
     Conectar a Base de Datos existente
     Execute Sql String    DELETE from "Clients_child";

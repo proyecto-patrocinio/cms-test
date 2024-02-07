@@ -39,33 +39,33 @@ Test Teardown    Run Keywords
 *** Test Cases ***
 PAT-SYS-01: Registro de un Nuevo Usuario
     [Documentation]    Se crea un nuevo usuario y se corrobora la
-    ...    llegada exitosa del email de confirmación.
-    ...    Además se corrobora que el usuario autenticado no pueda
-    ...    ingresar sesión si no es activado.
+    ...    llegada exitosa del email de confirmacion.
+    ...    Ademas se corrobora que el usuario autenticado no pueda
+    ...    ingresar sesion si no es activado.
     [Tags]  Automatico   SYS   PAT-SYS-01    PAT-138
-    Given se accedió a la página "SignUp"
-    And se completó el formulario con los datos del usuario
-    And se aceptaron los términos y condiciones
+    Given se accedio a la pagina "SignUp"
+    And se completo el formulario con los datos del usuario
+    And se aceptaron los terminos y condiciones
 
-    When se presiona el botón SignUp
+    When se presiona el boton SignUp
 
-    Then deberı́a recibir un correo electrónico con el enlace de confirmación
-    And deberı́a ser redirigido a la página de inicio de sesión
-    And deberı́a recibir un error al intentar iniciar sesión
+    Then deberı́a recibir un correo electronico con el enlace de confirmacion
+    And deberı́a ser redirigido a la pagina de inicio de sesion
+    And deberı́a recibir un error al intentar iniciar sesion
     And en la base de datos deberı́a existir el nuevo usuario registrado SIN ACTIVAR
 
 
-PAT-SYS-02: Activación de un Usuario Registrado
+PAT-SYS-02: Activacion de un Usuario Registrado
     [Documentation]    Se loguea como usuario administrador y se activa un usuario previamente registrado.
     ...                Luego se corrobora que dicho usuario puede acceder correctamente.
     [Tags]  Automatico   SYS   PAT-SYS-02    PAT-139
     Given existe un superusuario administrador
     And existe un usuario registrado sin activar
-    And se accedió a la plataforma como usuario "administrador"
-    And se ingresó a la página de administración
-    And se navegó a la pestaña "Users"
+    And se accedio a la plataforma como usuario "administrador"
+    And se ingreso a la pagina de administracion
+    And se navego a la pestaña "Users"
 
     When se edita el estado del usuario "nuevo" a "Activo"
-    And se desloguea de la página de administración
+    And se desloguea de la pagina de administracion
 
-    Then el usuario "nuevo" debería poder iniciar sesión en la plataforma con éxito
+    Then el usuario "nuevo" deberia poder iniciar sesion en la plataforma con exito

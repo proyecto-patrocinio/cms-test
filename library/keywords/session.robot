@@ -25,9 +25,9 @@ Extraer link desde html
     RETURN    ${LINK}
 
 Iniciar sesion con usuario '${USER}' y contraseña '${PASSWORD}'
-    [Documentation]    Intenta iniciar sesión a la plataforma con el
+    [Documentation]    Intenta iniciar sesion a la plataforma con el
     ...    Usuario y contraseña proporcionado.
-    ...    No se verifica el inicio de sesión exitoso.
+    ...    No se verifica el inicio de sesion exitoso.
     Input Text    name:username    ${USER}
     Input Text    name:password    ${PASSWORD}
     Click Button    xpath://button[contains(@class, 'MuiButton-root')]
@@ -49,7 +49,7 @@ Acceder a la plataforma como usuario "${ROL_USER}"
     END
 
 Editar el estado del usuario "${USERNAME}" a "${NEW_STATE}"
-    [Documentation]    Se edita el estado de habilitación del usuario según ${NEW_STATE}.
+    [Documentation]    Se edita el estado de habilitacion del usuario segun ${NEW_STATE}.
     ...                Los valores posibles son "activo", o "desactivo".
     # Seleccionar editar el usuario
     Click Element    //a[text()='${USERNAME}']
@@ -68,7 +68,7 @@ Editar el estado del usuario "${USERNAME}" a "${NEW_STATE}"
 # =======================================================================
 # Deslogueos
 
-Desloguearse de la administración
+Desloguearse de la administracion
     Click Button    xpath://button[@type='submit' and contains(text(),'Log out')]
     Wait Until Page Contains    Logged out
     Recolectar captura de pantalla    close_sesion_from_admin

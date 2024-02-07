@@ -39,34 +39,34 @@ Test Teardown    Run Keywords
 
 *** Test Cases ***
 
-PAT-SYS-14: Creación y eliminación de eventos de una consulta
+PAT-SYS-14: Creacion y eliminacion de eventos de una consulta
     [Documentation]    Dado que se ingresa a la plataforma como usuario profesor,
-    ...    se intenta crear, visualizar y eliminar un evento para el día de la fecha
+    ...    se intenta crear, visualizar y eliminar un evento para el dia de la fecha
     ...    en la pestaña 'Calendar', del dialogo 'Detalle de la Consulta'
-    ...    para la consulta perteneciente a la comisión del profesor.
+    ...    para la consulta perteneciente a la comision del profesor.
     [Tags]  Automatico   SYS   PAT-SYS-14    PAT-152
-    Given existe el board "Comisión A1" en la DB
+    Given existe el board "Comision A1" en la DB
     And existe un usuario registrado activo con permisos "common" y "professor" en la DB
-    And el usuario profesor tiene acceso al board "Comisión A1"
+    And el usuario profesor tiene acceso al board "Comision A1"
     And existe un cliente con DNI "32165498" en la base de datos
-    And existe un panel llamado "Panel A1" para el board de la comisión "Comisión A1"
-    And existe un ticket para el panel, de la comisión, con tag, DNI del cliente, oponente, descripción y estado:
+    And existe un panel llamado "Panel A1" para el board de la comision "Comision A1"
+    And existe un ticket para el panel, de la comision, con tag, DNI del cliente, oponente, descripcion y estado:
     ...    Panel A1
-    ...    Comisión A1
+    ...    Comision A1
     ...    Divorcio
     ...    32165498
     ...    Samsung
     ...    Dummy
     ...    TODO
-    And se accedió a la plataforma como usuario "profesor"
-    And se navega a la pestaña "Board/Comisión A1"
+    And se accedio a la plataforma como usuario "profesor"
+    And se navega a la pestaña "Board/Comision A1"
 
-    When se agrega el evento para hoy al ticket "Divorcio" titulado "Junta" con descripción "sucursal principal"
+    When se agrega el evento para hoy al ticket "Divorcio" titulado "Junta" con descripcion "sucursal principal"
 
-    Then la vista calendario de la consulta "Divorcio" debería contener el evento "Junta" el día de la fecha
-    And el evento "Junta" hoy para la consulta "Divorcio" y descripción "sucursal principal" debería existir en la DB
+    Then la vista calendario de la consulta "Divorcio" deberia contener el evento "Junta" el dia de la fecha
+    And el evento "Junta" hoy para la consulta "Divorcio" y descripcion "sucursal principal" deberia existir en la DB
 
     When se elimina el evento "Junta" del ticket "Divorcio"
 
-    Then la vista calendario de la consulta "Divorcio" NO debería contener el evento "Junta"
-    And no debería existir el evento "Junta" para la consulta "Divorcio" en la DB
+    Then la vista calendario de la consulta "Divorcio" NO deberia contener el evento "Junta"
+    And no deberia existir el evento "Junta" para la consulta "Divorcio" en la DB

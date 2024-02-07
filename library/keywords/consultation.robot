@@ -13,9 +13,9 @@ Resource    utils.robot
 *** Keywords ***
 
 Crear la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
-    [Documentation]    Se hace click sobre el botó "+" para agregar una nueva consulta.
-    ...                Supone que ya esta en la página Consultancy.
-    ...                Luego rellena el formulario y selecciona el botón aceptar.
+    [Documentation]    Se hace click sobre el boto "+" para agregar una nueva consulta.
+    ...                Supone que ya esta en la pagina Consultancy.
+    ...                Luego rellena el formulario y selecciona el boton aceptar.
     ...                Se asume que el cliente existe.
     Click Button    id=add-icon-button
     Wait Until Page Contains    Load New Consultation
@@ -27,7 +27,7 @@ Crear la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion
     Input Text    name:tag   ${TAG}
 
     Input Text    name:client   ${DNI}
-    Confirmar selección autocompletada    name:client
+    Confirmar seleccion autocompletada    name:client
 
     Recolectar captura de pantalla    new_consultation
     Click Button    id=button-accept

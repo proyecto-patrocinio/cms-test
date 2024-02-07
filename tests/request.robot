@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Suite de test para pruebas relacionadas las solicitudes de asignación de consulta.
+Documentation     Suite de test para pruebas relacionadas las solicitudes de asignacion de consulta.
 
 Library  SeleniumLibrary
 Library  ImapLibrary2
@@ -37,69 +37,69 @@ Test Teardown    Run Keywords
 
 
 *** Test Cases ***
-PAT-SYS-08: Creación de solicitud de asignación de caso a una comisión
-    [Documentation]    Se valida la creación y eliminación existosa de una solicitud de asignación
-    ...                de una consulta a una comisión como usuario tomador de caso.
+PAT-SYS-08: Creacion de solicitud de asignacion de caso a una comision
+    [Documentation]    Se valida la creacion y eliminacion existosa de una solicitud de asignacion
+    ...                de una consulta a una comision como usuario tomador de caso.
     [Tags]  Automatico   SYS   PAT-SYS-08    PAT-145
     Given existe un usuario registrado activo con permisos "common" y "case_taker" en la DB
     And existe un cliente con DNI "32165498" en la base de datos
-    And se accedió a la plataforma como usuario "Tomador de Caso"
-    And existe el board "Comisión A1" en la DB
-    And existe un panel llamado "Panel A1" para el board de la comisión "Comisión A1"
-    And existe una consulta con tag, DNI del cliente, oponente, descripción y estado:
-    ...    Garantía
+    And se accedio a la plataforma como usuario "Tomador de Caso"
+    And existe el board "Comision A1" en la DB
+    And existe un panel llamado "Panel A1" para el board de la comision "Comision A1"
+    And existe una consulta con tag, DNI del cliente, oponente, descripcion y estado:
+    ...    Garantia
     ...    32165498
     ...    Samsung
     ...    Dummy
     ...    TODO
     ...    CREATED
-    And se navegó a la pestaña "Consultancy"
+    And se navego a la pestaña "Consultancy"
 
-    When se crea la solicitud de asignación de consulta "Garantía" a la comisión "Comisión A1"
+    When se crea la solicitud de asignacion de consulta "Garantia" a la comision "Comision A1"
 
-    Then debería existir una "request consultation" de la consulta "Garantía" al board "Comisión A1" en la DB
-    And el ticket "Garantía" debería estar en el primer panel "Comisión A1" de la comisión
+    Then deberia existir una "request consultation" de la consulta "Garantia" al board "Comision A1" en la DB
+    And el ticket "Garantia" deberia estar en el primer panel "Comision A1" de la comision
 
-    When se elimina la solicitud de asignación de consulta "Garantía"
+    When se elimina la solicitud de asignacion de consulta "Garantia"
 
-    Then debería haberse eliminado la "request consultation" de la consulta "Garantía" de la DB
-    And el ticket "Garantía" debería estar en el panel de entrada "Available Consultations" de la comisión
+    Then deberia haberse eliminado la "request consultation" de la consulta "Garantia" de la DB
+    And el ticket "Garantia" deberia estar en el panel de entrada "Available Consultations" de la comision
 
 
-PAT-SYS-11: Aceptar y eliminar solicitudes de asignación de caso
-    [Documentation]    Se valida la aceptación existosa de una solicitud de asignación
-    ...                de una consulta a una comisión como usuario profesor, integrante de dicha comisión.
+PAT-SYS-11: Aceptar y eliminar solicitudes de asignacion de caso
+    [Documentation]    Se valida la aceptacion existosa de una solicitud de asignacion
+    ...                de una consulta a una comision como usuario profesor, integrante de dicha comision.
     [Tags]  Automatico   SYS   PAT-SYS-11    PAT-146
-    Given existe el board "Comisión A1" en la DB
+    Given existe el board "Comision A1" en la DB
     And existe un cliente con DNI "32165498" en la base de datos
-    And existe una consulta con tag, DNI del cliente, oponente, descripción y estado:
-    ...    Garantía1
+    And existe una consulta con tag, DNI del cliente, oponente, descripcion y estado:
+    ...    Garantia1
     ...    32165498
     ...    Samsung
     ...    Dummy
     ...    TODO
     ...    CREATED
-    And existe una solicitud de asignación de la consulta "Garantía1" a la comisión "Comisión A1"
-    And existe una consulta con tag, DNI del cliente, oponente, descripción y estado:
-    ...    Garantía2
+    And existe una solicitud de asignacion de la consulta "Garantia1" a la comision "Comision A1"
+    And existe una consulta con tag, DNI del cliente, oponente, descripcion y estado:
+    ...    Garantia2
     ...    32165498
     ...    Samsung
     ...    Dummy
     ...    TODO
     ...    CREATED
-    And existe una solicitud de asignación de la consulta "Garantía2" a la comisión "Comisión A1"
-    And existe un panel llamado "Panel A1" para el board de la comisión "Comisión A1"
+    And existe una solicitud de asignacion de la consulta "Garantia2" a la comision "Comision A1"
+    And existe un panel llamado "Panel A1" para el board de la comision "Comision A1"
     And existe un usuario registrado activo con permisos "common" y "professor" en la DB
-    And el usuario profesor tiene acceso al board "Comisión A1"
-    And se accedió a la plataforma como usuario "Profesor"
-    And se navega a la pestaña "Board/Comisión A1"
+    And el usuario profesor tiene acceso al board "Comision A1"
+    And se accedio a la plataforma como usuario "Profesor"
+    And se navega a la pestaña "Board/Comision A1"
 
-    When se acepta la solicitud de asignación de consulta "Garantía1" y se asigna al panel "Panel A1"
+    When se acepta la solicitud de asignacion de consulta "Garantia1" y se asigna al panel "Panel A1"
 
-    Then debería haberse eliminado la "request consultation" de la consulta "Garantía1" de la DB
-    And el ticket "Garantía1" debería estar en el primer panel "Panel A1" del board
+    Then deberia haberse eliminado la "request consultation" de la consulta "Garantia1" de la DB
+    And el ticket "Garantia1" deberia estar en el primer panel "Panel A1" del board
 
-    When se selecciona la opción rejected del menu del ticket "Garantía2"
+    When se selecciona la opcion rejected del menu del ticket "Garantia2"
 
-    Then debería haberse eliminado la "request consultation" de la consulta "Garantía2" de la DB
-    And no debería existir el ticket "Garantía2" en el board
+    Then deberia haberse eliminado la "request consultation" de la consulta "Garantia2" de la DB
+    And no deberia existir el ticket "Garantia2" en el board

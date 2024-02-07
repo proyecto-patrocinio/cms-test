@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Suite de test para chequear la visibilidad de las pestañas de la página CMS.
+Documentation     Suite de test para chequear la visibilidad de las pestañas de la pagina CMS.
 
 Library  SeleniumLibrary
 Library  ImapLibrary2

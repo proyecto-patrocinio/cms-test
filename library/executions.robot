@@ -15,13 +15,13 @@ Resource    keywords/clients_table.robot
 
 *** Keywords ***
 
-Se presiona el botón SignUp
+Se presiona el boton SignUp
     Click Element    css:button.MuiButton-root
     Recolectar captura de pantalla    signup
 
 Se edita el estado del usuario "${USERNAME}" a "${NEW_STATE}"
     [Documentation]    Edita el estado del usuario a activo o desactivo,
-    ...                según ${NEW_STATE} desde la pagina de administración.
+    ...                segun ${NEW_STATE} desde la pagina de administracion.
     ...                Los valores posibles para ${USERNAME} son:
     ...                - administrador: usuario administrador utiliza las claves $CMS_SUPERUSER_USERNAME/PASSWORD
     ...                - profesor: usuario administrador utiliza las claves $CMS_PROFESSOR_USER_USERNAME/PASSWORD
@@ -39,8 +39,8 @@ Se edita el estado del usuario "${USERNAME}" a "${NEW_STATE}"
         Editar el estado del usuario "${CMS_RANDOM_USER_USERNAME}" a "${NEW_STATE}"
     END
 
-Se desloguea de la página de administración
-    Desloguearse de la administración
+Se desloguea de la pagina de administracion
+    Desloguearse de la administracion
     Go To    ${PAGE_BASE_CMS}
     Desloguearse de la plataforma
 
@@ -56,57 +56,57 @@ Se navega a la pestaña "Board/${COMISION_TITLE}"
     Go To    ${PAGE_BOARD}/${BOARD_ID}
     Recolectar captura de pantalla    navegate_board_${COMISION_TITLE}
 
-Se selecciona el botón de información del panel "${COMISION_NAME}"
+Se selecciona el boton de informacion del panel "${COMISION_NAME}"
     ${BOARD_ID}    Obtener el ID del board titulado "${COMISION_NAME}" de la DB
     Click Button    id=board-info-button-${BOARD_ID}
     Wait Until Page Contains    Board Information
     Recolectar captura de pantalla    board_info_${COMISION_NAME}
 
-Se acepta la solicitud de asignación de consulta "${CONSULT_TAG}" y se asigna al panel "${PANEL_NAME}"
-    [Documentation]    Se obtienen los ID de la consulta y del Panel y se envía un Post a la API Rest
-    ...                para aceptar la Request Consultatión y asignar la card en el panel proporcionado.
+Se acepta la solicitud de asignacion de consulta "${CONSULT_TAG}" y se asigna al panel "${PANEL_NAME}"
+    [Documentation]    Se obtienen los ID de la consulta y del Panel y se envia un Post a la API Rest
+    ...                para aceptar la Request Consultation y asignar la card en el panel proporcionado.
     ${PANEL_ID}    Obtener el ID del panel titulado "${PANEL_NAME}"
     ${CONSULT}    Obtener consulta con TAG '${CONSULT_TAG}' de la DB
     ${CONSULT_ID}    Set Variable    ${CONSULT}[0]
     # Request ID == Consultation ID.
-    ${RESPONSE} =    Aceptar la solicitud de asignación de consulta
+    ${RESPONSE} =    Aceptar la solicitud de asignacion de consulta
     ...    ${CONSULT_ID}    ${PANEL_ID}
     La respuesta obtenida en la peticion deberia ser exitosa    ${RESPONSE}
-    # Se actualiza la página
+    # Se actualiza la pagina
     Reload Page
     Wait Until Page Contains    ${CONSULT_TAG}    timeout=10s
     Recolectar captura de pantalla    request_accepted
 
-Se crea la solicitud de asignación de consulta "${CONSULT_TAG}" a la comisión "${BOARD_NAME}"
-    [Documentation]    Se obtienen los ID de la consulta y del board y se envía un POST a la API Rest
+Se crea la solicitud de asignacion de consulta "${CONSULT_TAG}" a la comision "${BOARD_NAME}"
+    [Documentation]    Se obtienen los ID de la consulta y del board y se envia un POST a la API Rest
     ...                para crear una Request Consultation, de dicha consulta para dicho board.
-    ...                Luego actualiza la página.
+    ...                Luego actualiza la pagina.
     ${BOARD_ID}    Obtener el ID del board titulado "${BOARD_NAME}" de la DB
     ${CONSULT}    Obtener consulta con TAG '${CONSULT_TAG}' de la DB
     ${CONSULT_ID}    Set Variable    ${CONSULT}[0]
-    ${RESPONSE} =    Crear la solicitud de asignación de consulta
+    ${RESPONSE} =    Crear la solicitud de asignacion de consulta
     ...    ${CONSULT_ID}    ${BOARD_ID}
     La respuesta obtenida en la peticion deberia ser exitosa    ${RESPONSE}
-    # Se actualiza la página
+    # Se actualiza la pagina
     Reload Page
     Wait Until Page Contains    ${BOARD_NAME}    timeout=10s
     Recolectar captura de pantalla    request_created
 
-Se elimina la solicitud de asignación de consulta "${CONSULT_TAG}"
-    [Documentation]    Se obtienen los ID de la consulta y se envía un DELETE a la API Rest
+Se elimina la solicitud de asignacion de consulta "${CONSULT_TAG}"
+    [Documentation]    Se obtienen los ID de la consulta y se envia un DELETE a la API Rest
     ...                para eliminar una Request Consultation, de dicha consulta.
-    ...                Luego actualiza la página.
+    ...                Luego actualiza la pagina.
     ${CONSULT}    Obtener consulta con TAG '${CONSULT_TAG}' de la DB
     ${CONSULT_ID}    Set Variable    ${CONSULT}[0]
-    ${RESPONSE} =    eliminar la solicitud de asignación con ID "${CONSULT_ID}"
+    ${RESPONSE} =    eliminar la solicitud de asignacion con ID "${CONSULT_ID}"
     La respuesta obtenida en la peticion deberia ser exitosa    ${RESPONSE}
-    # Se actualiza la página
+    # Se actualiza la pagina
     Reload Page
     Wait Until Page Contains    ${CONSULT_TAG}    timeout=10s
     Recolectar captura de pantalla    request_deleted
 
-Se selecciona la opción rejected del menu del ticket "${TICKET_TAG}"
-    [Documentation]    Esta keyword supone que solo existe un único
+Se selecciona la opcion rejected del menu del ticket "${TICKET_TAG}"
+    [Documentation]    Esta keyword supone que solo existe un unico
     ...                ticket en el panel de entrada al board.
     ${XPATH_TICKET}      Set Variable    xpath=//*[@id="root"]/div/div/main/div[2]/main/div/div/div/div[1]/div/div[2]
     ${XPATH_MENU}        Set Variable    ${XPATH_TICKET}/div/div/div/div/div/button
@@ -127,14 +127,14 @@ Se descarga el csv de la tabla
 Se edita el campo "${KEY}" a "${NEW_VALUE}" del ticket "${TAG}"
     [Documentation]    Edita el campo de texto especificado en un ticket cambiando su valor.
     ...                  - KEY: Nombre del campo a editar.
-    ...                  - NEW_VALUE: Nuevo valor que se asignará al campo.
+    ...                  - NEW_VALUE: Nuevo valor que se asignara al campo.
     ...                  - TAG: Nombre del ticket.
     # Localizar y abrir el detalle de consulta
     Abrir detalle de la consulta '${TAG}'
     ${TABLE_LOCATOR}    Set Variable    xpath=/html/body/div[4]/div[3]/div/div[2]/div/div/table/tbody
     ${ROW_LOCATOR}=    Obtener locator de la fila '${KEY}' para la tabla con locator ${TABLE_LOCATOR}
 
-    # Click botón edit
+    # Click boton edit
     Recolectar captura de pantalla    before_edit_field_${KEY}
     ${EDIT_BUTTON_LOCATOR}    Set Variable    ${ROW_LOCATOR}//button[@id="field-edit-button"]
     Click Element    ${EDIT_BUTTON_LOCATOR}
@@ -152,17 +152,17 @@ Se edita el campo "${KEY}" a "${NEW_VALUE}" del ticket "${TAG}"
 
     Se cierra el dialogo de detalle de consulta
 
-Se edita el campo "${KEY}" seleccionando la opción "${NEW_STATE}" del ticket "${TAG}"
-    [Documentation]    Edita el campo de tipo 'options' especificado en un ticket seleccionando una nueva opción.
+Se edita el campo "${KEY}" seleccionando la opcion "${NEW_STATE}" del ticket "${TAG}"
+    [Documentation]    Edita el campo de tipo 'options' especificado en un ticket seleccionando una nueva opcion.
     ...                  - KEY: Nombre del campo a editar.
-    ...                  - NEW_STATE: Nueva opción que se seleccionará para el campo.
+    ...                  - NEW_STATE: Nueva opcion que se seleccionara para el campo.
     ...                  - TAG: Nombre del ticket.
     # Localizar y abrir el detalle de consulta
     Abrir detalle de la consulta '${TAG}'
     ${TABLE_LOCATOR}    Set Variable    xpath=/html/body/div[4]/div[3]/div/div[2]/div/div/table/tbody
     ${ROW_LOCATOR}=    Obtener locator de la fila '${KEY}' para la tabla con locator ${TABLE_LOCATOR}
 
-    # Click botón edit
+    # Click boton edit
     ${EDIT_BUTTON_LOCATOR}    Set Variable    ${ROW_LOCATOR}//button
     Click Element    ${EDIT_BUTTON_LOCATOR}
 
@@ -170,7 +170,7 @@ Se edita el campo "${KEY}" seleccionando la opción "${NEW_STATE}" del ticket "$
     ${SELECTOR_LOCATOR}    Set Variable    xpath=//div[@aria-haspopup="listbox"]
     Click Element    ${SELECTOR_LOCATOR}
 
-    # Seleccionar nueva opción
+    # Seleccionar nueva opcion
     ${NEW_OPTION_LOCATOR}    Set Variable    //li[@data-value="${NEW_STATE}"]
     Click Element    ${NEW_OPTION_LOCATOR} 
 
@@ -197,7 +197,7 @@ Se agrega el comentario "${COMMENT}" al ticket "${TAG}"
 
 Se elimina el comentario "${COMMENT}" al ticket "${TAG}"
     [Documentation]    Abre el dialogo del detalle de la consulta $TAG,
-    ...    selecciona la opción eliminar del menu del comentario $COMMENT.
+    ...    selecciona la opcion eliminar del menu del comentario $COMMENT.
     ...    Finalmente cierra el dialogo.
     Abrir detalle de la consulta '${TAG}'
     Click Button    Comments
@@ -216,7 +216,7 @@ Se elimina el comentario "${COMMENT}" al ticket "${TAG}"
 
 Se edita el comentario "${OLD_COMMENT}" a "${NEW_COMMENT}" al ticket "${TAG}"
     [Documentation]    Abre el dialogo del detalle de la consulta $TAG,
-    ...    selecciona la opción de editar del menu del comentario $OLD_COMMENT.
+    ...    selecciona la opcion de editar del menu del comentario $OLD_COMMENT.
     ...    Edita el comentario a $NEW_COMMENT. Finalmente cierra el dialogo.
     Abrir detalle de la consulta '${TAG}'
     Click Button    Comments
@@ -227,7 +227,7 @@ Se edita el comentario "${OLD_COMMENT}" a "${NEW_COMMENT}" al ticket "${TAG}"
     ${MENU_LOCATOR}    Set Variable     ${COMMENT_LOCATOR}//button[@aria-label="menu-ticket"]
     Click Element    ${MENU_LOCATOR}
 
-    # Seleccionar la opción editar
+    # Seleccionar la opcion editar
     ${EDITE_OPTION}    Set Variable    xpath=//li[text()='Edit']
     Click Element    ${EDITE_OPTION}
     Sleep    1s
@@ -248,9 +248,9 @@ Se edita el comentario "${OLD_COMMENT}" a "${NEW_COMMENT}" al ticket "${TAG}"
     Click Element    ${SAVE_BUTTON_LOCATOR}
     Se cierra el dialogo de detalle de consulta
 
-Se agrega el evento para hoy al ticket "${TAG}" titulado "${TITLE}" con descripción "${DESCRIPTION}"
+Se agrega el evento para hoy al ticket "${TAG}" titulado "${TITLE}" con descripcion "${DESCRIPTION}"
     [Documentation]    Abre el dialogo con el calendario de la consulta titlado $TAG, y crea un nuevo evento
-    ...    para el día de la fecha, con el titulo $TITLE y la descripción $DESCRIPTION.
+    ...    para el dia de la fecha, con el titulo $TITLE y la descripcion $DESCRIPTION.
     ...    No cierra el dialogo.
     Abrir detalle de la consulta '${TAG}'
     Click Button    Calendar
@@ -279,22 +279,22 @@ Se crea un nuevo cliente "${CLIENT_NAME}" con DNI "${CLIENT_DNI}"
     Click Button    Add record
     Escribir en la tabla de clientes    postal    1111
     Escribir en la tabla de clientes    address    dummy address
-    Seleccionar la opción "SINGLE" de la columna "marital_status"
-    Seleccionar la opción "HOUSE" de la columna "housing_type"
-    Seleccionar la opción "COMPLETE_UNIVERSITY" de la columna "studies"
+    Seleccionar la opcion "SINGLE" de la columna "marital_status"
+    Seleccionar la opcion "HOUSE" de la columna "housing_type"
+    Seleccionar la opcion "COMPLETE_UNIVERSITY" de la columna "studies"
     Escribir en la tabla de clientes    email    dummy_address@email.com
-    Seleccionar la opción "DOCUMENT" de la columna "id_type"
+    Seleccionar la opcion "DOCUMENT" de la columna "id_type"
     Escribir en la tabla de clientes    id_value    ${CLIENT_DNI}
     Escribir en la tabla de clientes    first_name    ${CLIENT_NAMES[0]}
     Escribir en la tabla de clientes    last_name    ${CLIENT_NAMES[1]}
-    Seleccionar la opción "FEMALE" de la columna "sex"
+    Seleccionar la opcion "FEMALE" de la columna "sex"
     Escribir en la tabla de clientes    birth_date    06-02-2024
     Escribir en la tabla de clientes     nationality    Argentina
-    Confirmar selección autocompletada    xpath=//div[@data-field="nationality"]//input
+    Confirmar seleccion autocompletada    xpath=//div[@data-field="nationality"]//input
     Escribir en la tabla de clientes     province    Catamarca
-    Confirmar selección autocompletada    xpath=//div[@data-field="province"]//input
+    Confirmar seleccion autocompletada    xpath=//div[@data-field="province"]//input
     Escribir en la tabla de clientes     locality    Ancasti
-    Confirmar selección autocompletada    xpath=//div[@data-field="locality"]//input
+    Confirmar seleccion autocompletada    xpath=//div[@data-field="locality"]//input
     Escribir en la tabla de clientes    patrimony.employment    dummy employment
     Escribir en la tabla de clientes    patrimony.salary    1111
     Escribir en la tabla de clientes    patrimony.other_income    No

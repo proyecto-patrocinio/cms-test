@@ -61,7 +61,7 @@ Chequear los contenedores de CMS esten listos
 Chequear si el contenedor '${CONTAINER_NAME}' esta listo
     [Documentation]     Chequea que el estado del contenedor sea "healthy".
     ${RC}   ${HEALTH_STATUS} =     OS.Run And Return Rc And Output    docker inspect --format '{{.State.Running}}' ${CONTAINER_NAME}
-    Run Keyword If    ${RC} == 0 and '${HEALTH_STATUS}' == 'healthy'    Log    Se levantó con éxito el contenedor '${CONTAINER_NAME}'    console=True
+    Run Keyword If    ${RC} == 0 and '${HEALTH_STATUS}' == 'healthy'    Log    Se levanto con exito el contenedor '${CONTAINER_NAME}'    console=True
     ${STATUS}    Evaluate    $RC == 0 and '$HEALTH_STATUS' == 'healthy'
     RETURN    ${STATUS}
 
@@ -71,7 +71,7 @@ Copiar el archivo '${FILENAME}' al contenedor '${CONTAINER_NAME}'
     Ejecutar el siguiente comando    ${CMD_DOCKER_CP}
 
 Cargar los datos del archivo json '${FILENAME}' a la unidad
-    [Documentation]    Carga a la base de datos, a través de django, los datos contenidos en el json.
+    [Documentation]    Carga a la base de datos, a traves de django, los datos contenidos en el json.
     Copiar el archivo '${FILENAME}' al contenedor '${BACK_CONTAINER_NAME}'
     ${CMD_DOCKER_LOADDATA}    Set Variable    docker exec -it ${BACK_CONTAINER_NAME} python manage.py loaddata /${FILENAME}
     Ejecutar el siguiente comando    ${CMD_DOCKER_LOADDATA}
