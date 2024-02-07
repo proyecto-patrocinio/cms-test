@@ -25,11 +25,9 @@ Crear la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion
     Input Text    ${LOCATOR_DESC}   ${DESC}
     Input Text    name:opponent   ${OPP}
     Input Text    name:tag   ${TAG}
-    Input Text    name:client   ${DNI}
 
-    Press Keys    name:client    ARROW_DOWN
-    Press Keys    name:client    ENTER
-    Press Keys    name:client    RETURN
+    Input Text    name:client   ${DNI}
+    Confirmar selección autocompletada    name:client
 
     Recolectar captura de pantalla    new_consultation
     Click Button    id=button-accept

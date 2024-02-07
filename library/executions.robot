@@ -10,6 +10,7 @@ Resource  ../library/keywords/consultation.robot
 Resource  ../constants.robot
 Resource    keywords/database_handling.robot
 Resource    keywords/http_request.robot
+Resource    keywords/clients_table.robot
 
 
 *** Keywords ***
@@ -283,14 +284,17 @@ Se crea un nuevo cliente "${CLIENT_NAME}" con DNI "${CLIENT_DNI}"
     Seleccionar la opción "COMPLETE_UNIVERSITY" de la columna "studies"
     Escribir en la tabla de clientes    email    dummy_address@email.com
     Seleccionar la opción "DOCUMENT" de la columna "id_type"
-    Escribir en la tabla de clientes    id_value    12345678
+    Escribir en la tabla de clientes    id_value    ${CLIENT_DNI}
     Escribir en la tabla de clientes    first_name    ${CLIENT_NAMES[0]}
     Escribir en la tabla de clientes    last_name    ${CLIENT_NAMES[1]}
     Seleccionar la opción "FEMALE" de la columna "sex"
-    Escribir en la tabla de clientes    birth_date    2024-02-06
+    Escribir en la tabla de clientes    birth_date    06-02-2024
     Escribir en la tabla de clientes     nationality    Argentina
+    Confirmar selección autocompletada    xpath=//div[@data-field="nationality"]//input
     Escribir en la tabla de clientes     province    Catamarca
+    Confirmar selección autocompletada    xpath=//div[@data-field="province"]//input
     Escribir en la tabla de clientes     locality    Ancasti
+    Confirmar selección autocompletada    xpath=//div[@data-field="locality"]//input
     Escribir en la tabla de clientes    patrimony.employment    dummy employment
     Escribir en la tabla de clientes    patrimony.salary    1111
     Escribir en la tabla de clientes    patrimony.other_income    No
@@ -300,50 +304,27 @@ Se crea un nuevo cliente "${CLIENT_NAME}" con DNI "${CLIENT_DNI}"
     Escribir en la tabla de clientes    patrimony.vehicle    N0
     Escribir en la tabla de clientes    family.partner_salary    0
 
+    # Guardar
     Click Element    xpath=//button[@aria-label="Save"]
+    Sleep    3s
 
-Seleccionar la opción "${OPTION}" de la columna "${CURRENT_KEY}"
-    [Documentation]    Selecciona la opción elegida para campo especificado.
-    ...    Esta keyword funciona para columnas de tipo "selector".
-    ...    En caso de no encontrar el elemento visible, esta keyword supone la
-    ...    variable de test PREV_LOCATOR seteada con el elemento de tipo "text"
-    ...    mas cercano del lado izquierdo al elemento deseado.
-    ${ROW_LOCATOR}    Set Variable    xpath=//div[contains(@class,"MuiDataGrid-virtualScrollerRenderZone")]
-    ${CURRENT_LOCATOR}    Set Variable    ${ROW_LOCATOR}//div[@data-field="${CURRENT_KEY}"]/div
+Se edita el campo "${FIELD}" a "${VALUE}" del cliente con DNI "${DNI}"
+    ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
+    ${ID_CLIENT}    Set Variable    ${CLIENT[0]}
+    ${EDIT_ROW_LOCATOR}    Set Variable    xpath=//div[@data-id="${ID_CLIENT}"]/div[@data-field="actions"]/div/button[@aria-label="Edit"]
+    Wait Until Element Is Visible    ${EDIT_ROW_LOCATOR}
+    Click Element    ${EDIT_ROW_LOCATOR}
+    Sleep    1s
 
-    ${IS_VISIBLE}    Run Keyword And Return Status
-    ...    Element Should Be Visible    ${CURRENT_LOCATOR}
-    IF    ${IS_VISIBLE}
-        Click Element    ${CURRENT_LOCATOR}
-    ELSE
-        Press Keys    ${PREV_LOCATOR}    ${TAB_KEY}
-        Wait Until Element Is Visible    ${CURRENT_LOCATOR}
-        Click Element    ${CURRENT_LOCATOR}
-    END
-    ${OPTION_LOCATOR}    Set Variable    xpath=//li[@data-value="${OPTION}"]
-    Wait Until Element Is Visible    ${OPTION_LOCATOR}
-    Click Element    ${OPTION_LOCATOR}
+    Escribir en la tabla de clientes    ${FIELD}    ${VALUE}
 
-Escribir en la tabla de clientes
-    [Documentation]    Ingresa un dato en un elemento de la tabla Clients,
-    ...    de la página panel de control. Verifica si el elemento esta visible.
-    ...    En caso de no estarlo, presiona la tecla tab del elemento anterior
-    ...    y vuelve a intentar escribir.
-    ...    Simula un scroll a la derecha, si el elemento no es visible.
-    ...    Esta keyword, debe utilizarse en orden de izquierda a derecha
-    ...    comenzando por primera vez con un elemento visible.
-    [Arguments]    ${CURRENT_KEY}    ${VALUE}
-    ${CURRENT_LOCATOR}    Set Variable    xpath=//div[@data-field="${CURRENT_KEY}"]//input
+    # Guardar
+    Click Element    xpath=//button[@aria-label="Save"]
+    Sleep    2s
 
-    ${IS_VISIBLE}    Run Keyword And Return Status
-    ...    Element Should Be Visible    ${CURRENT_LOCATOR}
-    IF    ${IS_VISIBLE}
-        Input Text    ${CURRENT_LOCATOR}    ${VALUE}
-    ELSE
-        Press Keys    ${PREV_LOCATOR}    ${TAB_KEY}
-        Wait Until Element Is Visible    ${CURRENT_LOCATOR}
-        Input Text    ${CURRENT_LOCATOR}    ${VALUE}
-    END
-    # Se actualiza el ultimo elemento previo.
-    ${PREV_LOCATOR} =    Set Variable    ${CURRENT_LOCATOR}
-    Set Test Variable    ${PREV_LOCATOR}
+Se elimina el cliente con DNI "${DNI}"
+    ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
+    ${ID_CLIENT}    Set Variable    ${CLIENT[0]}
+    ${DELETE_ROW_LOCATOR}    Set Variable    xpath=//div[@data-id="${ID_CLIENT}"]//button[@aria-label="Delete"]
+    Click Element    ${DELETE_ROW_LOCATOR}
+    Sleep    2s

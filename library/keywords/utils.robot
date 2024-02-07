@@ -64,3 +64,11 @@ Obtener Directorio de Descarga
     END
 
     RETURN  ${DOWNLOAD_DIR}
+
+Confirmar selección autocompletada
+    [Documentation]    Esta keyword funciona para elementos que contienen
+    ...   una input de tipo aria-autocomplete.
+    [Arguments]    ${CURRENT_LOCATOR}
+    Press Keys    ${CURRENT_LOCATOR}    ARROW_DOWN
+    Press Keys    ${CURRENT_LOCATOR}    ENTER
+    Press Keys    ${CURRENT_LOCATOR}    RETURN

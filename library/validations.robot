@@ -393,3 +393,15 @@ No debería existir el evento "${EVENT_TITLE}" para la consulta "${TAG}" en la D
     ${CONSULT_ID}    Set Variable    ${CONSULT[0]}
     ${EVENT}    Obtener el evento "${EVENT_TITLE}" de la card con ID ${CONSULT_ID} en DB
     Should Be Equal    ${EVENT}    ${None}
+
+El cliente con DNI "${DNI}" debería existir en DB
+    ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
+    Should Not Be Empty    ${CLIENT}
+
+El cliente con DNI "${DNI}" NO debería existir la DB
+    ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
+    Should Be Equal    ${CLIENT}    ${None}
+
+El campo "${FIELD}" del cliente con DNI "${DNI}" debería ser "${EXPECTED_VALUE}" en DB
+    ${DATA_DB}    Obtener el campo "${FIELD}" del cliente con id_value '${DNI}' de la DB
+    Should Be Equal As Integers    ${DATA_DB[0]}    ${EXPECTED_VALUE}

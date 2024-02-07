@@ -119,6 +119,24 @@ Obtener el evento "${EVENT_TITLE}" de la card con ID ${CARD_ID} en DB
     Disconnect From Database
     RETURN    ${FIRST_RESULT}
 
+Obtener el campo "${FIELD}" del cliente con id_value '${DNI}' de la DB
+    [Documentation]    Obtiene el campo solicitado del cliente con DNI ${DNI}.
+    ...    Para la obtención del campo, se tiene en cuenta todas las relaciones
+    ...    uno a uno del cliente (Familia, Patrimonio y Cliente).
+    @{QUERY}    Create List
+    ...    SELECT ${FIELD}
+    ...    FROM public."Clients_client" cc
+    ...    JOIN public."Clients_family" cf ON cc.id = cf.id_id
+    ...    JOIN public."Clients_patrimony" cp ON cp.id_id = cc.id
+    ...    WHERE cc.id_value = '${DNI}';
+    ${QUERY}    Evaluate    ' '.join($QUERY)
+
+    Conectar a Base de Datos existente
+    ${RESULT} =    Query    ${QUERY}
+    ${FIRST_RESULT} =    Set Variable If    ${RESULT}    ${RESULT[0]}    ${None}
+    Disconnect From Database
+    RETURN    ${FIRST_RESULT}
+
 ######################################################################
 # Inserts
 
