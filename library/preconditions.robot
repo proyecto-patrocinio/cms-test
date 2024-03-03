@@ -101,9 +101,9 @@ Existe el cliente en la base de datos:
 
 Existe un cliente con DNI "${DNI}" en la base de datos
     Insertar cliente en la DB
-        ...    Romina    Cugat    DOCUMENT    ${DNI}    FEMALE    1986-06-23
-        ...    "Av Poeta Lugones 12"    5012    SINGLE    HOUSE    COMPLETE_UNIVERSITY
-        ...    romina96@gmail.com    704
+        ...    Emily    Davis    DOCUMENT    ${DNI}    FEMALE    1986-06-23
+        ...    "Dummy Street 01"    1111    SINGLE    HOUSE    COMPLETE_UNIVERSITY
+        ...    emily96@gmail.com    704
 
 Existe un panel llamado "${PANEL_NAME}" para el board de la comision "${COMISION_NAME}"
     # Crear panel

@@ -44,18 +44,18 @@ PAT-SYS-09: Visualizacion y manipulacion de la tabla en la ventana consultations
     ...    exportacion de la tabla a CSV.
     [Tags]  Automatico   SYS   PAT-SYS-09    PAT-147
     Given existe un usuario registrado activo con permisos "common" y "case_taker" en la DB
-    And existe un cliente con DNI "32165498" en la base de datos
+    And existe un cliente con DNI "11111111" en la base de datos
     And se accedio a la plataforma como usuario "Tomador de Caso"
     And existe una consulta con tag, DNI del cliente, oponente, descripcion y estado:
     ...    Garantia1
-    ...    32165498
+    ...    11111111
     ...    Samsung
     ...    Dummy
     ...    TODO
     ...    CREATED
     And existe una consulta con tag, DNI del cliente, oponente, descripcion y estado:
     ...    Garantia2
-    ...    32165498
+    ...    11111111
     ...    Samsung
     ...    Dummy
     ...    TODO
@@ -66,12 +66,12 @@ PAT-SYS-09: Visualizacion y manipulacion de la tabla en la ventana consultations
     Then la tabla deberia contener 2 filas
     And la tabla deberia contener la consulta:
     ...    Garantia1
-    ...    32165498
+    ...    11111111
     ...    Samsung
     ...    Dummy
     And la tabla deberia contener la consulta:
     ...    Garantia2
-    ...    32165498
+    ...    11111111
     ...    Samsung
     ...    Dummy
 
@@ -85,7 +85,7 @@ PAT-SYS-09: Visualizacion y manipulacion de la tabla en la ventana consultations
     Then la tabla deberia contener 1 filas
     And la tabla deberia contener la consulta:
     ...    Garantia2
-    ...    32165498
+    ...    11111111
     ...    Samsung
     ...    Dummy
 
@@ -103,26 +103,26 @@ PAT-SYS-10: Visualizacion y manipulacion de la tabla en la ventana clients
     [Tags]  Automatico   SYS   PAT-SYS-10    PAT-151
     Given existe un usuario registrado activo con permisos "common" y "case_taker" en la DB
     And existe el cliente en la base de datos:
-        ...    Romina    Cugat    DOCUMENT    32165498    FEMALE    1996-06-23
-        ...    "Av Poeta Lugones 12"    5012    SINGLE    HOUSE    COMPLETE_UNIVERSITY
-        ...    romina96@gmail.com
+        ...    Emily    Davis    DOCUMENT    11111111    FEMALE    1996-06-23
+        ...    "Dummy Street 01"    1111    SINGLE    HOUSE    COMPLETE_UNIVERSITY
+        ...    emily96@gmail.com
     And existe el cliente en la base de datos:
-        ...    Pedro    Cugat    DOCUMENT    22145685    FEMALE    1980-06-25
-        ...    "Av Poeta Lugones 12"    5012    SINGLE    HOUSE    COMPLETE_UNIVERSITY
-        ...    pedro80@gmail.com
+        ...    John    Davis    DOCUMENT    22222222    FEMALE    1980-06-25
+        ...    "Dummy Street 01"    1111    SINGLE    HOUSE    COMPLETE_UNIVERSITY
+        ...    john80@gmail.com
     And se accedio a la plataforma como usuario "Tomador de Caso"
 
     When se navego a la pestaña "Control Panel - Clients"
     
     Then la tabla deberia contener 2 filas
     And la tabla deberia contener el cliente:
-        ...    32165498    Romina    Cugat    Document    Female    1996-06-23
-        ...    Av Poeta Lugones 12    5,012    Single    House    Complete University
-        ...    romina96@gmail.com
+        ...    11111111    Emily    Davis    Document    Female    1996-06-23
+        ...    Dummy Street 01    1,111    Single    House    Complete University
+        ...    emily96@gmail.com
     And la tabla deberia contener el cliente:
-        ...    22145685    Pedro    Cugat    Document    Female    1980-06-25
-        ...    Av Poeta Lugones 12    5,012    Single    House    Complete University
-        ...    pedro80@gmail.com
+        ...    22222222    John    Davis    Document    Female    1980-06-25
+        ...    Dummy Street 01    1,111    Single    House    Complete University
+        ...    john80@gmail.com
 
 
     When se descarga el csv de la tabla
@@ -130,13 +130,13 @@ PAT-SYS-10: Visualizacion y manipulacion de la tabla en la ventana clients
     Then el archivo se deberia haber descargado correctamente
     And el archivo de clientes descargado deberia ser el esperado 'expected_clients.csv'
 
-    When se crea el filtro "First Name" con "Romina"
+    When se crea el filtro "First Name" con "Emily"
 
     Then la tabla deberia contener 1 filas
     And la tabla deberia contener el cliente:
-        ...    32165498    Romina    Cugat    Document    Female    1996-06-23
-        ...    Av Poeta Lugones 12    5,012    Single    House    Complete University
-        ...    romina96@gmail.com
+        ...    11111111    Emily    Davis    Document    Female    1996-06-23
+        ...    Dummy Street 01    1,111    Single    House    Complete University
+        ...    emily96@gmail.com
 
     When se descarga el csv de la tabla
 

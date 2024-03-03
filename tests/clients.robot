@@ -47,14 +47,14 @@ PAT-SYS-15: Creacion edicion y eliminacion de un cliente como usuario Tomador de
     And se accedio a la plataforma como usuario "Tomador de Caso"
     And se navego a la pestaña "Control Panel - Clients"
 
-    When se crea un nuevo cliente "Marta Paez" con DNI "42301452"
+    When se crea un nuevo cliente "Dummy Client" con DNI "11111111"
 
-    Then el cliente con DNI "42301452" deberia existir en DB
+    Then el cliente con DNI "11111111" deberia existir en DB
 
-    When se edita el campo "family.partner_salary" a "123" del cliente con DNI "42301452"
+    When se edita el campo "family.partner_salary" a "123" del cliente con DNI "11111111"
 
-    Then el campo "partner_salary" del cliente con DNI "42301452" deberia ser "123" en DB
+    Then el campo "partner_salary" del cliente con DNI "11111111" deberia ser "123" en DB
 
-    When se elimina el cliente con DNI "42301452"
+    When se elimina el cliente con DNI "11111111"
 
-    Then el cliente con DNI "42301452" NO deberia existir la DB
+    Then el cliente con DNI "11111111" NO deberia existir la DB

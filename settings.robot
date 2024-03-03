@@ -37,8 +37,10 @@ ${CMS_EMAIL}             patrociniouba1@gmail.com  # Email del sistema CMS
 
 # ***IMPORTANTE***:
 # Cambiar gmail y contraseña de aplicación con otra real. (para user)
+# Ver: https://support.google.com/mail/answer/185833?hl=es
 ${EMAIL_RANDOM_USER}             randomuser@gmail.com
-${EMAIL_RANDOM_USER_PASSWORD}    bsgrrzkffmgjwitf
+${EMAIL_RANDOM_USER_PASSWORD}    mknduekyffimbqmk
+
 
 
 # Superuser

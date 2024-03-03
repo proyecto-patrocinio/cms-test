@@ -42,13 +42,13 @@ PAT-SYS-08: Creacion de solicitud de asignacion de caso a una comision
     ...                de una consulta a una comision como usuario tomador de caso.
     [Tags]  Automatico   SYS   PAT-SYS-08    PAT-145
     Given existe un usuario registrado activo con permisos "common" y "case_taker" en la DB
-    And existe un cliente con DNI "32165498" en la base de datos
+    And existe un cliente con DNI "11111111" en la base de datos
     And se accedio a la plataforma como usuario "Tomador de Caso"
     And existe el board "Comision A1" en la DB
     And existe un panel llamado "Panel A1" para el board de la comision "Comision A1"
     And existe una consulta con tag, DNI del cliente, oponente, descripcion y estado:
     ...    Garantia
-    ...    32165498
+    ...    11111111
     ...    Samsung
     ...    Dummy
     ...    TODO
@@ -71,10 +71,10 @@ PAT-SYS-11: Aceptar y eliminar solicitudes de asignacion de caso
     ...                de una consulta a una comision como usuario profesor, integrante de dicha comision.
     [Tags]  Automatico   SYS   PAT-SYS-11    PAT-146
     Given existe el board "Comision A1" en la DB
-    And existe un cliente con DNI "32165498" en la base de datos
+    And existe un cliente con DNI "11111111" en la base de datos
     And existe una consulta con tag, DNI del cliente, oponente, descripcion y estado:
     ...    Garantia1
-    ...    32165498
+    ...    11111111
     ...    Samsung
     ...    Dummy
     ...    TODO
@@ -82,7 +82,7 @@ PAT-SYS-11: Aceptar y eliminar solicitudes de asignacion de caso
     And existe una solicitud de asignacion de la consulta "Garantia1" a la comision "Comision A1"
     And existe una consulta con tag, DNI del cliente, oponente, descripcion y estado:
     ...    Garantia2
-    ...    32165498
+    ...    11111111
     ...    Samsung
     ...    Dummy
     ...    TODO

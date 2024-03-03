@@ -49,10 +49,10 @@ PAT-SYS-01: Registro de un Nuevo Usuario
 
     When se presiona el boton SignUp
 
-    Then deberı́a recibir un correo electronico con el enlace de confirmacion
-    And deberı́a ser redirigido a la pagina de inicio de sesion
-    And deberı́a recibir un error al intentar iniciar sesion
-    And en la base de datos deberı́a existir el nuevo usuario registrado SIN ACTIVAR
+    Then deberia recibir un correo electronico con el enlace de confirmacion
+    And deberia ser redirigido a la pagina de inicio de sesion
+    And deberia recibir un error al intentar iniciar sesion
+    And en la base de datos deberia existir el nuevo usuario registrado SIN ACTIVAR
 
 
 PAT-SYS-02: Activacion de un Usuario Registrado
