@@ -45,31 +45,31 @@ PAT-SYS-7: Visualizacion del estado de una comision
     ...                clasificados por estado de progreso.
     [Tags]  Automatico   SYS   PAT-SYS-07    PAT-144
     Given existe un usuario registrado activo con permisos "common" y "case_taker" en la DB
-    And existe un cliente con DNI "32165498" en la base de datos
+    And existe un consultante con DNI "11111111" en la base de datos
     And se accedio a la plataforma como usuario "Tomador de Caso"
     And existe el board "Comision A1" en la DB
     And existe un panel llamado "Panel A1" para el board de la comision "Comision A1"
-    And existe un ticket para el panel, de la comision, con tag, DNI del cliente, oponente, descripcion y estado:
+    And existe un ticket para el panel, de la comision, con tag, DNI del consultante, oponente, descripcion y estado:
     ...    Panel A1
     ...    Comision A1
     ...    Garantia1
-    ...    32165498
+    ...    11111111
     ...    Samsung
     ...    Dummy
     ...    TODO
-    And existe un ticket para el panel, de la comision, con tag, DNI del cliente, oponente, descripcion y estado:
+    And existe un ticket para el panel, de la comision, con tag, DNI del consultante, oponente, descripcion y estado:
     ...    Panel A1
     ...    Comision A1
     ...    Garantia2
-    ...    32165498
+    ...    11111111
     ...    Samsung
     ...    Dummy
     ...    IN_PROGRESS
-    And existe un ticket para el panel, de la comision, con tag, DNI del cliente, oponente, descripcion y estado:
+    And existe un ticket para el panel, de la comision, con tag, DNI del consultante, oponente, descripcion y estado:
     ...    Panel A1
     ...    Comision A1
     ...    Garantia3
-    ...    32165498
+    ...    11111111
     ...    Samsung
     ...    Dummy
     ...    TODO

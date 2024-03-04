@@ -48,8 +48,8 @@ Se accede a la plataforma como el usuario "${ROL_USER}"
     Acceder a la plataforma como usuario "${ROL_USER}"
     Recolectar captura de pantalla    signin_success
 
-Se crea la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
-    Crear la consulta "${TAG}" con Cliente "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
+Se crea la consulta "${TAG}" con Consultante "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
+    Crear la consulta "${TAG}" con Consultante "${DNI}", oponente "${OPP}" y descripcion "${DESC}"
 
 Se navega a la pestaña "Board/${COMISION_TITLE}"
     ${BOARD_ID} =    Obtener el ID del board titulado "${COMISION_TITLE}" de la DB
@@ -274,56 +274,56 @@ Se elimina el evento "${EVENT_TITLE}" del ticket "${TAG}"
     Click Element    ${TRASH_BUTTON}
     Sleep    2s
 
-Se crea un nuevo cliente "${CLIENT_NAME}" con DNI "${CLIENT_DNI}"
+Se crea un nuevo consultante "${CLIENT_NAME}" con DNI "${CLIENT_DNI}"
     @{CLIENT_NAMES}    Split String    ${CLIENT_NAME}
     Click Button    Add record
-    Escribir en la tabla de clientes    postal    1111
-    Escribir en la tabla de clientes    address    dummy address
+    Escribir en la tabla de consultantes    postal    1111
+    Escribir en la tabla de consultantes    address    dummy address
     Seleccionar la opcion "SINGLE" de la columna "marital_status"
     Seleccionar la opcion "HOUSE" de la columna "housing_type"
     Seleccionar la opcion "COMPLETE_UNIVERSITY" de la columna "studies"
-    Escribir en la tabla de clientes    email    dummy_address@email.com
+    Escribir en la tabla de consultantes    email    dummy_address@email.com
     Seleccionar la opcion "DOCUMENT" de la columna "id_type"
-    Escribir en la tabla de clientes    id_value    ${CLIENT_DNI}
-    Escribir en la tabla de clientes    first_name    ${CLIENT_NAMES[0]}
-    Escribir en la tabla de clientes    last_name    ${CLIENT_NAMES[1]}
+    Escribir en la tabla de consultantes    id_value    ${CLIENT_DNI}
+    Escribir en la tabla de consultantes    first_name    ${CLIENT_NAMES[0]}
+    Escribir en la tabla de consultantes    last_name    ${CLIENT_NAMES[1]}
     Seleccionar la opcion "FEMALE" de la columna "sex"
-    Escribir en la tabla de clientes    birth_date    06-02-2024
-    Escribir en la tabla de clientes     nationality    Argentina
+    Escribir en la tabla de consultantes    birth_date    06-02-2024
+    Escribir en la tabla de consultantes     nationality    Argentina
     Confirmar seleccion autocompletada    xpath=//div[@data-field="nationality"]//input
-    Escribir en la tabla de clientes     province    Catamarca
+    Escribir en la tabla de consultantes     province    Catamarca
     Confirmar seleccion autocompletada    xpath=//div[@data-field="province"]//input
-    Escribir en la tabla de clientes     locality    Ancasti
+    Escribir en la tabla de consultantes     locality    Ancasti
     Confirmar seleccion autocompletada    xpath=//div[@data-field="locality"]//input
-    Escribir en la tabla de clientes    patrimony.employment    dummy employment
-    Escribir en la tabla de clientes    patrimony.salary    1111
-    Escribir en la tabla de clientes    patrimony.other_income    No
-    Escribir en la tabla de clientes    patrimony.amount_other_income    0
-    Escribir en la tabla de clientes    patrimony.amount_retirement    0
-    Escribir en la tabla de clientes    patrimony.amount_pension    0
-    Escribir en la tabla de clientes    patrimony.vehicle    N0
-    Escribir en la tabla de clientes    family.partner_salary    0
+    Escribir en la tabla de consultantes    patrimony.employment    dummy employment
+    Escribir en la tabla de consultantes    patrimony.salary    1111
+    Escribir en la tabla de consultantes    patrimony.other_income    No
+    Escribir en la tabla de consultantes    patrimony.amount_other_income    0
+    Escribir en la tabla de consultantes    patrimony.amount_retirement    0
+    Escribir en la tabla de consultantes    patrimony.amount_pension    0
+    Escribir en la tabla de consultantes    patrimony.vehicle    N0
+    Escribir en la tabla de consultantes    family.partner_salary    0
 
     # Guardar
     Click Element    xpath=//button[@aria-label="Save"]
     Sleep    3s
 
-Se edita el campo "${FIELD}" a "${VALUE}" del cliente con DNI "${DNI}"
-    ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
+Se edita el campo "${FIELD}" a "${VALUE}" del consultante con DNI "${DNI}"
+    ${CLIENT}    Obtener consultante con id_value '${DNI}' de la DB
     ${ID_CLIENT}    Set Variable    ${CLIENT[0]}
     ${EDIT_ROW_LOCATOR}    Set Variable    xpath=//div[@data-id="${ID_CLIENT}"]/div[@data-field="actions"]/div/button[@aria-label="Edit"]
     Wait Until Element Is Visible    ${EDIT_ROW_LOCATOR}
     Click Element    ${EDIT_ROW_LOCATOR}
     Sleep    1s
 
-    Escribir en la tabla de clientes    ${FIELD}    ${VALUE}
+    Escribir en la tabla de consultantes    ${FIELD}    ${VALUE}
 
     # Guardar
     Click Element    xpath=//button[@aria-label="Save"]
     Sleep    2s
 
-Se elimina el cliente con DNI "${DNI}"
-    ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
+Se elimina el consultante con DNI "${DNI}"
+    ${CLIENT}    Obtener consultante con id_value '${DNI}' de la DB
     ${ID_CLIENT}    Set Variable    ${CLIENT[0]}
     ${DELETE_ROW_LOCATOR}    Set Variable    xpath=//div[@data-id="${ID_CLIENT}"]//button[@aria-label="Delete"]
     Click Element    ${DELETE_ROW_LOCATOR}

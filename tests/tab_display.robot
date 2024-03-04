@@ -46,9 +46,9 @@ PAT-SYS-3: Visibilidad de Pestañas para Usuario Tomador de Caso
 
     When se accede a la plataforma como el usuario "Tomador de Caso"
 
-    Then la pestaña "Consultancy" deberı́a estar visible
-    And las pestañas "Consultations" y "Clients" del "Panel de Control" deberı́an estar visibles
-    And la pestaña "Boards" no deberı́a estar visible
+    Then la pestaña "Consultancy" deberia estar visible
+    And las pestañas "Consultations" y "Clients" del "Panel de Control" deberian estar visibles
+    And la pestaña "Boards" no deberia estar visible
 
 
 PAT-SYS-4: Visibilidad de Pestañas para Usuario Profesor
@@ -58,6 +58,6 @@ PAT-SYS-4: Visibilidad de Pestañas para Usuario Profesor
     [Tags]  Automatico   SYS   PAT-SYS-04    PAT-141
     Given existe un usuario registrado activo con permisos "common" y "professor" en la DB
     When se accede a la plataforma como el usuario "Profesor"
-    Then la pestaña "Boards" deberı́a estar visible
-    And la pestaña "Consultancy" no deberı́a estar visible
-    And las pestañas "Consultations" y "Clients" del "Panel de Control" no deberı́an estar visibles
+    Then la pestaña "Boards" deberia estar visible
+    And la pestaña "Consultancy" no deberia estar visible
+    And las pestañas "Consultations" y "Clients" del "Panel de Control" no deberian estar visibles
