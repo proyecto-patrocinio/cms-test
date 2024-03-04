@@ -46,15 +46,15 @@ PAT-SYS-5: Creacion y visualizacion de una consulta como usuario Tomador de Caso
     ...                entrada de nuevas consultas de dicha pagina.
     [Tags]  Automatico   SYS   PAT-SYS-05    PAT-142
     Given existe un usuario registrado activo con permisos "common" y "case_taker" en la DB
-    And existe un cliente con DNI "11111111" en la base de datos
+    And existe un consultante con DNI "11111111" en la base de datos
     And se accedio a la plataforma como usuario "Tomador de Caso"
     And se navego a la pestaña "Consultancy"
     
-    When se crea la consulta "Garantia" con Cliente "11111111", oponente "Samsung" y descripcion "Dummy"
+    When se crea la consulta "Garantia" con Consultante "11111111", oponente "Samsung" y descripcion "Dummy"
     
-    Then la consulta "Garantia" para el cliente con DNI "11111111" deberia existir en base de datos
+    Then la consulta "Garantia" para el consultante con DNI "11111111" deberia existir en base de datos
     And el ticket "Garantia" deberia estar visible en el panel de entrada de la pizarra "CONSULTANCY"
-    And la informacion de la consulta "Garantia" deberia contener el cliente con DNI "11111111"
+    And la informacion de la consulta "Garantia" deberia contener el consultante con DNI "11111111"
     And la informacion de la consulta "Garantia" deberia contener el campo "Description" en "Dummy"
     And la informacion de la consulta "Garantia" deberia contener el campo "Progress State" en "TODO"
     And la informacion de la consulta "Garantia" deberia contener el campo "Opponent" en "Samsung"
@@ -68,9 +68,9 @@ PAT-SYS-06: Visualizacion de una consulta como usuario Profesor
     Given existe el board "Comision A1" en la DB
     And existe un usuario registrado activo con permisos "common" y "professor" en la DB
     And el usuario profesor tiene acceso al board "Comision A1"
-    And existe un cliente con DNI "11111111" en la base de datos
+    And existe un consultante con DNI "11111111" en la base de datos
     And existe un panel llamado "Panel A1" para el board de la comision "Comision A1"
-    And existe un ticket para el panel, de la comision, con tag, DNI del cliente, oponente, descripcion y estado:
+    And existe un ticket para el panel, de la comision, con tag, DNI del consultante, oponente, descripcion y estado:
     ...    Panel A1
     ...    Comision A1
     ...    Garantia
@@ -84,7 +84,7 @@ PAT-SYS-06: Visualizacion de una consulta como usuario Profesor
     When se navega a la pestaña "Board/Comision A1"
 
     Then el ticket "Garantia" deberia estar visible en el panel de entrada de la pizarra "Comision A1"
-    And la informacion de la consulta "Garantia" deberia contener el cliente con DNI "11111111"
+    And la informacion de la consulta "Garantia" deberia contener el consultante con DNI "11111111"
     And la informacion de la consulta "Garantia" deberia contener el campo "Description" en "Dummy"
     And la informacion de la consulta "Garantia" deberia contener el campo "Opponent" en "Samsung"
     And la informacion de la consulta "Garantia" deberia contener el campo "Availability State" en "ASSIGNED"
@@ -99,9 +99,9 @@ PAT-SYS-13: Realizar cambios de una consulta como usuario Profesor
     Given existe el board "Comision A1" en la DB
     And existe un usuario registrado activo con permisos "common" y "professor" en la DB
     And el usuario profesor tiene acceso al board "Comision A1"
-    And existe un cliente con DNI "11111111" en la base de datos
+    And existe un consultante con DNI "11111111" en la base de datos
     And existe un panel llamado "Panel A1" para el board de la comision "Comision A1"
-    And existe un ticket para el panel, de la comision, con tag, DNI del cliente, oponente, descripcion y estado:
+    And existe un ticket para el panel, de la comision, con tag, DNI del consultante, oponente, descripcion y estado:
     ...    Panel A1
     ...    Comision A1
     ...    Divorcio
@@ -120,7 +120,7 @@ PAT-SYS-13: Realizar cambios de una consulta como usuario Profesor
     Then No deberia existir el ticket "Divorcio" en el board
     Then el ticket "CODE-123: Divorcio" deberia estar visible en el panel de entrada de la pizarra "Comision A1"
     And la informacion de la consulta "CODE-123: Divorcio" deberia contener el campo "Tag" en "CODE-123: Divorcio"
-    And la informacion de la consulta "CODE-123: Divorcio" deberia contener el cliente con DNI "11111111"
+    And la informacion de la consulta "CODE-123: Divorcio" deberia contener el consultante con DNI "11111111"
     And la informacion de la consulta "CODE-123: Divorcio" deberia contener el campo "Description" en "otra descripcion"
     And la informacion de la consulta "CODE-123: Divorcio" deberia contener el campo "Opponent" en "otro oponente"
     And la informacion de la consulta "CODE-123: Divorcio" deberia contener el campo "Availability State" en "ASSIGNED"

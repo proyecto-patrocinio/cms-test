@@ -48,9 +48,9 @@ PAT-SYS-14: Creacion y eliminacion de eventos de una consulta
     Given existe el board "Comision A1" en la DB
     And existe un usuario registrado activo con permisos "common" y "professor" en la DB
     And el usuario profesor tiene acceso al board "Comision A1"
-    And existe un cliente con DNI "11111111" en la base de datos
+    And existe un consultante con DNI "11111111" en la base de datos
     And existe un panel llamado "Panel A1" para el board de la comision "Comision A1"
-    And existe un ticket para el panel, de la comision, con tag, DNI del cliente, oponente, descripcion y estado:
+    And existe un ticket para el panel, de la comision, con tag, DNI del consultante, oponente, descripcion y estado:
     ...    Panel A1
     ...    Comision A1
     ...    Divorcio

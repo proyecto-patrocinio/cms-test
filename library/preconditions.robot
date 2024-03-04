@@ -90,17 +90,17 @@ Se navego a la pestaña "Control Panel - Clients"
     Wait Until Page Contains    CONTROL PANEL - CLIENTS
     Recolectar captura de pantalla    control_panel_cleints
 
-Existe el cliente en la base de datos:
+Existe el consultante en la base de datos:
     [Arguments]    ${FIRST_NAME}    ${LAST_NAME}    ${ID_TYPE}    ${ID_VALUE}
     ...    ${SEX}    ${BIRTH_DATE}    ${ADDRESS}    ${POSTAL}    ${MARITAL_STATUS}
     ...    ${HOUSING_TYPE}    ${STUDIES}    ${EMAIL}
-    Insertar cliente en la DB    ${FIRST_NAME}    ${LAST_NAME}    ${ID_TYPE}
+    Insertar consultante en la DB    ${FIRST_NAME}    ${LAST_NAME}    ${ID_TYPE}
     ...    ${ID_VALUE}    ${SEX}    ${BIRTH_DATE}    ${ADDRESS}    ${POSTAL}
     ...    ${MARITAL_STATUS}    ${HOUSING_TYPE}    ${STUDIES}    ${EMAIL}
     ...    704
 
-Existe un cliente con DNI "${DNI}" en la base de datos
-    Insertar cliente en la DB
+Existe un consultante con DNI "${DNI}" en la base de datos
+    Insertar consultante en la DB
         ...    Emily    Davis    DOCUMENT    ${DNI}    FEMALE    1986-06-23
         ...    "Dummy Street 01"    1111    SINGLE    HOUSE    COMPLETE_UNIVERSITY
         ...    emily96@gmail.com    704
@@ -110,18 +110,18 @@ Existe un panel llamado "${PANEL_NAME}" para el board de la comision "${COMISION
     ${BOARD_ID}    Obtener el ID del board titulado "${COMISION_NAME}" de la DB
     Crear un panel "${PANEL_NAME}" en el board con ID "${BOARD_ID}" desde la DB
 
-Existe una consulta con tag, DNI del cliente, oponente, descripcion y estado:
+Existe una consulta con tag, DNI del consultante, oponente, descripcion y estado:
     [Arguments]    ${TAG}   ${DNI}    ${OPP}    ${DESC}    ${PROGRESS}    ${STATE}=ASSIGNED
-    ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
+    ${CLIENT}    Obtener consultante con id_value '${DNI}' de la DB
     ${CLIENT_ID}    Set Variable    ${CLIENT[0]}
     Insertar consulta a la DB    ${CLIENT_ID}    ${TAG}   ${OPP}    ${DESC}    ${STATE}    ${PROGRESS}
 
-Existe un ticket para el panel, de la comision, con tag, DNI del cliente, oponente, descripcion y estado:
+Existe un ticket para el panel, de la comision, con tag, DNI del consultante, oponente, descripcion y estado:
     [Documentation]    Crea la consulta con los parametros especificados para el panel ${PANEL_NAME} del board
     ...                titulado ${COMISION_NAME} y por ultimo crea una card, para el nuevo panel y consulta.
     [Arguments]    ${PANEL_NAME}    ${COMISION_NAME}    ${TAG}    ${DNI}    ${OPP}    ${DESC}    ${PROGRESS}
     # Crear consulta
-    Existe una consulta con tag, DNI del cliente, oponente, descripcion y estado:
+    Existe una consulta con tag, DNI del consultante, oponente, descripcion y estado:
     ...    ${TAG}   ${DNI}    ${OPP}    ${DESC}    ${PROGRESS}
     ${CONSULT}    Obtener consulta con TAG '${TAG}' de la DB
     ${CONSULT_ID}    Set Variable    ${CONSULT[0]}

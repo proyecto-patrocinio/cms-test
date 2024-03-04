@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     keywords utilizadas en el manejo de la tabla de clientes
+Documentation     keywords utilizadas en el manejo de la tabla de consultantes
 ...    de la pagina del panel de control.
 
 Library  SeleniumLibrary
@@ -30,7 +30,7 @@ Seleccionar la opcion "${OPTION}" de la columna "${CURRENT_KEY}"
     Wait Until Element Is Visible    ${OPTION_LOCATOR}
     Click Element    ${OPTION_LOCATOR}
 
-Escribir en la tabla de clientes
+Escribir en la tabla de consultantes
     [Documentation]    Ingresa un dato en un elemento de la tabla Clients,
     ...    de la pagina panel de control. Verifica si el elemento esta visible.
     ...    En caso de no estarlo, presiona la tecla tab del elemento anterior

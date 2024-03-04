@@ -51,8 +51,8 @@ Obtener consulta con TAG '${TAG}' de la DB
     Disconnect From Database
     RETURN    ${FIRST_RESULT}
 
-Obtener cliente con ${KEY_TYPE} '${VALUE}' de la DB
-    [Documentation]    Obtiene el cliente segun su ${KEY_TYPE} (id, dni). Si no lo encuentra devuelve ${None}.
+Obtener consultante con ${KEY_TYPE} '${VALUE}' de la DB
+    [Documentation]    Obtiene el consultante segun su ${KEY_TYPE} (id, dni). Si no lo encuentra devuelve ${None}.
     Conectar a Base de Datos existente
     ${QUERY}    Set Variable    SELECT * FROM "Clients_client" where ${KEY_TYPE} = '${VALUE}';
     ${RESULT} =    Query    ${QUERY}
@@ -119,10 +119,10 @@ Obtener el evento "${EVENT_TITLE}" de la card con ID ${CARD_ID} en DB
     Disconnect From Database
     RETURN    ${FIRST_RESULT}
 
-Obtener el campo "${FIELD}" del cliente con id_value '${DNI}' de la DB
-    [Documentation]    Obtiene el campo solicitado del cliente con DNI ${DNI}.
+Obtener el campo "${FIELD}" del consultante con id_value '${DNI}' de la DB
+    [Documentation]    Obtiene el campo solicitado del consultante con DNI ${DNI}.
     ...    Para la obtencion del campo, se tiene en cuenta todas las relaciones
-    ...    uno a uno del cliente (Familia, Patrimonio y Cliente).
+    ...    uno a uno del consultante (Familia, Patrimonio y Consultante).
     @{QUERY}    Create List
     ...    SELECT ${FIELD}
     ...    FROM public."Clients_client" cc
@@ -140,7 +140,7 @@ Obtener el campo "${FIELD}" del cliente con id_value '${DNI}' de la DB
 ######################################################################
 # Inserts
 
-Insertar cliente en la DB
+Insertar consultante en la DB
     [Arguments]    ${FIRST_NAME}    ${LAST_NAME}    ${ID_TYPE}    ${ID_VALUE}    ${SEX}    ${BIRTH_DATE}    ${ADDRESS}    ${POSTAL}    ${MARITAL_STATUS}    ${HOUSING_TYPE}    ${STUDIES}    ${EMAIL}    ${LOCALITY_ID}
     Conectar a Base de Datos existente
     ${KEYS}    Set Variable    first_name,last_name,id_type,id_value,sex,birth_date,address,postal,marital_status,housing_type,studies,email,locality_id

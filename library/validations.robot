@@ -115,10 +115,10 @@ Las pestañas "Consultations" y "Clients" del "Panel de Control" deberian estar 
 Las pestañas "Consultations" y "Clients" del "Panel de Control" no deberian estar visibles
      Run Keyword And Expect Error    Element with locator*    La pestaña "Panel de Control" deberia estar visible
 
-La consulta "${INPUT_TAG}" para el cliente con DNI "${INPUT_DNI}" deberia existir en base de datos
+La consulta "${INPUT_TAG}" para el consultante con DNI "${INPUT_DNI}" deberia existir en base de datos
     ${CONSULT} =    Obtener consulta con TAG '${INPUT_TAG}' de la DB
     ${CLIENT_ID} =    Set Variable    ${CONSULT[-1]}
-    ${CLIENT} =    Obtener cliente con id '${CLIENT_ID}' de la DB
+    ${CLIENT} =    Obtener consultante con id '${CLIENT_ID}' de la DB
     ${CLIENT_DNI} =    Set Variable    ${CLIENT[4]}
     Should Be Equal As Integers    ${INPUT_DNI}    ${CLIENT_DNI}
 
@@ -128,9 +128,9 @@ El ticket "${TAG}" deberia estar visible en el panel de entrada de la pizarra "$
     ${TICKET_LOCATOR} =    Set Variable    xpath=//p[contains(text(), '${TAG}')]
     Element Should Be Visible    ${TICKET_LOCATOR}
 
-La informacion de la consulta "${TAG}" deberia contener el cliente con DNI "${DNI}"
+La informacion de la consulta "${TAG}" deberia contener el consultante con DNI "${DNI}"
     [Documentation]    Valida que la ventana de informacion de una consulta titulada ${TAG},
-    ...                contenga el cliente con el DNI proporcionado.
+    ...                contenga el consultante con el DNI proporcionado.
     Abrir detalle de la consulta '${TAG}'
     ${EXPAND_CLIENT_LOCATOR} =    Set Variable    //button[contains(@class, 'css-1rwt2y5-MuiButtonBase-root')]
     Wait Until Element Is Visible    ${EXPAND_CLIENT_LOCATOR}
@@ -242,10 +242,10 @@ La tabla deberia contener la consulta:
         Should Contain    ${CONTENT_ROW}    ${DATA} 
     END
 
-La tabla deberia contener el cliente:
-    [Documentation]    El primer elemento de la lista deberia ser el DNI del cliente.
+La tabla deberia contener el consultante:
+    [Documentation]    El primer elemento de la lista deberia ser el DNI del consultante.
     [Arguments]    @{DATA_LIST}
-    ${CLIENT}    Obtener cliente con id_value '${DATA_LIST[0]}' de la DB
+    ${CLIENT}    Obtener consultante con id_value '${DATA_LIST[0]}' de la DB
     ${ID_CLIENT}    Set Variable    ${CLIENT[0]}
     ${CONTENT_ROW}    Obtener el texto de la fila con ID '${ID_CLIENT}'
     Log    FILA: ${CONTENT_ROW}    console=${True}
@@ -290,7 +290,7 @@ El archivo de consultas descargado deberia ser el esperado '${EXPECTED_FILENAME}
         Should Be Equal As Strings    ${EXPECTED_TABLE}[${INDEX}][Tag]                   ${DOWNLOAD_TABLE}[${INDEX}][Tag]
     END
 
-El archivo de clientes descargado deberia ser el esperado '${EXPECTED_FILENAME}'
+El archivo de consultantes descargado deberia ser el esperado '${EXPECTED_FILENAME}'
     [Documentation]    Esta keyword, necesita de la variable de test ${EXPECT_NUM_ROWS},
     ...                previamente seteada con la cantidad de filas de la tabla.
     ${EXPECTED_FILE_PATH}    Set Variable    ${RESOURCES_PATH}/${EXPECTED_FILENAME}
@@ -394,14 +394,14 @@ No deberia existir el evento "${EVENT_TITLE}" para la consulta "${TAG}" en la DB
     ${EVENT}    Obtener el evento "${EVENT_TITLE}" de la card con ID ${CONSULT_ID} en DB
     Should Be Equal    ${EVENT}    ${None}
 
-El cliente con DNI "${DNI}" deberia existir en DB
-    ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
+El consultante con DNI "${DNI}" deberia existir en DB
+    ${CLIENT}    Obtener consultante con id_value '${DNI}' de la DB
     Should Not Be Empty    ${CLIENT}
 
-El cliente con DNI "${DNI}" NO deberia existir la DB
-    ${CLIENT}    Obtener cliente con id_value '${DNI}' de la DB
+El consultante con DNI "${DNI}" NO deberia existir la DB
+    ${CLIENT}    Obtener consultante con id_value '${DNI}' de la DB
     Should Be Equal    ${CLIENT}    ${None}
 
-El campo "${FIELD}" del cliente con DNI "${DNI}" deberia ser "${EXPECTED_VALUE}" en DB
-    ${DATA_DB}    Obtener el campo "${FIELD}" del cliente con id_value '${DNI}' de la DB
+El campo "${FIELD}" del consultante con DNI "${DNI}" deberia ser "${EXPECTED_VALUE}" en DB
+    ${DATA_DB}    Obtener el campo "${FIELD}" del consultante con id_value '${DNI}' de la DB
     Should Be Equal As Integers    ${DATA_DB[0]}    ${EXPECTED_VALUE}
