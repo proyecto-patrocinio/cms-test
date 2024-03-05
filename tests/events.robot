@@ -91,3 +91,26 @@ PAT-SYS-16: Calendario desactivado para una consulta sin asignar
     When se abre el detalle del ticket "Garantia"
 
     Then el boton calendario deberia estar desactivado
+
+PAT-SYS-17: Calendario desactivado para una consulta con solicitud pendiente de asignacion
+    [Documentation]    Se valida que el calendario no este accesible desde la consultoria
+    ...    para una consulta con una Request Consultation pendiente.
+    [Tags]  Automatico   SYS   PAT-SYS-17    PAT-171    PI-PAT-SYS-167
+    Given existe un usuario registrado activo con permisos "common" y "case_taker" en la DB
+    And existe un consultante con DNI "11111111" en la base de datos
+    And se accedio a la plataforma como usuario "Tomador de Caso"
+    And existe el board "Comision A1" en la DB
+    And existe un panel llamado "Panel A1" para el board de la comision "Comision A1"
+    And existe una consulta con tag, DNI del consultante, oponente, descripcion y estado:
+    ...    Garantia
+    ...    11111111
+    ...    Samsung
+    ...    Dummy
+    ...    TODO
+    ...    CREATED
+    And existe una solicitud de asignacion de la consulta "Garantia" a la comision "Comision A1"
+    And se navego a la pestaña "Consultancy"
+
+    When se abre el detalle del ticket "Garantia"
+
+    Then el boton calendario deberia estar desactivado
