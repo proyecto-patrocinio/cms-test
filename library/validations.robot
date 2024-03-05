@@ -388,6 +388,11 @@ La vista calendario de la consulta "${TAG}" NO deberia contener el evento "${EVE
     ...    *
     ...    La vista calendario de la consulta "${TAG}" deberia contener el evento "${EVENT_TITLE}" el dia de la fecha
 
+El boton calendario deberia estar desactivado
+    Run Keyword And Expect Error
+    ...    *
+    ...    Click Button    Calendar
+
 No deberia existir el evento "${EVENT_TITLE}" para la consulta "${TAG}" en la DB
     ${CONSULT}    Obtener consulta con TAG '${TAG}' de la DB
     ${CONSULT_ID}    Set Variable    ${CONSULT[0]}

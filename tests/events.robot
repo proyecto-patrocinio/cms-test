@@ -70,3 +70,24 @@ PAT-SYS-14: Creacion y eliminacion de eventos de una consulta
 
     Then la vista calendario de la consulta "Divorcio" NO deberia contener el evento "Junta"
     And no deberia existir el evento "Junta" para la consulta "Divorcio" en la DB
+
+
+PAT-SYS-16: Calendario desactivado para una consulta sin asignar
+    [Documentation]    Se valida que el calendario no este accesible desde la consultoria
+    ...    cuando existe una consulta nueva sin asignar.
+    [Tags]  Automatico   SYS   PAT-SYS-16    PAT-170    PI-PAT-SYS-167
+    Given existe un usuario registrado activo con permisos "common" y "case_taker" en la DB
+    And existe un consultante con DNI "11111111" en la base de datos
+    And se accedio a la plataforma como usuario "Tomador de Caso"
+    And existe una consulta con tag, DNI del consultante, oponente, descripcion y estado:
+    ...    Garantia
+    ...    11111111
+    ...    Samsung
+    ...    Dummy
+    ...    TODO
+    ...    CREATED
+    And se navego a la pestaña "Consultancy"
+
+    When se abre el detalle del ticket "Garantia"
+
+    Then el boton calendario deberia estar desactivado

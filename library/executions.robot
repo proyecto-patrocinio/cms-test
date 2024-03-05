@@ -248,6 +248,9 @@ Se edita el comentario "${OLD_COMMENT}" a "${NEW_COMMENT}" al ticket "${TAG}"
     Click Element    ${SAVE_BUTTON_LOCATOR}
     Se cierra el dialogo de detalle de consulta
 
+Se abre el detalle del ticket "${TAG}"
+    Abrir detalle de la consulta '${TAG}'
+
 Se agrega el evento para hoy al ticket "${TAG}" titulado "${TITLE}" con descripcion "${DESCRIPTION}"
     [Documentation]    Abre el dialogo con el calendario de la consulta titlado $TAG, y crea un nuevo evento
     ...    para el dia de la fecha, con el titulo $TITLE y la descripcion $DESCRIPTION.
